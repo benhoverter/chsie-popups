@@ -1,0 +1,28 @@
+
+.SelectSection {
+  margin-bottom: 20px;
+}
+
+.SelectSection div {
+  display: inline-block;
+}
+
+.SelectSection input {
+  width: auto !important;
+}
+
+.SelectSection span {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+#name-select {
+  min-width: 200px;
+  border: 1.5px solid #909090;
+}
+
+
+.NewButton, .SaveButton {
+  margin-left: 20px;
+  transition: 0.2s ease-out;
+}

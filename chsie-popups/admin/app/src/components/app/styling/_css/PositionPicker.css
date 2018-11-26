@@ -1,0 +1,14 @@
+.PositionPicker {
+    display: inline-block;
+    width: auto;
+    margin-left: 44px;
+}
+
+.PositionPicker .field-container {
+    width: 90px;
+    /* text-align: center; */
+}
+
+.PositionPicker input {
+  margin-right: 5px;
+}

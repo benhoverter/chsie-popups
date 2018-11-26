@@ -6,8 +6,8 @@
 * @link       http://example.com
 * @since      1.0.0
 *
-* @package    plugin-name
-* @subpackage plugin-name/admin/module-ajax
+* @package    chsie-popups
+* @subpackage chsie-popups/admin/module-ajax
 */
 
 /**
@@ -15,11 +15,11 @@
 *
 * Here's the description of how it does it.
 *
-* @package    plugin-name
-* @subpackage plugin-name/admin/module-ajax
+* @package    chsie-popups
+* @subpackage chsie-popups/admin/module-ajax
 * @author     Your Name <email@example.com>
 */
-class Plugin_Abbr_Admin_Module_Ajax {
+class CHSIE_Popups_Admin_Module_Ajax {
 
     /**
     * The ID of this plugin.

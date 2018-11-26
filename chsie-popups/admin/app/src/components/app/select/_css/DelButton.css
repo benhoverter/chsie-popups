@@ -1,0 +1,8 @@
+
+.DelButton {
+  transition: 0.1s ease-out;
+}
+
+.buttons.col-1-of-2:last-of-type {
+  text-align: right;
+}

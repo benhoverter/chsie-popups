@@ -6,8 +6,8 @@
 * @link       http://example.com
 * @since      1.0.0
 *
-* @package    plugin-name
-* @subpackage plugin-name/public
+* @package    chsie-popups
+* @subpackage chsie-popups/public
 */
 
 /**
@@ -17,11 +17,11 @@
 * enqueues the public-facing stylesheet and JavaScript,
 * and pipes in the public-facing functions.
 *
-* @package    plugin-name
-* @subpackage plugin-name/public
+* @package    chsie-popups
+* @subpackage chsie-popups/public
 * @author     Your Name <email@example.com>
 */
-class Plugin_Abbr_Public_Assets {
+class CHSIE_Popups_Public_Assets {
 
     /**
     * The ID of this plugin.
@@ -70,7 +70,7 @@ class Plugin_Abbr_Public_Assets {
 
         /**
         * An instance of this class is passed to the run() function
-        * defined in Plugin_Abbr_Loader, which then creates the relationship
+        * defined in CHSIE_Popups_Loader, which then creates the relationship
         * between the defined hooks and the functions defined in this
         * class.
         *
@@ -102,7 +102,7 @@ class Plugin_Abbr_Public_Assets {
 
         /**
         * An instance of this class is passed to the run() function
-        * defined in Plugin_Abbr_Loader, which then creates the relationship
+        * defined in CHSIE_Popups_Loader, which then creates the relationship
         * between the defined hooks and the functions defined in this
         * class.
         *

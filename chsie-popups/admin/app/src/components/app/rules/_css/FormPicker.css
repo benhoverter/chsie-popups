@@ -1,0 +1,7 @@
+.FormPicker {
+    display: inline-block;
+}
+
+.FormPicker select {
+    text-align: center;
+}

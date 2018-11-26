@@ -6,8 +6,8 @@
 * @link       http://example.com
 * @since      1.0.0
 *
-* @package    plugin-name
-* @subpackage plugin-name/public/module
+* @package    chsie-popups
+* @subpackage chsie-popups/public/module
 */
 
 /**
@@ -15,11 +15,11 @@
 *
 * Here's the description of how it does it.
 *
-* @package    plugin-name
-* @subpackage plugin-name/public/module
+* @package    chsie-popups
+* @subpackage chsie-popups/public/module
 * @author     Your Name <email@example.com>
 */
-class Plugin_Abbr_Public_Module {
+class CHSIE_Popups_Public_Module {
 
     /**
     * The ID of this plugin.

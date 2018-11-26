@@ -1,0 +1,31 @@
+.LogicSection {
+  display: flex;
+  align-items: stretch;
+  border: 3px solid white;
+}
+
+.LogicSection .rotated {
+  position: relative;
+  flex-grow: 0;
+  width: 40px;
+  min-height: 100px;
+  background: #444444;
+  color: white;
+}
+
+.LogicSection .rotated h5 {
+  position: absolute;
+  top: calc( 50% + 40px);
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  -webkit-transform-origin: center 0;
+  transform-origin: top left 0;
+  width: 80px;
+  padding-top: 8px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.LogicSection .single-rules {
+  flex-grow: 1;
+}

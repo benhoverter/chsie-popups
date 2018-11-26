@@ -6,8 +6,8 @@
 * @link       http://example.com
 * @since      1.0.0
 *
-* @package    plugin-name
-* @subpackage plugin-name/admin/element/views
+* @package    chsie-popups
+* @subpackage chsie-popups/admin/element/views
 */
 ?>
 

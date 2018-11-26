@@ -9,8 +9,8 @@
 * @link       https://github.com/benhoverter/modular-wordpress-plugin-boilerplate
 * @since      1.0.0
 *
-* @package    plugin-name
-* @subpackage plugin-name/includes
+* @package    chsie-popups
+* @subpackage chsie-popups/includes
 */
 
 /**
@@ -23,11 +23,11 @@
 * version of the plugin.
 *
 * @since      1.0.0
-* @package    plugin-name
-* @subpackage plugin-name/includes
+* @package    chsie-popups
+* @subpackage chsie-popups/includes
 * @author     Your Name <email@example.com>
 */
-class Plugin_Name {
+class CHSIE_Popups {
 
     /**
     * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +35,7 @@ class Plugin_Name {
     *
     * @since    1.0.0
     * @access   protected
-    * @var      Plugin_Abbr_Loader    $loader    Maintains and registers all hooks for the plugin.
+    * @var      CHSIE_Popups_Loader    $loader    Maintains and registers all hooks for the plugin.
     */
     protected $loader;
 
@@ -88,19 +88,19 @@ class Plugin_Name {
     */
     public function __construct() {
 
-        if ( defined( 'PLUGIN_NAME_VERSION' ) ) {
-            $this->version = PLUGIN_NAME_VERSION;
+        if ( defined( 'CHSIE_POPUPS_VERSION' ) ) {
+            $this->version = CHSIE_POPUPS_VERSION;
         } else {
             $this->version = '1.0.0';
         }
 
-        $this->plugin_title = 'Plugin Name';
+        $this->plugin_title = 'CHSIE Popups';
 
         // Add required files to set_dependencies():
         $this->load_dependencies( $this->set_dependencies() );
 
         // Instantiate the Loader object:
-        $this->loader = new Plugin_Abbr_Loader();
+        $this->loader = new CHSIE_Popups_Loader();
 
         // Localization.
         $this->set_locale();
@@ -161,7 +161,7 @@ class Plugin_Name {
     /**
     * Define the locale for this plugin for internationalization.
     *
-    * Uses the Plugin_Abbr_i18n class in order to set the domain and to register the hook
+    * Uses the CHSIE_Popups_i18n class in order to set the domain and to register the hook
     * with WordPress.
     *
     * @since    1.0.0
@@ -169,7 +169,7 @@ class Plugin_Name {
     */
     private function set_locale() {
 
-        $plugin_i18n = new Plugin_Abbr_i18n();
+        $plugin_i18n = new CHSIE_Popups_i18n();
 
         $this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -214,7 +214,7 @@ class Plugin_Name {
     */
     private function define_admin_asset_hooks() {
 
-        $admin_assets = new Plugin_Abbr_Admin_Assets( $this->get_plugin_title(), $this->get_version() );
+        $admin_assets = new CHSIE_Popups_Admin_Assets( $this->get_plugin_title(), $this->get_version() );
 
         $this->loader->add_action( 'admin_enqueue_scripts', $admin_assets, 'enqueue_styles' );
         $this->loader->add_action( 'admin_enqueue_scripts', $admin_assets, 'enqueue_scripts' );
@@ -229,7 +229,7 @@ class Plugin_Name {
     */
     private function define_public_asset_hooks() {
 
-        $public_assets = new Plugin_Abbr_Public_Assets( $this->get_plugin_title(), $this->get_version() );
+        $public_assets = new CHSIE_Popups_Public_Assets( $this->get_plugin_title(), $this->get_version() );
 
         $this->loader->add_action( 'wp_enqueue_scripts', $public_assets, 'enqueue_styles' );
         $this->loader->add_action( 'wp_enqueue_scripts', $public_assets, 'enqueue_scripts' );
@@ -247,11 +247,10 @@ class Plugin_Name {
     */
     private function define_settings_hooks() {
 
-        $plugin_settings = new Plugin_Abbr_Settings( $this->get_plugin_title(), $this->get_version() );
+        $plugin_settings = new CHSIE_Popups_Settings( $this->get_plugin_title(), $this->get_version() );
 
         // Standard functions that call dev-defined sections and menus in the Settings class:
         $this->loader->add_action( 'admin_menu', $plugin_settings, 'admin_menu' );
-        $this->loader->add_action( 'admin_init', $plugin_settings, 'admin_init' );
 
     }
 
@@ -265,7 +264,7 @@ class Plugin_Name {
     */
     private function define_admin_module_hooks() {
 
-        $module = new Plugin_Abbr_Admin_Module( $this->get_plugin_title(), $this->get_version() );
+        $module = new CHSIE_Popups_Admin_Module( $this->get_plugin_title(), $this->get_version() );
 
         // Standard hooks go here:
         //$this->loader->add_action( 'add_meta_boxes{_post_type}', $module->element, 'render_metabox' );
@@ -282,7 +281,7 @@ class Plugin_Name {
     */
     private function define_admin_module_ajax_hooks() {
 
-        $module_ajax = new Plugin_Abbr_Admin_Module_Ajax( $this->get_plugin_title(), $this->get_version() );
+        $module_ajax = new CHSIE_Popups_Admin_Module_Ajax( $this->get_plugin_title(), $this->get_version() );
 
         // Standard hooks go here:
         //$this->loader->add_action( 'add_meta_boxes{_post_type}', $module_ajax, 'render_metabox' );
@@ -307,7 +306,7 @@ class Plugin_Name {
     */
     private function define_public_module_hooks() {
 
-        $module = new Plugin_Abbr_Public_Module( $this->get_plugin_title(), $this->get_version() );
+        $module = new CHSIE_Popups_Public_Module( $this->get_plugin_title(), $this->get_version() );
 
         // Standard hooks go here:
         //$this->loader->add_action( 'add_meta_boxes{_post_type}', $module->element, 'render_metabox' );
@@ -324,7 +323,7 @@ class Plugin_Name {
     */
     private function define_public_module_ajax_hooks() {
 
-        $module_ajax = new Plugin_Abbr_Public_Module_Ajax( $this->get_plugin_title(), $this->get_version() );
+        $module_ajax = new CHSIE_Popups_Public_Module_Ajax( $this->get_plugin_title(), $this->get_version() );
 
         // Standard hooks go here:
         //$this->loader->add_action( 'add_meta_boxes{_post_type}', $module_ajax, 'render_metabox' );
@@ -368,7 +367,7 @@ class Plugin_Name {
     * The reference to the class that orchestrates the hooks with the plugin.
     *
     * @since     1.0.0
-    * @return    Plugin_Abbr_Loader    Orchestrates the hooks of the plugin.
+    * @return    CHSIE_Popups_Loader    Orchestrates the hooks of the plugin.
     */
     public function get_loader() {
         return $this->loader;
@@ -394,7 +393,7 @@ class Plugin_Name {
     */
     public function set_db_connection() {
 
-        $config = Plugin_Abbr_Config::set_config();
+        $config = CHSIE_Popups_Config::set_config();
 
         $this->conn = new mysqli(
             $config['host'],
@@ -415,7 +414,7 @@ class Plugin_Name {
     */
     public function get_queries() {
 
-        $this->queries = Plugin_Abbr_Queries::get_queries();
+        $this->queries = CHSIE_Popups_Queries::get_queries();
 
         return $this->queries;
     }

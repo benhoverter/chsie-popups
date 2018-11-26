@@ -6,8 +6,8 @@
 * @link       http://example.com
 * @since      1.0.0
 *
-* @package    plugin-name
-* @subpackage plugin-name/includes
+* @package    chsie-popups
+* @subpackage chsie-popups/includes
 */
 
 /**
@@ -16,11 +16,11 @@
 * This class defines all code necessary to run during the plugin's activation.
 *
 * @since      1.0.0
-* @package    plugin-name
-* @subpackage plugin-name/includes
+* @package    chsie-popups
+* @subpackage chsie-popups/includes
 * @author     Your Name <email@example.com>
 */
-class Plugin_Abbr_Activator {
+class CHSIE_Popups_Activator {
 
     /**
     * Short Description. (use period)

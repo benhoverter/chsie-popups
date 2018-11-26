@@ -1,0 +1,14 @@
+.AndOrRadios {
+    padding-left: 16px;
+}
+
+.AndOrRadios label {
+    margin-right: 16px;
+    opacity: 0.5;
+    transition: 0.2s all ease;
+}
+
+.AndOrRadios label.checked {
+    margin-right: 16px;
+    opacity: 1;
+}

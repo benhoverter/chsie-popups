@@ -8,20 +8,20 @@
 * registers the activation and deactivation functions, and defines a function
 * that starts the plugin.
 *
-* @link              http://github.com/benhoverter/modular-wordpress-plugin-boilerplate
+* @link
 * @since             1.0.0
-* @package           plugin-name
+* @package           chsie-popups
 *
 * @wordpress-plugin
-* Plugin Name:       A Modular WordPress Plugin Boilerplate
-* Plugin URI:        https://github.com/benhoverter/modular-wordpress-plugin-boilerplate
-* Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+* Plugin Name:       CHSIE Popups
+* Plugin URI:
+* Description:       This plugin works in tandem with Formidable to turn forms into custom popups.
 * Version:           1.0.0
-* Author:            Your Name
-* Author URI:        http://example.com
+* Author:            Ben Hoverter
+* Author URI:        http://github.com/benhoverter
 * License:           GPL-2.0+
 * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
-* Text Domain:       plugin-name
+* Text Domain:       chsie-popups
 * Domain Path:       /languages
 */
 
@@ -37,7 +37,7 @@ if ( !defined( 'WPINC' ) ) {
 * Start at version 1.0.0 and use SemVer - https://semver.org
 * Rename this for your plugin and update it as you release new versions.
 */
-define( 'PLUGIN_NAME_VERSION', '1.0.0' );
+define( 'CHSIE_POPUPS_VERSION', '1.0.0' );
 
 /**
 * The code that runs during plugin activation.
@@ -46,7 +46,7 @@ define( 'PLUGIN_NAME_VERSION', '1.0.0' );
 
 function activate_plugin_title() {
     require_once plugin_dir_path( __FILE__ ) . 'includes/Activator.php';
-    Plugin_Abbr_Activator::activate();
+    CHSIE_Popups_Activator::activate();
 }
 
 
@@ -57,7 +57,7 @@ function activate_plugin_title() {
 
 function deactivate_plugin_title() {
     require_once plugin_dir_path( __FILE__ ) . 'includes/Deactivator.php';
-    Plugin_Abbr_Deactivator::deactivate();
+    CHSIE_Popups_Deactivator::deactivate();
 }
 
 
@@ -83,7 +83,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/Main.php';
 
 function run_plugin_title() {
 
-    $plugin = new Plugin_Name();
+    $plugin = new CHSIE_Popups();
     $plugin->run();
 
 }

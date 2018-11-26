@@ -1,0 +1,27 @@
+.ColorPicker {
+    display: inline-block;
+    text-align: left;
+}
+
+
+.field-container {
+    display: inline-block;
+    width: 160px;
+    vertical-align: top;
+}
+
+.field-container .label {
+    display: inline-block;
+    vertical-align: top;
+    width: 70px;
+    text-align: right;
+    padding-right: 9px;
+}
+
+.field-container label {
+  font-weight: 400 !important;
+}
+
+.ColorPicker input[type="color"] {
+    width: 40px;
+}

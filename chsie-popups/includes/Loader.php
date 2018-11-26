@@ -6,8 +6,8 @@
 * @link       http://example.com
 * @since      1.0.0
 *
-* @package    plugin-name
-* @subpackage plugin-name/includes
+* @package    chsie-popups
+* @subpackage chsie-popups/includes
 */
 
 /**
@@ -17,11 +17,11 @@
 * the plugin, and register them with the WordPress API. Call the
 * run function to execute the list of actions and filters.
 *
-* @package    plugin-name
-* @subpackage plugin-name/includes
+* @package    chsie-popups
+* @subpackage chsie-popups/includes
 * @author     Your Name <email@example.com>
 */
-class Plugin_Abbr_Loader {
+class CHSIE_Popups_Loader {
 
     /**
     * The array of actions registered with WordPress.

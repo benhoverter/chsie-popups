@@ -8,19 +8,19 @@
 *
 * @since      1.0.0
 *
-* @package    plugin-name
-* @subpackage plugin-name/config
+* @package    chsie-popups
+* @subpackage chsie-popups/config
 */
 
 /**
 * This class stores the plugin SQL queries. It is not instanced.
 * *
 * @since      1.0.0
-* @package    plugin-name
-* @subpackage plugin-name/config
+* @package    chsie-popups
+* @subpackage chsie-popups/config
 * @author     Your Name <email@example.com>
 */
-class Plugin_Abbr_Queries {
+class CHSIE_Popups_Queries {
 
     /**
     * This method retrieves the plugin SQL queries. It is called directly.

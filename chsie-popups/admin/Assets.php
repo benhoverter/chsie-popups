@@ -6,8 +6,8 @@
 * @link       http://example.com
 * @since      1.0.0
 *
-* @package    plugin-name
-* @subpackage plugin-name/admin
+* @package    chsie-popups
+* @subpackage chsie-popups/admin
 */
 
 /**
@@ -17,11 +17,11 @@
 * enqueues the admin-facing stylesheet and JavaScript,
 * and assigns file modification time versions to break cache.
 *
-* @package    plugin-name
-* @subpackage plugin-name/admin
+* @package    chsie-popups
+* @subpackage chsie-popups/admin
 * @author     Your Name <email@example.com>
 */
-class Plugin_Abbr_Admin_Assets {
+class CHSIE_Popups_Admin_Assets {
 
     /**
     * The ID of this plugin.
@@ -72,7 +72,7 @@ class Plugin_Abbr_Admin_Assets {
 
         /**
         * An instance of this class is passed to the run() function
-        * defined in Plugin_Abbr_Loader, which then creates the relationship
+        * defined in CHSIE_Popups_Loader, which then creates the relationship
         * between the defined hooks and the functions defined in this
         * class.
         *
@@ -93,6 +93,24 @@ class Plugin_Abbr_Admin_Assets {
         wp_enqueue_style( $this->plugin_title . '-admin-css' );
         //wp_enqueue_style( 'thickbox' );
 
+
+        // ***** React App Styles ***** //
+        $admin_react_css_url = plugin_dir_url( __FILE__ ) . 'app/build/static/css/';
+        $admin_react_css_path = plugin_dir_path( __FILE__ ) . 'app/build/static/css/';
+
+        $react_css = scandir( $admin_react_css_path );
+
+        foreach( $react_css as $index => $filename ) {
+          if( strpos( $filename, '.css' ) && !strpos( $filename, '.map.css' ) ) {
+            wp_enqueue_style(
+              $this->plugin_title . '-admin-react-' . $index,
+              $admin_react_css_url . $filename,
+              filemtime( $admin_react_css_path . $filename ),
+              'all'
+            );
+          }
+        }
+
     }
 
     /**
@@ -104,7 +122,7 @@ class Plugin_Abbr_Admin_Assets {
 
         /**
         * An instance of this class is passed to the run() function
-        * defined in Plugin_Abbr_Loader, which then creates the relationship
+        * defined in CHSIE_Popups_Loader, which then creates the relationship
         * between the defined hooks and the functions defined in this
         * class.
         *
@@ -123,6 +141,25 @@ class Plugin_Abbr_Admin_Assets {
 
         // Enqueue the scripts.
         wp_enqueue_script( $this->plugin_title . '-admin-js' );
+
+
+        // ***** React App Scripts ***** //
+        $admin_react_js_url = plugin_dir_url( __FILE__ ) . 'app/build/static/js/';
+        $admin_react_js_path = plugin_dir_path( __FILE__ ) . 'app/build/static/js/';
+
+        $react_js = scandir( $admin_react_js_path );
+
+        foreach( $react_js as $index => $filename ) {
+          if( strpos( $filename, '.js' ) && !strpos( $filename, '.map.js' ) ) {
+            wp_enqueue_script(
+              $this->plugin_title . '-admin-react-' . $index,
+              $admin_react_js_url . $filename,
+              array(),
+              filemtime( $admin_react_js_path . $filename ),
+              true
+            );
+          }
+        }
 
     }
 

@@ -9,8 +9,8 @@
 * @link       http://example.com
 * @since      1.0.0
 *
-* @package    plugin-name
-* @subpackage plugin-name/includes
+* @package    chsie-popups
+* @subpackage chsie-popups/includes
 */
 
 /**
@@ -20,11 +20,11 @@
 * so that it is ready for translation.
 *
 * @since      1.0.0
-* @package    plugin-name
-* @subpackage plugin-name/includes
+* @package    chsie-popups
+* @subpackage chsie-popups/includes
 * @author     Your Name <email@example.com>
 */
-class Plugin_Abbr_i18n {
+class CHSIE_Popups_i18n {
 
 
     /**
@@ -35,7 +35,7 @@ class Plugin_Abbr_i18n {
     public function load_plugin_textdomain() {
 
         load_plugin_textdomain(
-            'plugin-name',
+            'chsie-popups',
             false,
             dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
         );
