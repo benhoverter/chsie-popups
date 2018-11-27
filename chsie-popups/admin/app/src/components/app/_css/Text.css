@@ -16,10 +16,17 @@
   margin-right: 5px;
 }
 
-.TextField {
+.TextField, .TextareaField {
   display: inline-block;
   vertical-align: top;
   width: 78%;
+  margin-left: 26px;
+}
+
+@media all and ( min-width: 1250px ) {
+  .TextField, .TextareaField {
+    margin-left: 0;
+  }
 }
 
 .TextField input {

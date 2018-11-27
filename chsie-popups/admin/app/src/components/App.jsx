@@ -22,12 +22,12 @@ export const App = () => (
       <div className="row">
         <SelectSection />
 
-        <div className="col-1-of-2">
+        <div className="left-col">
           <TextSection />
           <StylingSection />
         </div>
 
-        <div className="col-1-of-2">
+        <div className="right-col">
           <RulesSection />
         </div>
       </div>

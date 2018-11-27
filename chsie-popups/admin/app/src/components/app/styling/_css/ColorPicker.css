@@ -6,8 +6,9 @@
 
 .field-container {
     display: inline-block;
-    width: 160px;
+    width: 180px;
     vertical-align: top;
+    margin-top: 13px;;
 }
 
 .field-container .label {
@@ -23,5 +24,9 @@
 }
 
 .ColorPicker input[type="color"] {
-    width: 40px;
+  width: 76px;
+}
+
+.ColorPicker select {
+  width: 76px;
 }

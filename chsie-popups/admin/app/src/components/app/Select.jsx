@@ -9,13 +9,15 @@ import './_css/Select.css';
 
 
 export const SelectSection = () => (
-  <div className="SelectSection section">
-  <div className="buttons col-1-of-2">
+  <div className="SelectSection">
+  <div className="buttons left-col">
     <NameSelect />
-    <SaveButton />
-    <NewButton />
+    <div className="button-wrapper">
+      <SaveButton />
+      <NewButton />
+    </div>
   </div>
-  <div className="buttons col-1-of-2">
+  <div className="buttons right-col">
       <DelButton />
   </div>
 

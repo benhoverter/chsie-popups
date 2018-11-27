@@ -1,3 +1,7 @@
 .OptionPicker {
     display: inline-block;
 }
+
+.OptionPicker select {
+  width: 76px;
+}

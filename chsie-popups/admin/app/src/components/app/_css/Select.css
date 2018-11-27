@@ -7,6 +7,25 @@
   display: inline-block;
 }
 
+.SelectSection .buttons.right-col {
+  text-align: right;
+}
+
+.SelectSection .button-wrapper {
+  display: block;
+  margin-left: 104px;
+  margin-top: 26px;
+  margin-bottom: 26px;
+}
+
+@media all and ( min-width: 1200px ) {
+  .SelectSection .button-wrapper {
+    display: inline-block;
+    margin-top: 0;
+    margin-left: 78px;
+  }
+}
+
 .SelectSection input {
   width: auto !important;
 }
@@ -14,6 +33,7 @@
 .SelectSection span {
   font-size: 13px;
   font-weight: 600;
+  margin-right: 13px;
 }
 
 #name-select {
@@ -23,6 +43,9 @@
 
 
 .NewButton, .SaveButton {
-  margin-left: 20px;
   transition: 0.2s ease-out;
+}
+
+.NewButton {
+  margin-left: 20px;
 }

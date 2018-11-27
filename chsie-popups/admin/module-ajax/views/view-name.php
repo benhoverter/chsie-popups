@@ -11,4 +11,4 @@
 */
 ?>
 
-<div id="admin-module-ajax">Admin AJAX module.</div>
+<!-- <div id="admin-module-ajax">Admin AJAX module.</div> -->

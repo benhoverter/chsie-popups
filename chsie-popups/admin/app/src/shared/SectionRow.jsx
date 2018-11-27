@@ -13,9 +13,9 @@ export const SectionRow = ({ heading = "", children }) => {
     :  "";
 
     return (
-        <div className="row">
-            { h5 }
-            { children }
-        </div>
+      <div className="row">
+          { h5 }
+          { children }
+      </div>
     );
 };

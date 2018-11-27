@@ -29,7 +29,7 @@ body {
 
 .row {
   position: relative;
-  padding: 20px 2px;
+  padding: 13px 2px;
 }
 
 .row:after {
@@ -38,15 +38,15 @@ body {
   clear: both;
 }
 
-.col-1-of-2 {
-  width: 50.5%;
+.left-col {
+  width: 60.5%;
   margin-right: 2%;
   position: relative;
   float: left;
 }
 
-.col-1-of-2:last-of-type {
-  width: 47.2%;
+.right-col {
+  width: 37.2%;
   margin-right: 0%;
   position: relative;
   float: left;

@@ -11,4 +11,4 @@
 */
 ?>
 
-<div id="public-module-ajax">Public AJAX module.</div>
+<!-- <div id="public-module-ajax">Public AJAX module.</div> -->
