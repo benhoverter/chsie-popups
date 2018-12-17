@@ -25,7 +25,7 @@
 * @since      1.0.0
 * @package    chsie-popups
 * @subpackage chsie-popups/includes
-* @author     Your Name <email@example.com>
+* @author     Ben Hoverter <ben.hoverter@gmail.com>
 */
 class CHSIE_Popups {
 
@@ -194,7 +194,7 @@ class CHSIE_Popups {
 
         // Create a new hook definer method for each module:
         $this->define_admin_module_hooks();
-        $this->define_admin_module_ajax_hooks();
+        $this->define_admin_module_ajax_hooks(); //  <-- THE PROBLEM.
 
         $this->define_public_module_hooks();
         $this->define_public_module_ajax_hooks();
@@ -286,10 +286,10 @@ class CHSIE_Popups {
         // Standard hooks go here:
         //$this->loader->add_action( 'add_meta_boxes{_post_type}', $module_ajax, 'render_metabox' );
         //$this->loader->add_action( 'save_post{_post_type}', $module_ajax, 'save_metabox' );
-        $this->loader->add_action( 'admin_init', $module_ajax, 'render_view' );
+        $this->loader->add_action( 'current_screen', $module_ajax, 'render_view' ); // THE PROBLEM.
 
         // Data to frontend here with wp_localize_script():
-        $this->loader->add_action( 'admin_enqueue_scripts', $module_ajax, 'set_data_callback' );
+        $this->loader->add_action( 'admin_enqueue_scripts', $module_ajax, 'set_data_callback' ); // not the PROBLEM.
 
         // AJAX hooks go here:
         //$this->loader->add_action( 'wp_ajax_{action_name}', $module_ajax, 'element_ajax_callback' );

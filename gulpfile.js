@@ -1,7 +1,7 @@
 /*
  *  Gulp config file
  *  @project plugin_title
- *  Author: Your Name
+ *  Author: Ben Hoverter
  */
 
 /**
@@ -11,7 +11,7 @@
  * @since       1.0.0
  *
  * @package     chsie-popups
- * @Author      Your Name
+ * @Author      Ben Hoverter
  *
  */
 

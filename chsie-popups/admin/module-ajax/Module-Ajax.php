@@ -17,7 +17,7 @@
 *
 * @package    chsie-popups
 * @subpackage chsie-popups/admin/module-ajax
-* @author     Your Name <email@example.com>
+* @author     Ben Hoverter <ben.hoverter@gmail.com>
 */
 class CHSIE_Popups_Admin_Module_Ajax {
 

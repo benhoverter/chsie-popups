@@ -16,7 +16,7 @@
 *
 * @package    chsie-popups
 * @subpackage chsie-popups/admin
-* @author     Your Name <email@example.com> (modifier)
+* @author     Ben Hoverter <ben.hoverter@gmail.com> (modifier)
 * @author     Tareq Hasan, WeDevs Settings API creator
 */
 class CHSIE_Popups_Settings {
