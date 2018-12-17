@@ -11,4 +11,4 @@
 */
 ?>
 
-<!-- <div id="public-module">Public module.</div> -->
+<div id="public-module">Public module.</div>

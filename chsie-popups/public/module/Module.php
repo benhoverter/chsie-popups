@@ -66,7 +66,7 @@ class CHSIE_Popups_Public_Module {
         /**
         * The view responsible for ________.
         */
-        include( plugin_dir_path( __FILE__ ) . 'views/view-name.php' ) ;
+        // include( plugin_dir_path( __FILE__ ) . 'views/view-name.php' ) ;
 
     }
 
