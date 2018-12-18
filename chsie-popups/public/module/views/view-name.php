@@ -11,4 +11,4 @@
 */
 ?>
 
-<div id="public-module">Public module.</div>
+<div style="background-color: red; z-index: 999999; position: absolute;" id="public-module">Public module.</div>

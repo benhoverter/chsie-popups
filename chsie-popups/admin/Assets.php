@@ -152,22 +152,22 @@ class CHSIE_Popups_Admin_Assets {
 
 
     // ***** React App Scripts ***** //
-    // $admin_react_js_url = plugin_dir_url( __FILE__ ) . 'app/build/static/js/';
-    // $admin_react_js_path = plugin_dir_path( __FILE__ ) . 'app/build/static/js/';
-    //
-    // $react_js = scandir( $admin_react_js_path );
-    //
-    // foreach( $react_js as $index => $filename ) {
-    //   if( strpos( $filename, '.js' ) && !strpos( $filename, '.map.js' ) ) {
-    //     wp_enqueue_script(
-    //       $this->plugin_title . '-admin-react-' . $index,
-    //       $admin_react_js_url . $filename,
-    //       array(),
-    //       filemtime( $admin_react_js_path . $filename ),
-    //       true
-    //     );
-    //   }
-    // }
+    $admin_react_js_url = plugin_dir_url( __FILE__ ) . 'app/build/static/js/';
+    $admin_react_js_path = plugin_dir_path( __FILE__ ) . 'app/build/static/js/';
+
+    $react_js = scandir( $admin_react_js_path );
+
+    foreach( $react_js as $index => $filename ) {
+      if( strpos( $filename, '.js' ) && !strpos( $filename, '.map.js' ) ) {
+        wp_enqueue_script(
+          $this->plugin_title . '-admin-react-' . $index,
+          $admin_react_js_url . $filename,
+          array(),
+          filemtime( $admin_react_js_path . $filename ),
+          true
+        );
+      }
+    }
   }
 
 
