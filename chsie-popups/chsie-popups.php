@@ -44,7 +44,7 @@ define( 'CHSIE_POPUPS_VERSION', '1.0.0' );
 * This action is documented in includes/Activator.php
 */
 
-function activate_plugin_title() {
+function activate_chsie_popups() {
     require_once plugin_dir_path( __FILE__ ) . 'includes/Activator.php';
     CHSIE_Popups_Activator::activate();
 }
@@ -55,14 +55,14 @@ function activate_plugin_title() {
 * This action is documented in includes/Deactivator.php
 */
 
-function deactivate_plugin_title() {
+function deactivate_chsie_popups() {
     require_once plugin_dir_path( __FILE__ ) . 'includes/Deactivator.php';
     CHSIE_Popups_Deactivator::deactivate();
 }
 
 
-register_activation_hook( __FILE__, 'activate_plugin_title' );
-register_deactivation_hook( __FILE__, 'deactivate_plugin_title' );
+register_activation_hook( __FILE__, 'activate_chsie_popups' );
+register_deactivation_hook( __FILE__, 'deactivate_chsie_popups' );
 
 
 /**
@@ -81,11 +81,11 @@ require plugin_dir_path( __FILE__ ) . 'includes/Main.php';
 * @since    1.0.0
 */
 
-function run_plugin_title() {
+function run_chsie_popups() {
 
     $plugin = new CHSIE_Popups();
     $plugin->run();
 
 }
 
-run_plugin_title();
+run_chsie_popups();
