@@ -1,13 +1,12 @@
 <?php
 
 /**
-* Does one thing well.
+* Retrieves popup config data and manages data capture when a form is submitted.
 *
-* @link       http://example.com
 * @since      1.0.0
 *
 * @package    chsie-popups
-* @subpackage chsie-popups/public/module-ajax
+* @subpackage chsie-popups/public/popup-ajax
 */
 
 /**
@@ -16,10 +15,10 @@
 * Here's the description of how it does it.
 *
 * @package    chsie-popups
-* @subpackage chsie-popups/public/module-ajax
+* @subpackage chsie-popups/public/popup-ajax
 * @author     Ben Hoverter <ben.hoverter@gmail.com>
 */
-class CHSIE_Popups_Public_Module_Ajax {
+class CHSIE_Popups_Public_Forms_Ajax {
 
     /**
     * The ID of this plugin.
@@ -84,38 +83,40 @@ class CHSIE_Popups_Public_Module_Ajax {
 
     // ***** PRE-CALL METHODS ***** //
 
+
     /**
-    * Render a view with the content.
+    * Render a view before the content.
     * Different hooks will require separate render_{} methods.
     *
     * @since    1.0.0
     */
-    public function render_view_before_content( $content ) {
-
-      $view = file_get_contents( plugin_dir_path( __FILE__ ) . 'views/view-name.php' );
-
-      return $view . $content;
-
-    }
+    // public function render_view_before_content( $content ) {
+    //
+    //   $view = file_get_contents( plugin_dir_path( __FILE__ ) . 'views/view-name.php' );
+    //
+    //   return $view . $content;
+    //
+    // }
 
 
     /**
-    * Set data to be passed to the frontend.
+    * Send data to be passed to the frontend.
     *
     * @since    1.0.0
     */
-    public function set_data_callback() {
+    public function popup_config_to_frontend() {
 
         // Frontend data for data table:
         wp_localize_script(
 
             $this->plugin_title . '-public-js',
 
-            'data_package_name',
+            'cp_config',
 
             array(
                 'ajax_url' => admin_url( 'admin-ajax.php' ),
-                'module_ajax_data_nonce' => wp_create_nonce( 'abbr_module_ajax_data_nonce' )
+                'forms_ajax_data_nonce' => wp_create_nonce( 'cp_forms_ajax_data_nonce' ),
+                'popups' => get_option( 'chsie_popups' ),
             )
 
         );

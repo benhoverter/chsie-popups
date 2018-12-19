@@ -44,7 +44,7 @@ const mapDispatch = ( dispatch ) => ({
       alert( "Please give this popup a name before saving it." );
       document.getElementById( 'popup-name').focus();
     } else {
-      dispatch( savePopup( view ) );
+      dispatch( savePopup( view ) ); // For the AJAX save here, should we pass the whole store? Or view + popups?
     }
   }
 });

@@ -144,12 +144,12 @@ class CHSIE_Popups {
 
             // Public:
             'public/Assets.php',
-            'public/module/Module.php',
-            'public/module-ajax/Module-Ajax.php',
+            'public/forms/Forms.php',
+            'public/forms-ajax/Forms-Ajax.php',
 
             // Config:
             'config/Config.php',
-            'config/Queries.php'       // End of array.  No comma!
+            'config/Queries.php',
 
         );
 
@@ -194,10 +194,10 @@ class CHSIE_Popups {
 
         // Create a new hook definer method for each module:
         $this->define_admin_module_hooks();
-        $this->define_admin_module_ajax_hooks(); //  <-- THE PROBLEM.
+        $this->define_admin_module_ajax_hooks();
 
-        $this->define_public_module_hooks();
-        $this->define_public_module_ajax_hooks();
+        $this->define_public_forms_hooks();
+        $this->define_public_forms_ajax_hooks();
 
     }
 
@@ -301,14 +301,15 @@ class CHSIE_Popups {
     * @since    1.0.0
     * @access   private
     */
-    private function define_public_module_hooks() {
+    private function define_public_forms_hooks() {
 
-        $module = new CHSIE_Popups_Public_Module( $this->get_plugin_title(), $this->get_version() );
+        $forms = new CHSIE_Popups_Public_Forms( $this->get_plugin_title(), $this->get_version() );
 
         // Standard hooks go here:
         //$this->loader->add_action( 'add_meta_boxes{_post_type}', $module->element, 'render_metabox' );
         //$this->loader->add_action( 'save_post{_post_type}', $module->element, 'save_metabox' );
-        $this->loader->add_filter( 'the_content', $module, 'render_view_before_content' );
+
+        $this->loader->add_filter( 'the_content', $forms, 'render_form_before_content' );
 
 
     }
@@ -319,21 +320,15 @@ class CHSIE_Popups {
     * @since    1.0.0
     * @access   private
     */
-    private function define_public_module_ajax_hooks() {
+    private function define_public_forms_ajax_hooks() {
 
-        $module_ajax = new CHSIE_Popups_Public_Module_Ajax( $this->get_plugin_title(), $this->get_version() );
-
-        // Standard hooks go here:
-        //$this->loader->add_action( 'add_meta_boxes{_post_type}', $module_ajax, 'render_metabox' );
-        //$this->loader->add_action( 'save_post{_post_type}', $module_ajax, 'save_metabox' );
-
-        $this->loader->add_filter( 'the_content', $module_ajax, 'render_view_before_content' );
+        $forms_ajax = new CHSIE_Popups_Public_Forms_Ajax( $this->get_plugin_title(), $this->get_version() );
 
         // Data to frontend here with wp_localize_script():
-        $this->loader->add_action( 'wp_enqueue_scripts', $module_ajax, 'set_data_callback' );
+        $this->loader->add_action( 'wp_enqueue_scripts', $forms_ajax, 'popup_config_to_frontend' );
 
         // AJAX hooks go here:
-        $this->loader->add_action( 'wp_ajax_{action_name}', $module_ajax, 'element_ajax_callback' );
+        // $this->loader->add_action( 'wp_ajax_{action_name}', $forms_ajax, 'element_ajax_callback' );
 
     }
 

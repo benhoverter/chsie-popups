@@ -1,13 +1,12 @@
 <?php
 
 /**
-* Does one thing well.
+* Handles the display logic for the front-end popups.
 *
-* @link       http://example.com
 * @since      1.0.0
 *
 * @package    chsie-popups
-* @subpackage chsie-popups/public/module
+* @subpackage chsie-popups/public/forms
 */
 
 /**
@@ -16,10 +15,10 @@
 * Here's the description of how it does it.
 *
 * @package    chsie-popups
-* @subpackage chsie-popups/public/module
+* @subpackage chsie-popups/public/forms
 * @author     Ben Hoverter <ben.hoverter@gmail.com>
 */
-class CHSIE_Popups_Public_Module {
+class CHSIE_Popups_Public_Forms {
 
     /**
     * The ID of this plugin.
@@ -56,16 +55,15 @@ class CHSIE_Popups_Public_Module {
 
 
     /**
-    * Render a view with the content.
-    * Different hooks will require separate render_{} methods.
+    * Render popup before the content.
     *
     * @since    1.0.0
     */
-    public function render_view_before_content( $content ) {
+    public function render_form_before_content( $content ) {
 
-      $view = file_get_contents( plugin_dir_path( __FILE__ ) . 'views/view-name.php' );
+      $form_sc = do_shortcode( ' [formidable id=2] ' ); // Testing, testing...
 
-      return $view . $content;
+      return $form_sc . $content;
 
     }
 
