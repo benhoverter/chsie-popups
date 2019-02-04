@@ -11,7 +11,7 @@ const DelButton = ({ view, visibility, handleClick }) => {
   const faded = disabled ? "faded" : "";
   const componentClasses = "DelButton " + faded;
 
-  if ( visibility !== 'HIDE' ) {
+  if ( visibility === 'OPEN' ) {
     return (
       <div className={ componentClasses }>
         <button disabled={ disabled } onClick={ (e) => handleClick( e, view.id, view.popup.name ) } >Delete This Popup</button>
@@ -47,10 +47,10 @@ const mapDispatch = ( dispatch ) => ({
       dispatch( deletePopup( id ) );
       dispatch( clearView() );
       dispatch( setVisibility({
-        NameSelect: 'SHOW',
-        TextSection: 'HIDE',
-        StylingSection: 'HIDE',
-        RulesSection: 'HIDE'
+        NameSelect: 'OPEN',
+        sections: 'CLOSED',
+        // StylingSection: 'CLOSED',
+        // RulesSection: 'CLOSED'
       }) );
     }
   }

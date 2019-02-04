@@ -7,10 +7,14 @@ import './_css/Logic.css';
 import {LogicSection} from './logic/LogicSection';
 
 
-const Logic = ({ allRules }) => {
+const Logic = ({ allRules = {
+  categories: [],
+  tags: [],
+  postTypes: []
+}
+}) => {
 
   return (
-
     <div className="Logic">
       <h3>Display this popup when...</h3>
 
@@ -19,7 +23,6 @@ const Logic = ({ allRules }) => {
       <LogicSection heading="Post Type" label="postTypes" rules={ allRules.postTypes } />
 
     </div>
-
   );
 
 };

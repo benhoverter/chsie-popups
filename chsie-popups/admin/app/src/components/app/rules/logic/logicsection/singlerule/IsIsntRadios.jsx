@@ -6,7 +6,7 @@ import { updateRule } from 'store/actions';
 
 import './_css/IsIsntRadios.css';
 
-const IsIsntRadios = ({ label, value = "$", index, handleChange }) => {
+export const IsIsntRadios = ({ label, value = "$", index, handleChange }) => {
 
   return (
     <div className="IsIsntRadios">

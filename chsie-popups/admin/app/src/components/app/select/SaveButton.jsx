@@ -13,7 +13,7 @@ const SaveButton = ({ visibility, view, handleClick }) => {
   const componentClasses = "SaveButton " + faded;
 
 
-  if ( visibility !== 'HIDE') {
+  if ( visibility !== 'CLOSED') {
     return (
       <div className={ componentClasses } >
         <button disabled={ disabled } onClick={ (e) => handleClick( e, view ) } >{ buttonText }</button>

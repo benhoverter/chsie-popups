@@ -2,13 +2,13 @@ import * as types from '../types';
 
 
 const visibilityInit = {
-  NameSelect: "SHOW",
-  NewButton: "SHOW",
-  SaveButton: "SHOW",
-  DelButton: "SHOW",
-  TextSection: "HIDE",
-  StylingSection: "HIDE",
-  RulesSection: "HIDE"
+  NameSelect: "OPEN",
+  NewButton: "OPEN",
+  SaveButton: "OPEN",
+  DelButton: "OPEN",
+  StylingSection: "CLOSED",
+  RulesSection: "CLOSED",
+  TextSection: "CLOSED",
 };
 
 const visibility = ( state = visibilityInit, action ) => {

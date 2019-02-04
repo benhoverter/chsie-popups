@@ -42,10 +42,6 @@
 }
 
 
-.NewButton, .SaveButton {
+.SaveButton {
   transition: 0.2s ease-out;
-}
-
-.NewButton {
-  margin-left: 20px;
 }

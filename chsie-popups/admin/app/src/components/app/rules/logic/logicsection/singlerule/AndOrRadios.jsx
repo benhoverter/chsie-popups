@@ -6,8 +6,7 @@ import { updateRule } from 'store/actions';
 
 import './_css/AndOrRadios.css';
 
-const AndOrRadios = ({ label, value = "|", index, handleChange }) => {
-
+export const AndOrRadios = ({ label, value = "|", index, handleChange }) => {
 
   return (
     <div className="AndOrRadios">

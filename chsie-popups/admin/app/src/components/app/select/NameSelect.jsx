@@ -71,18 +71,18 @@ const getIdByIndex = ( target, selectedIndex ) => {
 const dispatchDefaultSelect = ( dispatch ) => {
   dispatch( clearView() );
   dispatch( setVisibility({
-    TextSection: 'HIDE',
-    StylingSection: 'HIDE',
-    RulesSection: 'HIDE'
+    TextSection: 'CLOSED',
+    StylingSection: 'CLOSED',
+    RulesSection: 'CLOSED'
   }) );
 };
 
 const dispatchPopupSelect = ( dispatch, id, popups ) => {
   dispatch( selectPopup( id, popups[id] ) );
   dispatch( setVisibility({
-    TextSection: 'SHOW',
-    StylingSection: 'SHOW',
-    RulesSection: 'SHOW'
+    TextSection: 'OPEN',
+    StylingSection: 'OPEN',
+    RulesSection: 'OPEN'
   }) );
 };
 //  END OF Dispatch helpers  //

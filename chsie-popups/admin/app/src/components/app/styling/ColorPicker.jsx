@@ -1,37 +1,106 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {PropTypes} from 'prop-types';
+
+import ClickOutsideModal from './colorpicker/ClickOutsideModal';
 
 import './_css/ColorPicker.css';
 
 import {updateField} from 'store/actions';
 
 
-const ColorPicker = ({ title, label, id, view, handleChange }) => {
+class ColorPicker extends React.Component  {
+  constructor( props ) {
+    super( props );
+    // ({ title, label, id, view, handleChangeComplete })
 
-  const value = view.popup[label];
-  // console.log( "value is ", value );
+    this.state = {
+      showModal: false
+    }
+    this.toggleModal = this.toggleModal.bind( this );
+    this.handleClick = this.handleClick.bind( this );
+  }
 
-  return (
+  timerMethod = () => {
+    let timer = undefined;
 
-    <div className="field-container">
+    return ( callback, ms ) => {
+      if (timer === undefined) {
+        timer = setTimeout( callback, ms );
+      } else {
+        timer.clearTimeout();
+      }
+    }
+  }
 
-      <div className="label">
-        <label htmlFor={ id } >{ title }:</label>
+  toggleModal () {
+    this.setState({ showModal: !this.state.showModal });
+  }
+
+  handleClick (e) {
+    console.log( "handleClick's event  was " , e );
+    this.timerMethod()( this.toggleModal, 100 ); // Curried fn for closure on timer.
+
+  }
+
+
+  render() {
+    // console.log( this.props.label + " has " , this.state );
+    const { view, label, title, handleChangeComplete } = this.props;
+
+    const hexColor = view.popup[label];
+    const pickerBorder = {
+      border: "4px solid " + hexColor,
+    }
+
+
+    const modal = (
+      <ClickOutsideModal
+        color={hexColor}
+        onChangeComplete={ ( e ) => handleChangeComplete( e, label ) }
+        onClickOff = { (e) => this.handleClick(e) }
+      />
+    );
+
+    return (
+      <div className="field-container">
+
+        <div className="label">
+          <span>{ title }:</span>
+        </div>
+
+        <div className="ColorPicker" >
+          <div
+            style={ pickerBorder }
+            onClick={ (e) =>  {
+              if ( this.state.showModal === false ) {
+                this.handleClick(e);
+              } else { return false; }
+            }}
+          >
+
+            <span>{ hexColor }</span>
+          </div>
+
+          { this.state.showModal && modal }
+
+        </div>
       </div>
 
-      <div className="ColorPicker">
-        <input
-          id={ id }
-          type="color"
-          name={ id }
-          value={ value }
-          onChange={ (e) => handleChange( e, label ) }
-          />
-      </div>
-      
-    </div>
-  );
+    );
+  }
 };
+
+
+//////////////////////////////////////////
+ColorPicker.propTypes = {
+  title: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  view: PropTypes.object.isRequired,
+  handleChangeComplete: PropTypes.func.isRequired,
+}
+//////////////////////////////////////////
 
 
 const mapState = ( state, ownProps ) => ({
@@ -42,8 +111,8 @@ const mapState = ( state, ownProps ) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  handleChange: ( e, label ) => {
-    dispatch( updateField( e.target.value, label ) );
+  handleChangeComplete: ( color, label ) => {
+    dispatch( updateField( color.hex, label ) );
   }
 });
 

@@ -1,32 +1,47 @@
 .ColorPicker {
     display: inline-block;
+    position: relative;
     text-align: left;
+    cursor: pointer;
 }
 
 
 .field-container {
     display: inline-block;
     width: 180px;
-    vertical-align: top;
+    vertical-align: middle;
     margin-top: 13px;;
 }
 
 .field-container .label {
     display: inline-block;
-    vertical-align: top;
     width: 70px;
     text-align: right;
     padding-right: 9px;
+    font-size: 13px;
 }
 
 .field-container label {
   font-weight: 400 !important;
 }
 
-.ColorPicker input[type="color"] {
+.ColorPicker > div:first-of-type {
   width: 76px;
+  height: 16px;
+  text-align: center;
+  font-size: 13px;
 }
 
 .ColorPicker select {
   width: 76px;
+}
+
+.hidden {
+  display: none;
+}
+
+
+.ClickOutsideModal {
+  position: absolute;
+  z-index: 9999;
 }

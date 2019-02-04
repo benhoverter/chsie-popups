@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 
-import { updateField } from 'store/actions';
+import {updateField} from 'store/actions';
 
 
 const TextField = ({ type="text", label, text, placeholder, autoFocus, fieldInfo, view, handleChange }) => {
@@ -52,7 +52,7 @@ const mapState = ( state, ownProps ) => ({
   text: ownProps.text,
   placeholder: ownProps.placeholder,
   fieldInfo: ownProps.fieldInfo,
-  active:  state.visibility.TextSection !== 'HIDE',
+  active:  state.visibility.TextSection !== 'CLOSED',
   view: state.view
 });
 

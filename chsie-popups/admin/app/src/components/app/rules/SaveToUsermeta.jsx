@@ -55,7 +55,7 @@ const mapDispatch = (dispatch) => ({
   handleChange: ( e ) => {
     dispatch( updateField( e.target.checked, "saveToUsermeta" ) );
     dispatch( setVisibility({
-      SaveButton: 'SHOW'
+      SaveButton: 'OPEN'
     }) );
 
   }

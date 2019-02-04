@@ -9,9 +9,42 @@ import AddRuleButton from './logicsection/AddRuleButton';
 
 export const LogicSection = ({ heading, label, rules }) => {
 
-  const singleRules = rules.map( ( rule, index ) => (
-    <SingleRule label={ label } key={ index } index={ index } rule={ rule } />
-  ) );
+  const dummyOptions = [
+    "hrsa",
+    "nwhfc",
+    "learndash"
+  ];
+
+  const detectError = ( rules ) => {
+    // Returns the index of the duplication error in rules[], or false if none are found.
+
+    const targets = rules.map( ( rule ) => (
+      rule.slice(2)
+    ) );
+
+    for( let i = 0; i < targets.length; i++ ) {
+      for( let k = i + 1; k < targets.length; k++ ) {
+        if( targets[i] === targets[k] ) {
+
+          // console.log( `Error at target ${k}: ${targets[k]} is duplicated.` );
+          return k;
+        }
+      }
+    }
+    return false;
+  };
+
+  const errorIndex = detectError( rules ); // Int or bool(false)
+
+  const singleRules = rules.map( ( rule, index ) => {
+
+    const error = ( index === errorIndex ) ? true : false; // === for int(0) to bool(false) comparison.
+    // console.log( `Error value is ${error} for SingleRule ${index}.` );
+
+    return (
+      <SingleRule heading={ heading } label={ label } error={ error } key={ index } index={ index } rule={ rule } options={ dummyOptions } />
+    )
+  } );
 
   return(
     <div className="LogicSection">
@@ -25,6 +58,7 @@ export const LogicSection = ({ heading, label, rules }) => {
     </div>
   );
 };
+
 
 //////////////////////////////////////////
 LogicSection.propTypes = {

@@ -145,7 +145,7 @@ const view = ( state = viewInit, action ) => {
           }
         }
       };
-    
+
     default:
       return state;
   }

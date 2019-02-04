@@ -1,21 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {PropTypes} from 'prop-types';
+import styled, {css} from 'styled-components';
 
-import { setVisibility, addPopup } from 'store/actions';
+import { setVisibility, addPopup, newPopup } from 'store/actions';
+
+const StyledButton = styled.button`
+  background: violet; // Just checking!
+  margin-left: 20px;
+  border: 2px solid transparent;
+  transition: 0.2s ease-out;
+
+  &:hover, &:focus {
+    border: 2px solid black;
+  }
+
+  ${ props => props.disabled && css`
+    pointer-events: none;
+    opacity: 0.6;
+  ` }
+`;
 
 
 const NewButton= ( { view, visibility, nextId, handleClick } ) => {
 
   const disabled = ( view.popup.name === "" );
-  const faded = disabled ? "faded" : "";
-  const componentClasses = "NewButton " + faded;
 
-  if ( visibility !== 'HIDE' ) {
+  if ( visibility.NewButton === 'OPEN' ) {
     return (
-      <div className={componentClasses}>
-        <button disabled={ disabled } onClick={ (e) => handleClick( e, view.saved, nextId ) }>Add a New Popup</button>
-      </div>
+        <StyledButton disabled={ disabled } onClick={ (e) => handleClick( e, view.saved, visibility, nextId ) }>Add a New Popup</StyledButton>
     );
   } else {
     return null;
@@ -25,7 +38,7 @@ const NewButton= ( { view, visibility, nextId, handleClick } ) => {
 //////////////////////////////////////////
 NewButton.propTypes = {
   view: PropTypes.object.isRequired,
-  visibility: PropTypes.string.isRequired,
+  visibility: PropTypes.object.isRequired,
   nextId: PropTypes.number.isRequired,
   handleClick: PropTypes.func.isRequired
 }
@@ -45,13 +58,13 @@ const nextId = ( popups ) => {
 
 const mapState = ( state ) => ({
   view: state.view,
-  visibility:  state.visibility.NewButton,
+  visibility:  state.visibility,
   nextId: nextId( state.popups ),
 });
 
 
 const mapDispatch = ( dispatch ) => ({
-  handleClick: ( e, saved, nextId ) => {
+  handleClick: ( e, saved, visibility, nextId ) => {
     e.target.blur();
     const toFocus = document.getElementById( "popup-name" );
     if ( toFocus !== null ) {
@@ -59,14 +72,9 @@ const mapDispatch = ( dispatch ) => ({
     }
 
     if ( saved || window.confirm( "Your current popup is not saved.  Add a new popup anyway?" ) ) {
-      dispatch( addPopup( nextId ) );
-      dispatch( setVisibility({
-        TextSection: 'SHOW',
-        StylingSection: 'SHOW',
-        RulesSection: 'SHOW'
-      }) );
-    }
+        dispatch( newPopup( visibility, nextId ) );
 
+    }
   }
 });
 

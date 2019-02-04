@@ -52,7 +52,7 @@ const mapState = ( state, ownProps ) => ({
   text: ownProps.text,
   placeholder: ownProps.placeholder,
   fieldInfo: ownProps.fieldInfo,
-  active:  state.visibility.TextSection !== 'HIDE',
+  active:  state.visibility.TextSection !== 'CLOSED',
   view: state.view
 });
 

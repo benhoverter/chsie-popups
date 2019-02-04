@@ -7,7 +7,7 @@ import './_css/FormPicker.css';
 import { updateField } from 'store/actions';
 
 
-const FormPicker = ({ label, id, options, value, handleChange }) => {
+export const FormPicker = ({ label, id, options, value, handleChange }) => {
 
   const optionList = options.map( ( option, index ) => (
     <option key={index} value={ option }>{ option }</option>

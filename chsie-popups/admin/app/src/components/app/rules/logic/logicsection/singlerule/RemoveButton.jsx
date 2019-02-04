@@ -6,7 +6,7 @@ import { removeRule } from 'store/actions';
 
 import './_css/RemoveButton.css';
 
-const RemoveButton = ({ label, index, handleClick }) => {
+export const RemoveButton = ({ label, index, handleClick }) => {
   return (
     <div className="RemoveButton">
       <button

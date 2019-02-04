@@ -6,7 +6,7 @@ import { updateRule } from 'store/actions';
 
 import './_css/TargetSelector.css';
 
-const TargetSelector = ({ label, value = "", index, options, handleChange }) => {
+export const TargetSelector = ({ label, value = "", index, options, handleChange }) => {
 
     const optionList = options.map( ( option, i ) => (
         <option key={ i } value={ option } >
