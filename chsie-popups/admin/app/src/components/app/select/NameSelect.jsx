@@ -12,12 +12,14 @@ import { getSelectedPopup } from 'store/actions';
 const wrapperStyle = { display: "inline-block" };
 
 const StyledNameSelect = styled.select`
+  margin-left: 10px;
   min-width: 200px;
+  height: 1.7em;
   border: 1.5px solid #909090;
 
   ${ props => props.disabled && css`
     pointer-events: none;
-    opacity: 0.6;
+    opacity: 0.4;
   ` }
 `;
 

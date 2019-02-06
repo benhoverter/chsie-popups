@@ -12,7 +12,7 @@ export const RemoveButton = ({ label, index, handleClick }) => {
       <button
         onClick={ () => handleClick( label, index ) }
       >
-        X
+        Remove Last Rule
       </button>
     </div>
   );
