@@ -1,4 +1,4 @@
-# chsie-popups
+## CHSIE Popups
 
 This plugin works with Formidable to produce popups from forms.
 
