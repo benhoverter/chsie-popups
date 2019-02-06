@@ -17,4 +17,6 @@ Alternatives were explored, but the key is to keep the data easily interoperable
 The current build displays the Redux store to enable development of a watertight data model.  Take a look!
 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), uses [React Spring](https://github.com/react-spring/react-spring) for animations, and [Styled Components](https://github.com/styled-components/styled-components) for CSS.  
+
+It's a work in progress, so be gentle. :)
