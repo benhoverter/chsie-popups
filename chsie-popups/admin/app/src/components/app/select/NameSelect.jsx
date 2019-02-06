@@ -14,7 +14,7 @@ const wrapperStyle = { display: "inline-block" };
 const StyledNameSelect = styled.select`
   margin-left: 10px;
   min-width: 200px;
-  height: 1.7em;
+  height: 28px;
   border: 1.5px solid #909090;
 
   ${ props => props.disabled && css`

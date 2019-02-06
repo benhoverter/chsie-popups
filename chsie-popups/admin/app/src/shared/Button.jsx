@@ -3,12 +3,12 @@ import styled, {css} from 'styled-components'
 
 const Button = styled.button`
   display: inline-block;
-  height: 1.7em;
+  height: 28px;
   margin-left: 20px;
   border: 1px solid #c0c0c0;
   background-color: #f7f7f7;
   color: #00a0d2;
-  font-weight: 500;
+  font-weight: 600;
   transition: 0.15s ease-out;
 
   &:hover, &:focus {

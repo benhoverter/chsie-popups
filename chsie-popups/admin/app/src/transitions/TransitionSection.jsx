@@ -12,9 +12,9 @@ const TransitionSection = ({ visible, sectionName, ...props }) => (
   <Transition
     config={ config.fast }
     items={visible}
-    from={{ opacity: 0, transform: `scale(0)` }}
-    enter={{ opacity: 1, transform: `scale(1)` }}
-    leave={{ opacity: 0, transform: `scale(0)` }}
+    from={{ opacity: 0, transform: `translateX( -800px )` }}
+    enter={{ opacity: 1, transform: `translateX( 0 )` }}
+    leave={{ opacity: 0, transform: `translateX( -800px )` }}
     onDestroyed={ () => {
       if ( visible ) {
         store.dispatch( setVisibility({ [sectionName]: "OPEN" }) )
@@ -29,7 +29,7 @@ const TransitionSection = ({ visible, sectionName, ...props }) => (
         {props.children}
       </Section>
     )}
-    
+
   </Transition>
 
 )
