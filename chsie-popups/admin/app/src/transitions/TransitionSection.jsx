@@ -4,6 +4,9 @@ import {Transition, config} from 'react-spring'
 import store from 'store'
 import {setVisibility} from 'store/actions'
 
+import Section from '../shared/Section';
+
+
 const TransitionSection = ({ visible, sectionName, ...props }) => (
 
   <Transition
@@ -20,11 +23,13 @@ const TransitionSection = ({ visible, sectionName, ...props }) => (
       }
     }}
   >
+
     { visible => visible && (transitionProps =>
-      <div style={transitionProps}>
+      <Section style={transitionProps}>
         {props.children}
-      </div>
+      </Section>
     )}
+    
   </Transition>
 
 )

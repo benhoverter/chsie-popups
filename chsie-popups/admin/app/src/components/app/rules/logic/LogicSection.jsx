@@ -7,7 +7,7 @@ import {SingleRule} from './logicsection/SingleRule';
 import AddRuleButton from './logicsection/AddRuleButton';
 
 
-export const LogicSection = ({ heading, label, rules }) => {
+export const LogicSection = ({ heading, label, rules=[] }) => {
 
   const dummyOptions = [
     "hrsa",
@@ -15,9 +15,11 @@ export const LogicSection = ({ heading, label, rules }) => {
     "learndash"
   ];
 
-  const detectError = ( rules ) => {
-    // Returns the index of the duplication error in rules[], or false if none are found.
+  const detectError = ( rules ) => { // Empty array to start.
+    console.log( "rules is ", rules );
+    if( rules === undefined ) { return false; }
 
+    // Returns the index of the duplication error in rules[], or false if none are found.
     const targets = rules.map( ( rule ) => (
       rule.slice(2)
     ) );
@@ -42,8 +44,16 @@ export const LogicSection = ({ heading, label, rules }) => {
     // console.log( `Error value is ${error} for SingleRule ${index}.` );
 
     return (
-      <SingleRule heading={ heading } label={ label } error={ error } key={ index } index={ index } rule={ rule } options={ dummyOptions } />
-    )
+      <SingleRule
+        heading={ heading }
+        label={ label }
+        error={ error }
+        key={ index }
+        index={ index }
+        rule={ rule }
+        options={ dummyOptions }
+      />
+    );
   } );
 
   return(

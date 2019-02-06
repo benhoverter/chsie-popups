@@ -5,7 +5,14 @@ import {PropTypes} from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
 import {ChromePicker} from 'react-color';
 
+import styled from 'styled-components';
+
 import './_css/ClickOutsideModal.css';
+
+const StyledChromePicker = styled.div`
+  position: absolute;
+  z-index: 99999;
+`;
 
 class ClickOutsideModal extends Component {
   // props = { color, onChangeComplete(), onClickOff() }
@@ -25,15 +32,24 @@ class ClickOutsideModal extends Component {
   render() {
     const { color, onChangeComplete } = this.props;
 
+    // return(
+    //   <ChromePicker
+    //     disableAlpha={true}
+    //     color={ color }
+    //     onChangeComplete={ e => onChangeComplete(e) }
+    //   />
+    // );
+
     return(
-      <div className="ClickOutsideModal">
+      <StyledChromePicker>
         <ChromePicker
           disableAlpha={true}
           color={ color }
           onChangeComplete={ e => onChangeComplete(e) }
         />
-      </div>
+      </StyledChromePicker>
     );
+
   }
 
 }

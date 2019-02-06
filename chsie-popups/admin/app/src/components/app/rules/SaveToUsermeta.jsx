@@ -37,13 +37,13 @@ const SaveToUsermeta = ({ value, handleChange }) => {
 
 };
 
+
 //////////////////////////////////////////
 SaveToUsermeta.propTypes = {
   value: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired
 }
 //////////////////////////////////////////
-
 
 
 const mapState = ( state ) => ({
@@ -57,7 +57,6 @@ const mapDispatch = (dispatch) => ({
     dispatch( setVisibility({
       SaveButton: 'OPEN'
     }) );
-
   }
 });
 

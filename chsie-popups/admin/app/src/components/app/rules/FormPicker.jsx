@@ -7,7 +7,9 @@ import './_css/FormPicker.css';
 import { updateField } from 'store/actions';
 
 
-export const FormPicker = ({ label, id, options, value, handleChange }) => {
+export const FormPicker = ({ label, id, options, view, handleChange }) => {
+
+  const value = view.popup[label]
 
   const optionList = options.map( ( option, index ) => (
     <option key={index} value={ option }>{ option }</option>
@@ -30,23 +32,23 @@ export const FormPicker = ({ label, id, options, value, handleChange }) => {
   );
 };
 
+
 //////////////////////////////////////////
 FormPicker.propTypes = {
   label: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
-  value: PropTypes.string.isRequired,
+  view: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired
 }
 //////////////////////////////////////////
-
 
 
 const mapState = ( state, ownProps ) => ({
   label: ownProps.label,
   id: ownProps.id,
   options: ownProps.options,
-  value: state.view.popup[ownProps.label]
+  view: state.view
 });
 
 

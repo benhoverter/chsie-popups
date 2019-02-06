@@ -5,17 +5,21 @@ import {PropTypes} from 'prop-types';
 import TextField from './text/TextField';
 import TextareaField from './text/TextareaField';
 
-import TransitionSection from '../../transitions/TransitionSection';
+import TransitionSection from 'transitions/TransitionSection';
 
 import './_css/Text.css';
 
 
-const TextSection = ({ visible }) => (
-  <TransitionSection
-    visible={visible}
-    sectionName="TextSection"
-  >
-    <div className="TextSection section back-ltgray">
+const TextSection = ({ visibility }) => {
+
+  const visible =  (visibility.StylingSection === 'OPENING') || (visibility.StylingSection === 'OPEN');
+
+  return (
+    <TransitionSection
+      visible={visible}
+      sectionName="TextSection"
+    >
+
       <h2>Text</h2>
 
       <TextField
@@ -40,20 +44,20 @@ const TextSection = ({ visible }) => (
         fieldInfo="This will show beneath the heading, but before the form itself."
         />
 
-    </div>
-  </TransitionSection>
-);
+    </TransitionSection>
+  );
+};
 
 
 //////////////////////////////////////////
 TextSection.propTypes = {
-  visible: PropTypes.bool.isRequired,
+  visibility: PropTypes.object.isRequired,
 }
 //////////////////////////////////////////
 
 
 const mapState = ( state ) => ({
-  visible:  (state.visibility.TextSection === 'OPENING') || (state.visibility.TextSection === 'OPEN')
+  visibility: state.visibility
 });
 
 export default connect( mapState, null )( TextSection );

@@ -1,5 +1,8 @@
 import React from 'react';
 
+import Column from 'shared/Column';
+import Section from 'shared/Section';
+
 import NameSelect from './select/NameSelect';
 import NewButton from './select/NewButton';
 import SaveButton from './select/SaveButton';
@@ -9,17 +12,17 @@ import './_css/Select.css';
 
 
 export const SelectSection = () => (
-  <div className="SelectSection">
-  <div className="buttons left-col">
-    <NameSelect />
-    <div className="button-wrapper">
+  <Section background="light">
+
+    <Column side="left">
+      <NameSelect />
       <SaveButton />
       <NewButton />
-    </div>
-  </div>
-  <div className="buttons right-col">
-      <DelButton />
-  </div>
+    </Column>
 
-  </div>
+    <Column side="right">
+        <DelButton />
+    </Column>
+
+  </Section>
 );

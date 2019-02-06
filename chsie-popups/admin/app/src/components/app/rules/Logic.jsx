@@ -7,12 +7,12 @@ import './_css/Logic.css';
 import {LogicSection} from './logic/LogicSection';
 
 
-const Logic = ({ allRules = {
-  categories: [],
-  tags: [],
-  postTypes: []
-}
-}) => {
+const Logic = ({ popup }) => {
+
+  const allRules = popup.rules ?
+    popup.rules :
+    { category:[], tags:[], postTypes:[] };
+
 
   return (
     <div className="Logic">
@@ -29,14 +29,14 @@ const Logic = ({ allRules = {
 
 //////////////////////////////////////////
 Logic.propTypes = {
-  allRules: PropTypes.object.isRequired,
+  view: PropTypes.object.isRequired,
 }
 //////////////////////////////////////////
 
 
 
 const mapState = ( state ) => ({
-  allRules: state.view.popup.rules
+  popup: state.view.popup
 });
 
 export default connect( mapState, null )( Logic );

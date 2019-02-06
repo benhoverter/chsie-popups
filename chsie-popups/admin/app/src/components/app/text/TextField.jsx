@@ -4,6 +4,7 @@ import {PropTypes} from 'prop-types';
 
 import {updateField} from 'store/actions';
 
+import InnerRow from 'shared/InnerRow';
 
 const TextField = ({ type="text", label, text, placeholder, autoFocus, fieldInfo, view, handleChange }) => {
 
@@ -12,26 +13,24 @@ const TextField = ({ type="text", label, text, placeholder, autoFocus, fieldInfo
   const value = view.popup[label];
 
   return (
-    <div className="row">
+    <InnerRow>
+      <div className="text-label">
+        <label htmlFor={ cssId} >{ text }:</label>
+      </div>
 
-    <div className="text-label">
-      <label htmlFor={ cssId} >{ text }:</label>
-    </div>
-
-    <div className="TextField">
-      <input
-        id={ cssId }
-        type={ type }
-        name={ cssId }
-        value={ value }
-        autoFocus={ autoFocus && value === "" }
-        onChange={ (e) => handleChange( e, label ) }
-        placeholder={ placeholder }
-      />
-      <span className="field-info">{ fieldInfo }</span>
-    </div>
-
-    </div>
+      <div className="TextField">
+        <input
+          id={ cssId }
+          type={ type }
+          name={ cssId }
+          value={ value }
+          autoFocus={ autoFocus && value === "" }
+          onChange={ (e) => handleChange( e, label ) }
+          placeholder={ placeholder }
+        />
+        <span className="field-info">{ fieldInfo }</span>
+      </div>
+    </InnerRow>
   );
 };
 

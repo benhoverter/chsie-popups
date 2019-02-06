@@ -2,6 +2,9 @@ import React from 'react';
 
 import './_css/App.css';
 
+import Row from '../shared/Row';
+import Column from '../shared/Column';
+
 import {SelectSection} from './app/SelectSection';
 import TextSection from './app/TextSection';
 import StylingSection from './app/StylingSection';
@@ -15,30 +18,29 @@ export const App = () => {
   return (
     <div className="App">
 
-      <div className="intro">
-        <div className="row">
-          <p>This application allows you to turn a Formidable form into a custom popup.</p>
-        </div>
-      </div>
+      <Row>
+        <p>This application allows you to turn a Formidable form into a custom popup.</p>
+      </Row>
 
-        <div className="row">
-          <SelectSection />
+      <Row>
+        <SelectSection />
+      </Row>
 
-          <div className="left-col">
-            <TextSection />
-            <StylingSection />
-          </div>
+      <Row>
+        <Column side="left">
+          <TextSection />
+          <StylingSection />
+        </Column>
 
-          <div className="right-col">
-            <RulesSection />
-          </div>
-        </div>
+        <Column side="right">
+          <RulesSection />
+        </Column>
+      </Row>
 
-      <div className="section">
-        <div className="row">
-          <StoreLogger />
-        </div>
-      </div>
+      <Row zIndex="-1">
+        <StoreLogger />
+      </Row>
+
     </div>
   )
 };

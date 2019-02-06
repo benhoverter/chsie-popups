@@ -4,6 +4,8 @@ import {PropTypes} from 'prop-types';
 
 import ClickOutsideModal from './colorpicker/ClickOutsideModal';
 
+import FieldContainer from 'shared/FieldContainer';
+
 import './_css/ColorPicker.css';
 
 import {updateField} from 'store/actions';
@@ -49,6 +51,7 @@ class ColorPicker extends React.Component  {
     const { view, label, title, handleChangeComplete } = this.props;
 
     const hexColor = view.popup[label];
+
     const pickerBorder = {
       border: "4px solid " + hexColor,
     }
@@ -63,11 +66,7 @@ class ColorPicker extends React.Component  {
     );
 
     return (
-      <div className="field-container">
-
-        <div className="label">
-          <span>{ title }:</span>
-        </div>
+      <FieldContainer title={ title }>
 
         <div className="ColorPicker" >
           <div
@@ -85,7 +84,7 @@ class ColorPicker extends React.Component  {
           { this.state.showModal && modal }
 
         </div>
-      </div>
+      </FieldContainer>
 
     );
   }

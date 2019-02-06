@@ -2,48 +2,73 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 
-import {selectPopup, setVisibility, clearView} from 'store/actions';
+import styled, { css } from 'styled-components';
+
+import { getSelectedPopup } from 'store/actions';
+
+// const StyledWrapper = styled.div`
+//   display: inline-block; // Testing.
+// `;
+const wrapperStyle = { display: "inline-block" };
+
+const StyledNameSelect = styled.select`
+  min-width: 200px;
+  border: 1.5px solid #909090;
+
+  ${ props => props.disabled && css`
+    pointer-events: none;
+    opacity: 0.6;
+  ` }
+`;
 
 
-const NameSelect = ({ saved, visibility, selected, popups, handleChange }) => {
+const NameSelect = ({ view, visibility, popups, handleChange }) => {
+
+  const saved = view.saved;
+  const selected = view.popup.name;
 
   const ids = Object.keys( popups );
-  const options = ids.map( id => (
-    <option
-      key={ id }
-      thiskey={ id }
-      value={ popups[id].name }
-      >
-      { popups[id].name }
-    </option>
-  ) );
+  const options = ids.map( id => {
+    let optionId = Number(id) + 1;
 
-  const disabled = visibility === 'FADE';
+    return (
+      <option
+        key={ optionId }
+        thiskey={ optionId }
+        value={ popups[id].name }
+      >
+        { popups[id].name }
+      </option>
+    );
+  } );
+
+  const disabled = visibility.NameSelect === 'FADE';
   const faded = disabled ? "faded" : "";
-  const componentClasses = "NameSelect " + faded;
+
+  // <option value="empty">-------------</option>
+  // disabled={ !!options } hidden={ !!options }
 
   return (
-    <div className={ componentClasses }>
-      <span>Select a popup:</span>
-      <select
-        name="name-select"
-        id="name-select"
+    <div style={ wrapperStyle }>
+      <label htmlFor="NameSelect">Select a popup:</label>
+      <StyledNameSelect
+        id="NameSelect"
         disabled={ disabled }
-        value={ faded ? "" : selected }
-        onChange={ (e) => handleChange( e, saved, popups ) }
-        >
-        <option value="" >-------------</option>
+        value={ view.id === null ? "0" : selected }
+        onChange={ (e) => handleChange( e, saved, visibility, popups ) }
+      >
+        <option key="0" thiskey="0" value="0"  hidden={ !!options } >---------</option>
         {options}
-      </select>
+      </StyledNameSelect>
     </div>
   );
+
 };
 
 //////////////////////////////////////////
 NameSelect.propTypes = {
-  saved: PropTypes.bool.isRequired,
-  visibility: PropTypes.string.isRequired,
-  selected: PropTypes.string,
+  view: PropTypes.object.isRequired,
+  visibility: PropTypes.object.isRequired,
   popups: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired
 }
@@ -51,57 +76,39 @@ NameSelect.propTypes = {
 
 
 const mapState = ( state ) => ({
-  saved: state.view.saved,
-  selected: state.view.popup.name,
-  visibility: state.visibility.NameSelect,
+  view: state.view,
+  visibility: state.visibility,
   popups: state.popups
 });
 
 
 //  Dispatch helpers  //
-const getIndexFromTarget = ( target ) => {
-  return target.options.selectedIndex;
-};
+// const getIndexFromTarget = ( target ) => {
+//   return target.options.selectedIndex;
+// };
 
 const getIdByIndex = ( target, selectedIndex ) => {
-  const popupId = Number( target.options[getIndexFromTarget( target )].getAttribute( 'thiskey' ) );
+  const index = target.options.selectedIndex;
+  console.log("index is ", index );
+
+  const strId = target.options[index].getAttribute( 'thiskey' );
+  console.log("strId is ", strId );
+
+  const popupId = strId === "0" ? null : Number( strId ) - 1;
+  console.log("getIdByIndex returned a popupid of ", popupId); // Now returns null for initial "-------------" option, too!
   return popupId;
 };
 
-const dispatchDefaultSelect = ( dispatch ) => {
-  dispatch( clearView() );
-  dispatch( setVisibility({
-    TextSection: 'CLOSED',
-    StylingSection: 'CLOSED',
-    RulesSection: 'CLOSED'
-  }) );
-};
-
-const dispatchPopupSelect = ( dispatch, id, popups ) => {
-  dispatch( selectPopup( id, popups[id] ) );
-  dispatch( setVisibility({
-    TextSection: 'OPEN',
-    StylingSection: 'OPEN',
-    RulesSection: 'OPEN'
-  }) );
-};
-//  END OF Dispatch helpers  //
-
 
 const mapDispatch = ( dispatch ) => ({
-  handleChange: ( e, saved, popups ) => {
+  handleChange: ( e, saved, visibility, popups ) => {
     e.target.blur();
 
-    const selectedIndex = getIndexFromTarget( e.target );
-    const id = getIdByIndex( e.target, selectedIndex );
+    // const selectedIndex = getIndexFromTarget( e.target );
+    const id = getIdByIndex( e.target );
 
     if ( saved || window.confirm( "Popup is not saved.  Load selected popup anyway?" ) ) {
-
-      if ( selectedIndex === Number( 0 ) ) {
-        dispatchDefaultSelect( dispatch );
-      } else {
-        dispatchPopupSelect( dispatch, id, popups );
-      }
+      dispatch( getSelectedPopup( id, visibility, popups ) );
     }
   }
 });

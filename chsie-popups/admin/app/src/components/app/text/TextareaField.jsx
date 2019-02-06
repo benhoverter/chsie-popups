@@ -4,6 +4,8 @@ import {PropTypes} from 'prop-types';
 
 import {updateField} from 'store/actions';
 
+import InnerRow from 'shared/InnerRow';
+
 
 const TextareaField = ({ label, text, placeholder, autoFocus, fieldInfo, view, handleChange }) => {
 
@@ -13,7 +15,7 @@ const TextareaField = ({ label, text, placeholder, autoFocus, fieldInfo, view, h
 
   return (
 
-    <div className="row">
+    <InnerRow>
 
       <div className="text-label">
         <label htmlFor={ cssId } >{ text }:</label>
@@ -30,8 +32,8 @@ const TextareaField = ({ label, text, placeholder, autoFocus, fieldInfo, view, h
 
         <span className="field-info">{ fieldInfo }</span>
       </div>
+    </InnerRow>
 
-    </div>
   );
 };
 

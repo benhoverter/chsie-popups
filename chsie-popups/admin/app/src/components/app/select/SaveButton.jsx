@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 
+import Button from 'shared/Button';
+
 import { savePopup } from 'store/actions';
 
 
@@ -9,20 +11,16 @@ const SaveButton = ({ visibility, view, handleClick }) => {
 
   const disabled = ( view.saved === true );
   const buttonText = disabled ? "Saved" : "Save" ;
-  const faded = disabled ? "faded" : "";
-  const componentClasses = "SaveButton " + faded;
 
-
-  if ( visibility !== 'CLOSED') {
+  if ( visibility === 'OPEN') {
     return (
-      <div className={ componentClasses } >
-        <button disabled={ disabled } onClick={ (e) => handleClick( e, view ) } >{ buttonText }</button>
-      </div>
+        <Button width="56px" disabled={ disabled } onClick={ (e) => handleClick( e, view ) } >{ buttonText }</Button>
     );
   } else {
     return null;
   }
 };
+
 
 //////////////////////////////////////////
 SaveButton.propTypes = {
@@ -31,6 +29,7 @@ SaveButton.propTypes = {
   handleClick: PropTypes.func.isRequired
 }
 //////////////////////////////////////////
+
 
 const mapState = ( state ) => ({
   visibility:  state.visibility.SaveButton,

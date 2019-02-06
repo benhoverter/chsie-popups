@@ -3,20 +3,22 @@ import React from 'react';
 
 import './_css/SectionRow.css';
 
+import InnerRow from 'shared/InnerRow';
+import RowHeading from 'shared/RowHeading';
+
+
 
 export const SectionRow = ({ heading = "", children }) => {
 
-    const h5 = heading.length ? (
-      <div className="row-label">
-        <h5>{ heading }</h5>
-      </div>
+    const rowHeading = heading.length ? (
+        <RowHeading>{ heading }</RowHeading>
       )
       :  "";
 
     return (
-      <div className="row">
-          { h5 }
+      <InnerRow>
+          { rowHeading }
           { children }
-      </div>
+      </InnerRow>
     );
 };

@@ -9,58 +9,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-#chsie_popups_app div {
-  /* border: 1px solid gray; */
-}
-
-.section {
-  padding: 26px;
-}
-
-.section:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.inline-block {
-  display: inline-block;
-}
-
-.row {
-  position: relative;
-  padding: 13px 2px;
-}
-
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.left-col {
-  width: 60.5%;
-  margin-right: 2%;
-  position: relative;
-  float: left;
-}
-
-.right-col {
-  width: 37.2%;
-  margin-right: 0%;
-  position: relative;
-  float: left;
-}
-
-.left-float {
-  float: left;
-}
-
 
 /* App */
-.intro {
+/* .intro {
   text-align: left;
-}
+} */
 
 .field-info {
   display: block;
@@ -93,15 +46,7 @@ p {
   opacity: 0.6;
 }
 
-.back-ltgray {
-  background: #e7e7e7;
-}
-
 
 .SaveButton button {
     width: 60px;
 }
-
-
-
-/* Field Formatting */

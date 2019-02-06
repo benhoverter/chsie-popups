@@ -3,6 +3,9 @@ import {connect} from 'react-redux';
 
 import './_css/OptionPicker.css';
 
+import FieldContainer from 'shared/FieldContainer';
+
+
 import {updateField} from 'store/actions';
 
 
@@ -17,11 +20,7 @@ const OptionPicker = ({ title, label, id, options, view, handleChange }) => {
 
   return (
 
-    <div className="field-container">
-
-      <div className="label">
-        <label htmlFor={ id } >{ title }:</label>
-      </div>
+    <FieldContainer title={ title } htmlFor={ id } >
 
       <div className="OptionPicker">
         <select
@@ -34,7 +33,7 @@ const OptionPicker = ({ title, label, id, options, view, handleChange }) => {
         </select>
       </div>
 
-    </div>
+    </FieldContainer>
   );
 };
 

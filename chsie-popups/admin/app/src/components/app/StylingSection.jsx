@@ -2,21 +2,24 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 
-import {SectionRow} from '../../shared/SectionRow';
+import {SectionRow} from 'shared/SectionRow';
 import ColorPicker from './styling/ColorPicker';
 import OptionPicker from './styling/OptionPicker';
 import PositionPicker from './styling/PositionPicker';
 
-import TransitionSection from '../../transitions/TransitionSection';
+import TransitionSection from 'transitions/TransitionSection';
 
 
-const StylingSection = ({ visible }) => (
+const StylingSection = ({ visibility }) => {
 
-  <TransitionSection
-    visible={visible}
-    sectionName="StylingSection"
-  >
-    <div className="StylingSection section back-ltgray">
+  const visible =  (visibility.StylingSection === 'OPENING') || (visibility.StylingSection === 'OPEN');
+
+  return (
+    <TransitionSection
+      visible={visible}
+      sectionName="StylingSection"
+    >
+
       <h2>Styling</h2>
 
       <SectionRow heading="Background">
@@ -99,20 +102,20 @@ const StylingSection = ({ visible }) => (
           />
       </SectionRow>
 
-    </div>
-  </TransitionSection>
+    </TransitionSection>
+  );
 
-);
+};
 
 //////////////////////////////////////////
 StylingSection.propTypes = {
-  visible: PropTypes.bool.isRequired
+  visibility: PropTypes.object.isRequired,
 }
 //////////////////////////////////////////
 
 
 const mapState = ( state ) => ({
-  visible:  (state.visibility.StylingSection === 'OPENING') || (state.visibility.StylingSection === 'OPEN')
+  visibility: state.visibility
 });
 
 export default connect( mapState, null )( StylingSection );

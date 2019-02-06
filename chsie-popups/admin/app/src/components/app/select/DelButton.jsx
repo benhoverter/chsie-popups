@@ -2,20 +2,17 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 
-import {deletePopup, clearView, setVisibility} from 'store/actions';
-import './_css/DelButton.css';
+import Button from 'shared/Button';
 
-const DelButton = ({ view, visibility, handleClick }) => {
+import { deletePopup } from 'store/actions';
+
+const DelButton = ({ view, visibility, popups, handleClick }) => {
 
   const disabled = ( view.saved === true && view.id === null );
-  const faded = disabled ? "faded" : "";
-  const componentClasses = "DelButton " + faded;
 
-  if ( visibility === 'OPEN' ) {
+  if ( visibility.DelButton === 'OPEN' ) {
     return (
-      <div className={ componentClasses }>
-        <button disabled={ disabled } onClick={ (e) => handleClick( e, view.id, view.popup.name ) } >Delete This Popup</button>
-      </div>
+      <Button float="right" disabled={ disabled } onClick={ (e) => handleClick( e, view.id, visibility, popups, view.popup.name ) } >Delete This Popup</Button>
     );
   } else {
     return null;
@@ -27,7 +24,7 @@ const DelButton = ({ view, visibility, handleClick }) => {
 //////////////////////////////////////////
 DelButton.propTypes = {
   view: PropTypes.object.isRequired,
-  visibility: PropTypes.string.isRequired,
+  visibility: PropTypes.object.isRequired,
   handleClick: PropTypes.func.isRequired
 }
 //////////////////////////////////////////
@@ -35,23 +32,17 @@ DelButton.propTypes = {
 
 const mapState = ( state ) => ({
   view: state.view,
-  visibility: state.visibility.DelButton
+  visibility: state.visibility,
+  popups: state.popups
 });
 
 const mapDispatch = ( dispatch ) => ({
-  handleClick: ( e, id, name ) => {
+  handleClick: ( e, id, visibility, popups, name ) => {
     e.target.blur();
     const namePhrase = name === "" ? 'this' : 'the "' + name + '"';
 
     if ( window.confirm( 'Are you sure you want to delete ' + namePhrase + ' popup?' ) ) {
-      dispatch( deletePopup( id ) );
-      dispatch( clearView() );
-      dispatch( setVisibility({
-        NameSelect: 'OPEN',
-        sections: 'CLOSED',
-        // StylingSection: 'CLOSED',
-        // RulesSection: 'CLOSED'
-      }) );
+      dispatch( deletePopup( id, visibility, popups ) );
     }
   }
 });

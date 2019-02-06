@@ -2,19 +2,22 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 
-import {SectionRow} from '../../shared/SectionRow';
+// import Section from 'shared/Section';
+import {SectionRow} from 'shared/SectionRow';
 import FormPicker from './rules/FormPicker'
 import SaveToUsermeta from './rules/SaveToUsermeta';
 import Logic from './rules/Logic';
 
-import TransitionSection from '../../transitions/TransitionSection';
+import TransitionSection from 'transitions/TransitionSection';
 
-const RulesSection = ({ visible }) => (
-  <TransitionSection
-    visible={visible}
-    sectionName="RulesSection"
-  >
-    <div className="RulesSection section back-ltgray" >
+const RulesSection = ({ visibility }) => {
+  const visible =  (visibility.RulesSection === 'OPENING') || (visibility.RulesSection === 'OPEN')
+
+  return (
+    <TransitionSection
+      visible={visible}
+      sectionName="RulesSection"
+    >
       <h2>Rules</h2>
 
       <SectionRow heading="Use Form ID...">
@@ -35,20 +38,18 @@ const RulesSection = ({ visible }) => (
         <Logic />
       </SectionRow>
 
-    </div>
-  </TransitionSection>
-
-);
+    </TransitionSection>
+  );
+};
 
 //////////////////////////////////////////
 RulesSection.propTypes = {
-  visible: PropTypes.bool.isRequired,
-  setVisibility: PropTypes.func.isRequired,
+  visibility: PropTypes.object.isRequired,
 }
 //////////////////////////////////////////
 
 const mapState = ( state ) => ({
-  visible:  (state.visibility.RulesSection === 'OPENING') || (state.visibility.RulesSection === 'OPEN')
+  visibility: state.visibility
 });
 
 export default connect( mapState, null )( RulesSection );

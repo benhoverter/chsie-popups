@@ -6,7 +6,9 @@ import './_css/AddRuleButton.css';
 
 import {addRule} from 'store/actions';
 
-export const AddRuleButton = ({ text, label, oldRules, handleClick }) => {
+export const AddRuleButton = ({ text, label, popup, handleClick }) => {
+
+  const oldRules = popup.rules ? popup.rules[label] : [];
 
   const newRule = "|$***";
 
@@ -28,7 +30,8 @@ export const AddRuleButton = ({ text, label, oldRules, handleClick }) => {
 AddRuleButton.propTypes = {
   text: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  oldRules: PropTypes.array.isRequired,
+  popup: PropTypes.object.isRequired,
+  // oldRules: PropTypes.array.isRequired,
   handleClick: PropTypes.func.isRequired
 }
 //////////////////////////////////////////
@@ -37,7 +40,7 @@ AddRuleButton.propTypes = {
 const mapState = ( state, ownProps ) => ({
   text: ownProps.text,
   label: ownProps.label,
-  oldRules: state.view.popup.rules[ownProps.label],
+  popup: state.view.popup,
 });
 
 
