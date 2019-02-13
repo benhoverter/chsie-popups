@@ -1,13 +1,53 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
-
-import './_css/LogicSection.css';
+import styled from 'styled-components';
 
 import {SingleRule} from './logicsection/SingleRule';
 import AddRuleButton from './logicsection/AddRuleButton';
 
 
-export const LogicSection = ({ heading, label, rules=[] }) => {
+const StyledWrapper = styled.div`
+  display: flex;
+  align-items: stretch;
+  border: 3px solid white;
+  border-bottom: 0;
+
+  &:last-of-type {
+    border-bottom: 3px solid white;
+  }
+`;
+
+const StyledRotatedTitle = styled.div`
+  position: relative;
+  flex-grow: 0;
+  width: 40px;
+  min-height: 100px;
+  background: #444444;
+  color: white;
+
+  h5 {
+    position: absolute;
+    top: calc( 50% + 17px);
+    transform: rotate(-90deg);
+    transform-origin: top left 0;
+    width: 80px;
+    padding-top: 8px;
+    text-align: center;
+    font-size: 14px;
+  }
+`;
+
+const StyledSingleRules = styled.div`
+  position: relative;
+  flex-grow: 1;
+
+  label {
+    font-size: 13px;
+    font-weight: 600;
+  }
+`;
+
+export const LogicSection = ({ heading, label, rules=[], allRules }) => {
 
   const dummyOptions = [
     "hrsa",
@@ -16,7 +56,7 @@ export const LogicSection = ({ heading, label, rules=[] }) => {
   ];
 
   const detectError = ( rules ) => { // Empty array to start.
-    console.log( "rules is ", rules );
+    // console.log( "rules is ", rules );
     if( rules === undefined ) { return false; }
 
     // Returns the index of the duplication error in rules[], or false if none are found.
@@ -38,10 +78,38 @@ export const LogicSection = ({ heading, label, rules=[] }) => {
 
   const errorIndex = detectError( rules ); // Int or bool(false)
 
+  const isFirstRule = ( label, index, allRules ) => {
+    if ( index !== 0 ) {
+      console.log("index === 0");
+      return false
+    }
+
+    if ( label === "categories" ) {
+      console.log("label === categories");
+      return true
+    }
+
+    if ( label === "tags" && allRules.categories.length === 0 ) {
+      console.log("label === tags && other conditions met.");
+      return true
+    }
+
+    if ( label === "postTypes" && allRules.categories.length === 0 && allRules.tags.length === 0 ) {
+      console.log("label === postTypes && other conditions met.");
+      return true
+    }
+
+    console.log("No conditions met.");
+    return false;
+  }
+
+
   const singleRules = rules.map( ( rule, index ) => {
 
-    const error = ( index === errorIndex ) ? true : false; // === for int(0) to bool(false) comparison.
+    const error = ( index === errorIndex ) ? true : false; // === so that int(0) !== bool(false).
     // console.log( `Error value is ${error} for SingleRule ${index}.` );
+
+    const isFirst = isFirstRule( label, index, allRules );
 
     return (
       <SingleRule
@@ -51,21 +119,23 @@ export const LogicSection = ({ heading, label, rules=[] }) => {
         key={ index }
         index={ index }
         rule={ rule }
+        isFirst={ isFirst }
         options={ dummyOptions }
       />
     );
+
   } );
 
   return(
-    <div className="LogicSection">
-      <div className="rotated">
-        <h5>{ heading + ":" }</h5>
-      </div>
-      <div className="single-rules">
+    <StyledWrapper>
+      <StyledRotatedTitle>
+        <h5>{ heading }</h5>
+      </StyledRotatedTitle>
+      <StyledSingleRules>
         { singleRules }
         <AddRuleButton text={ heading } label={ label }/>
-      </div>
-    </div>
+      </StyledSingleRules>
+    </StyledWrapper>
   );
 };
 
@@ -75,5 +145,6 @@ LogicSection.propTypes = {
   heading: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   rules: PropTypes.array.isRequired,
+  allRules: PropTypes.object.isRequired,
 }
 //////////////////////////////////////////

@@ -1,31 +1,34 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
+import styled from 'styled-components';
 
 import { updateRule } from 'store/actions';
 
-import './_css/TargetSelector.css';
+
+const StyledSelect = styled.select`
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 30px;
+`;
 
 export const TargetSelector = ({ label, value = "", index, options, handleChange }) => {
 
-    const optionList = options.map( ( option, i ) => (
-        <option key={ i } value={ option } >
-            {option}
-        </option>
-    ) );
+  const optionList = options.map( ( option, i ) => (
+    <option key={ i } value={ option } >
+      {option}
+    </option>
+  ) );
 
-    return (
-
-        <div className="TargetSelector">
-            <select
-                value={ value }
-                onChange={ (e) => handleChange( e, label, index ) }
-            >
-                <option value="***" >---------</option>
-                {optionList}
-            </select>
-        </div>
-    );
+  return (
+    <StyledSelect
+      value={ value }
+      onChange={ (e) => handleChange( e, label, index ) }
+    >
+      <option value="***" >---------</option>
+      {optionList}
+    </StyledSelect>
+  );
 
 };
 

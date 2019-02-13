@@ -20,7 +20,7 @@ const RulesSection = ({ visibility }) => {
     >
       <h2>Rules</h2>
 
-      <SectionRow heading="Use Form ID...">
+      <SectionRow>
         <FormPicker
           label="formId"
           id="form-id"

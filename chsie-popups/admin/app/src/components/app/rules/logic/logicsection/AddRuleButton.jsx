@@ -1,10 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
-
-import './_css/AddRuleButton.css';
+import styled from 'styled-components';
 
 import {addRule} from 'store/actions';
+
+
+const StyledButton = styled.button`
+  position: absolute;
+  right: 13px;
+  bottom: 13px;
+`;
 
 export const AddRuleButton = ({ text, label, popup, handleClick }) => {
 
@@ -13,15 +19,12 @@ export const AddRuleButton = ({ text, label, popup, handleClick }) => {
   const newRule = "|$***";
 
   return (
-    <div className="AddRuleButton">
-      <button
+      <StyledButton
         value={ label }
         onClick={ () => handleClick( label, oldRules, newRule ) }
       >
         + { text }
-      </button>
-    </div>
-
+      </StyledButton>
   );
 
 };

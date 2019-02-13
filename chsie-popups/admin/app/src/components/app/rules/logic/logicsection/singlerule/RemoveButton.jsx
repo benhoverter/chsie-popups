@@ -1,20 +1,31 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
+import styled from 'styled-components';
 
 import { removeRule } from 'store/actions';
 
-import './_css/RemoveButton.css';
+
+const StyledButton = styled.button`
+  height: 20px;
+  vertical-align: middle;
+  border  1px solid #d7d7d7;
+  transition: 0.15s all ease-out;
+
+  &:hover, &:focus {
+    background-color: #444444;
+    color: white;
+    border-color: white;
+  }
+`;
 
 export const RemoveButton = ({ label, index, handleClick }) => {
   return (
-    <div className="RemoveButton">
-      <button
+      <StyledButton
         onClick={ () => handleClick( label, index ) }
       >
-        Remove Last Rule
-      </button>
-    </div>
+        Remove this rule
+      </StyledButton>
   );
 };
 

@@ -1,35 +1,39 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
-
-import './_css/Logic.css';
+import styled from 'styled-components';
 
 import {LogicSection} from './logic/LogicSection';
 
+const StyledWrapper = styled.div`
+  h3 {
+    margin-top: 0;
+  }
+`;
 
 const Logic = ({ popup }) => {
 
   const allRules = popup.rules ?
     popup.rules :
-    { category:[], tags:[], postTypes:[] };
+    { categories:[], tags:[], postTypes:[] };
 
 
   return (
-    <div className="Logic">
+    <StyledWrapper>
       <h3>Display this popup when...</h3>
 
-      <LogicSection heading="Category" label="categories" rules={ allRules.categories } />
-      <LogicSection heading="Tag" label="tags" rules={ allRules.tags } />
-      <LogicSection heading="Post Type" label="postTypes" rules={ allRules.postTypes } />
+      <LogicSection heading="Category" label="categories" rules={ allRules.categories } allRules={ allRules } />
+      <LogicSection heading="Tag" label="tags" rules={ allRules.tags } allRules={ allRules } />
+      <LogicSection heading="Post Type" label="postTypes" rules={ allRules.postTypes } allRules={ allRules } />
 
-    </div>
+    </StyledWrapper>
   );
 
 };
 
 //////////////////////////////////////////
 Logic.propTypes = {
-  view: PropTypes.object.isRequired,
+  popup: PropTypes.object.isRequired,
 }
 //////////////////////////////////////////
 

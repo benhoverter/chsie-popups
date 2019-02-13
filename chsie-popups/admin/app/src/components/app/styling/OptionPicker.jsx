@@ -1,10 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import './_css/OptionPicker.css';
-
 import FieldContainer from 'shared/FieldContainer';
-
 
 import {updateField} from 'store/actions';
 

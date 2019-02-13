@@ -1,16 +1,32 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
+import styled, {css} from 'styled-components';
 
 import { updateRule } from 'store/actions';
 
-import './_css/AndOrRadios.css';
+
+const StyledWrapper = styled.div`
+  padding-left: 16px;
+`;
+
+const StyledLabel = styled.label`
+  margin-right: 16px;
+  opacity: 0.5;
+  transition: 0.15s all ease-out;
+
+  ${ props => props.checked && css`
+    opacity: 1;
+  ` }
+`;
+
 
 export const AndOrRadios = ({ label, value = "|", index, handleChange }) => {
 
   return (
-    <div className="AndOrRadios">
-      <label className={ value === "|" ? "checked" : "" } >
+    <StyledWrapper>
+
+      <StyledLabel checked={ value === "|" ? true : false } >
         <input
           type="radio"
           value="|"
@@ -19,8 +35,9 @@ export const AndOrRadios = ({ label, value = "|", index, handleChange }) => {
           onChange={ (e) => handleChange( e, label, index ) }
           />
         OR
-      </label>
-      <label className={ value === "&" ? "checked" : "" }>
+      </StyledLabel>
+
+      <StyledLabel checked={ value === "&" ? true : false }>
         <input
           type="radio"
           value="&"
@@ -29,8 +46,9 @@ export const AndOrRadios = ({ label, value = "|", index, handleChange }) => {
           onChange={ (e) => handleChange( e, label, index ) }
           />
         AND
-      </label>
-    </div>
+      </StyledLabel>
+
+    </StyledWrapper>
   );
 };
 

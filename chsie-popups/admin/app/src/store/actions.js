@@ -10,7 +10,7 @@ const setVisibility = ( targets ) => ({
 
 // Helper function for thunks that cycle visibility on OPEN/CLOSE animations.
 const handleTransition = ( dispatch, doAction, visibility ) => {
-  console.log("handleTransition fired.");
+  // console.log("handleTransition fired.");
 
   let initClosed =
     visibility.TextSection === "CLOSED"
@@ -110,7 +110,7 @@ const deletePopupById = ( id ) => ({  // Called in deletePopup, not dispatched b
 
 const deletePopup = ( id, visibility, popups ) => { // Called by DelButton.  Main action.  Thunk.
   // console.log("deletePopup fired.");
-  console.log("deleted id is ", id);
+  // console.log("deleted id is ", id);
   // console.log("visibility is ", visibility);
   // console.log("popups is ", popups);
 

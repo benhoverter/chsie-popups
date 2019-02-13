@@ -1,5 +1,6 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
+import styled from 'styled-components';
 
 import AndOrRadios from './singlerule/AndOrRadios';
 import IsIsntRadios from './singlerule/IsIsntRadios';
@@ -7,10 +8,21 @@ import TargetSelector from './singlerule/TargetSelector';
 import {RuleWarning} from './singlerule/RuleWarning';
 import RemoveButton from './singlerule/RemoveButton';
 
-import './_css/SingleRule.css';
+
+const StyledAndOrRow = styled.div`
+  padding: 5px 20px;
+`;
+
+const StyledRuleRow = styled.div`
+  padding: 20px;
+
+  &:last-of-type {
+    padding-bottom: 40px;
+  }
+`;
 
 
-export const SingleRule = ({ heading, label, error, index, rule, options }) => {
+export const SingleRule = ({ heading, label, error, index, rule, isFirst, options }) => {
 
   // console.log( rule );
 
@@ -19,27 +31,26 @@ export const SingleRule = ({ heading, label, error, index, rule, options }) => {
   const targetVal = rule.slice( 2 );  // pass to TargetSelector
 
 
-  const andOrRow = ( label !== "categories" || index > 0 ) ?
+  const andOrRow = !isFirst ?
     (
-      <div className="row narrow">
+      <StyledAndOrRow>
         <AndOrRadios label={ label } value={ aoVal } index={ index } />
-      </div>
+      </StyledAndOrRow>
     )
     : null;
 
 
   return (
-    <div className="SingleRule" >
-
+    <React.Fragment>
       { andOrRow }
 
-      <div className="row">
+      <StyledRuleRow>
         <IsIsntRadios label={ label } value={ iiVal } index={ index } />
         <TargetSelector label={ label } value={ targetVal } index={ index } options={ options }/>
-        <RuleWarning heading={ heading } error={ error } />
         <RemoveButton label={ label } index={ index } />
-      </div>
-    </div>
+        <RuleWarning heading={ heading } error={ error } />
+      </StyledRuleRow>
+    </React.Fragment>
   );
 
 };
@@ -51,6 +62,7 @@ SingleRule.propTypes = {
   error: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
   rule: PropTypes.string.isRequired,
+  isFirst: PropTypes.bool.isRequired,
   options: PropTypes.array.isRequired,
 }
 //////////////////////////////////////////

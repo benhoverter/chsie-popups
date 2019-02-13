@@ -1,10 +1,25 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
-
-import './_css/FormPicker.css';
+import styled from 'styled-components';
 
 import { updateField } from 'store/actions';
+
+const StyledFormPicker = styled.div`
+  display: inline-block;
+
+  label {
+    margin-right: 13px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  select {
+    text-align: center;
+  }
+`;
+
+
 
 
 export const FormPicker = ({ label, id, options, view, handleChange }) => {
@@ -17,7 +32,8 @@ export const FormPicker = ({ label, id, options, view, handleChange }) => {
 
   return (
 
-    <div className="FormPicker">
+    <StyledFormPicker>
+      <label htmlFor={id} >Use Form ID: </label>
       <select
         id={ id }
         name={ id }
@@ -27,7 +43,7 @@ export const FormPicker = ({ label, id, options, view, handleChange }) => {
         <option value="0" >---------</option>
         {optionList}
       </select>
-    </div>
+    </StyledFormPicker>
 
   );
 };

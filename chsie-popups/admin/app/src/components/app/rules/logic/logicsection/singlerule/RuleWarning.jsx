@@ -1,8 +1,16 @@
 import React from 'react'
-
 import {PropTypes} from 'prop-types'
+import styled from 'styled-components'
 
-import './_css/RuleWarning.css'
+// import './_css/RuleWarning.css'
+
+
+const StyledSpan = styled.span`
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: crimson;
+`
 
 export const RuleWarning = ({ heading, error }) => {
 
@@ -10,9 +18,7 @@ export const RuleWarning = ({ heading, error }) => {
 
   if ( error ) {
     return (
-      <div className="RuleWarning">
-        <span>{ errMsg }</span>
-      </div>
+      <StyledSpan>{ errMsg }</StyledSpan>
     )
   }
 

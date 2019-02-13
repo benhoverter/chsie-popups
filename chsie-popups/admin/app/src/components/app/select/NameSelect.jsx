@@ -6,10 +6,14 @@ import styled, { css } from 'styled-components';
 
 import { getSelectedPopup } from 'store/actions';
 
-// const StyledWrapper = styled.div`
-//   display: inline-block; // Testing.
-// `;
-const wrapperStyle = { display: "inline-block" };
+const StyledWrapper = styled.div`
+  display: inline-block;
+
+  label {
+    font-size: 13px;
+    font-weight: 600;
+  }
+`;
 
 const StyledNameSelect = styled.select`
   margin-left: 10px;
@@ -45,13 +49,13 @@ const NameSelect = ({ view, visibility, popups, handleChange }) => {
   } );
 
   const disabled = visibility.NameSelect === 'FADE';
-  const faded = disabled ? "faded" : "";
+  // const faded = disabled ? "faded" : "";
 
   // <option value="empty">-------------</option>
   // disabled={ !!options } hidden={ !!options }
 
   return (
-    <div style={ wrapperStyle }>
+    <StyledWrapper>
       <label htmlFor="NameSelect">Select a popup:</label>
       <StyledNameSelect
         id="NameSelect"
@@ -62,7 +66,7 @@ const NameSelect = ({ view, visibility, popups, handleChange }) => {
         <option key="0" thiskey="0" value="0"  hidden={ !!options } >---------</option>
         {options}
       </StyledNameSelect>
-    </div>
+    </StyledWrapper>
   );
 
 };

@@ -1,53 +1,47 @@
 import React, {Component} from 'react';
-// import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
+
+import styled from 'styled-components';
 
 import onClickOutside from 'react-onclickoutside';
 import {ChromePicker} from 'react-color';
 
-import styled from 'styled-components';
+import TransitionModal from 'transitions/TransitionModal';
 
-import './_css/ClickOutsideModal.css';
 
 const StyledChromePicker = styled.div`
   position: absolute;
   z-index: 99999;
 `;
 
+
+// Needs to be a class component to use react-onclickoutside w/o hooks.
 class ClickOutsideModal extends Component {
-  // props = { color, onChangeComplete(), onClickOff() }
+  // props = { visible, color, onChangeComplete(), onClickOff(), endTransition() }
   constructor( props ) {
     super( props );
-
-    this.state = { showModal: false };
 
     this.handleClickOutside = this.handleClickOutside.bind( this );
   }
 
   handleClickOutside = e => {
-    console.log('onClickOutside() method called on ', e );
+    // console.log('onClickOutside() method called on ', e );
     this.props.onClickOff(e);
   }
 
   render() {
-    const { color, onChangeComplete } = this.props;
-
-    // return(
-    //   <ChromePicker
-    //     disableAlpha={true}
-    //     color={ color }
-    //     onChangeComplete={ e => onChangeComplete(e) }
-    //   />
-    // );
+    const { visible, color, onChangeComplete, endTransition } = this.props;
 
     return(
-      <StyledChromePicker>
-        <ChromePicker
-          disableAlpha={true}
-          color={ color }
-          onChangeComplete={ e => onChangeComplete(e) }
-        />
-      </StyledChromePicker>
+      <TransitionModal visible={ visible } onDestroyed={ () => endTransition() } >
+        <StyledChromePicker>
+          <ChromePicker
+            disableAlpha={true}
+            color={ color }
+            onChangeComplete={ e => onChangeComplete(e) }
+          />
+        </StyledChromePicker>
+      </TransitionModal>
     );
 
   }

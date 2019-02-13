@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import './_css/PositionPicker.css';
+import FieldContainer from 'shared/FieldContainer';
 
 import {updateField} from 'store/actions';
 
@@ -12,24 +12,28 @@ const PositionPicker = ({ title, label, id, options, view, handleChange }) => {
   // console.log( "value is ", value );
 
   const optionList = options.map( ( option, index ) => (
-    <div className="field-container" key={ index }>
-      <label >
-        <input
-          type="radio"
-          key={ index }
-          value={ option }
-          checked={ option === value }
-          onChange={ ( e ) => {
-            handleChange( e, label )
-          } }
-          />
-        { option[0].toUpperCase() + option.slice(1) }
-      </label>
-    </div>
+    <FieldContainer
+      type="position"
+      thisKey={ index }
+      key={ index }
+      htmlFor={ option }
+      title={  option[0].toUpperCase() + option.slice(1)  }
+    >
+      <input
+        type="radio"
+        key={ index }
+        id={ option }
+        value={ option }
+        checked={ option === value }
+        onChange={ ( e ) => {
+          handleChange( e, label )
+        } }
+      />
+    </FieldContainer>
   ) );
 
   return (
-    <div className="PositionPicker">
+    <div className="PositionPicker" style={{ marginLeft: "78px" }}>
       { optionList }
     </div>
   );

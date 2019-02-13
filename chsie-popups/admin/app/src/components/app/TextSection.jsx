@@ -7,8 +7,6 @@ import TextareaField from './text/TextareaField';
 
 import TransitionSection from 'transitions/TransitionSection';
 
-import './_css/Text.css';
-
 
 const TextSection = ({ visibility }) => {
 

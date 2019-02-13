@@ -2,88 +2,87 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 
+import styled, {css} from 'styled-components';
+
 import ClickOutsideModal from './colorpicker/ClickOutsideModal';
-
 import FieldContainer from 'shared/FieldContainer';
-
-import './_css/ColorPicker.css';
+// import resetTimer from 'shared/functions/resetTimer';
 
 import {updateField} from 'store/actions';
 
 
+const StyledColorPicker = styled.div`
+  width: 76px;
+  cursor: pointer;
+
+  > div:first-child {
+    text-align: center;
+
+    ${props => props.hexColor && css `
+      border: 4px solid ${props.hexColor};
+    `}
+
+    span {
+      font-size: 13px;
+    }
+  }
+`
+
 class ColorPicker extends React.Component  {
   constructor( props ) {
     super( props );
-    // ({ title, label, id, view, handleChangeComplete })
+    // props = ({ title, label, id, view, handleChangeComplete })
 
     this.state = {
-      showModal: false
+      showModal: false,
+      animating: false,
+    };
+
+  }
+
+  // resetTimer = resetTimer();
+
+  toggleModal() {
+    // this.resetTimer( this.setState.bind( this ), 150, { showModal: !this.state.showModal } );
+    if ( !this.state.animating ) {
+      this.setState( {
+        showModal: !this.state.showModal,
+        animating: true,
+      } )
     }
-    this.toggleModal = this.toggleModal.bind( this );
-    this.handleClick = this.handleClick.bind( this );
   }
 
-  timerMethod = () => {
-    let timer = undefined;
-
-    return ( callback, ms ) => {
-      if (timer === undefined) {
-        timer = setTimeout( callback, ms );
-      } else {
-        timer.clearTimeout();
-      }
-    }
+  endTransition() {
+    // if ( this.state.animating ) {
+      this.setState({ animating: false }) // Problem: updating during state transition?
+    // }
   }
-
-  toggleModal () {
-    this.setState({ showModal: !this.state.showModal });
-  }
-
-  handleClick (e) {
-    console.log( "handleClick's event  was " , e );
-    this.timerMethod()( this.toggleModal, 100 ); // Curried fn for closure on timer.
-
-  }
-
 
   render() {
     // console.log( this.props.label + " has " , this.state );
     const { view, label, title, handleChangeComplete } = this.props;
-
     const hexColor = view.popup[label];
-
-    const pickerBorder = {
-      border: "4px solid " + hexColor,
-    }
-
-
-    const modal = (
-      <ClickOutsideModal
-        color={hexColor}
-        onChangeComplete={ ( e ) => handleChangeComplete( e, label ) }
-        onClickOff = { (e) => this.handleClick(e) }
-      />
-    );
 
     return (
       <FieldContainer title={ title }>
 
-        <div className="ColorPicker" >
+        <StyledColorPicker hexColor={ hexColor } >
           <div
-            style={ pickerBorder }
-            onClick={ (e) =>  {
-              if ( this.state.showModal === false ) {
-                this.handleClick(e);
-              } else { return false; }
-            }}
+            onClick={ () =>  { !this.state.showModal && this.toggleModal() } }
           >
-
             <span>{ hexColor }</span>
           </div>
 
-          { this.state.showModal && modal }
+          { /* this.state.showModal && modal */ }
+          <ClickOutsideModal
+            visible={ this.state.showModal }
+            color={hexColor}
+            onChangeComplete={ ( e ) => handleChangeComplete( e, label ) }
+            onClickOff={ () =>  { this.state.showModal && this.toggleModal() } }
+            endTransition={ () => this.endTransition() }
+          />
+        </StyledColorPicker>
 
-        </div>
       </FieldContainer>
 
     );

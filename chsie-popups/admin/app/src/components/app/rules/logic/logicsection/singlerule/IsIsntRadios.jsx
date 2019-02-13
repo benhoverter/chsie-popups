@@ -1,17 +1,35 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
+import styled, {css} from 'styled-components';
 
 import { updateRule } from 'store/actions';
 
-import './_css/IsIsntRadios.css';
+// import './_css/IsIsntRadios.css';
+
+
+const StyledWrapper = styled.div`
+  display: inline-block;
+  vertical-align: middle;
+`;
+
+const StyledLabel = styled.label`
+  display: block;
+  opacity: 0.5;
+  transition: 0.15s all ease-out;
+
+  ${ props => props.checked && css`
+    opacity: 1;
+  ` }
+`;
+
 
 export const IsIsntRadios = ({ label, value = "$", index, handleChange }) => {
 
   return (
-    <div className="IsIsntRadios">
+    <StyledWrapper>
 
-      <label className={ value === "$" ? "checked" : "" }>
+      <StyledLabel checked={ value === "$" ? true : false }>
         <input
           type="radio"
           value="$"
@@ -20,9 +38,9 @@ export const IsIsntRadios = ({ label, value = "$", index, handleChange }) => {
           onChange={ (e) => handleChange( e, label, index ) }
           />
         is...
-      </label>
+      </StyledLabel>
 
-      <label className={ value === "!" ? "checked" : "" }>
+      <StyledLabel checked={ value === "!" ? true : false }>
         <input
           type="radio"
           value="!"
@@ -31,9 +49,9 @@ export const IsIsntRadios = ({ label, value = "$", index, handleChange }) => {
           onChange={ (e) => handleChange( e, label, index ) }
           />
         isn't...
-      </label>
+      </StyledLabel>
 
-    </div>
+    </StyledWrapper>
   );
 };
 
