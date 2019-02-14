@@ -8,13 +8,17 @@ import TargetSelector from './singlerule/TargetSelector';
 import {RuleWarning} from './singlerule/RuleWarning';
 import RemoveButton from './singlerule/RemoveButton';
 
+import TransitionRule from 'transitions/TransitionRule';
+
 
 const StyledAndOrRow = styled.div`
   padding: 5px 20px;
+  background-color: #e7e7e7;
 `;
 
 const StyledRuleRow = styled.div`
   padding: 20px;
+  background-color: #e7e7e7;
 
   &:last-of-type {
     padding-bottom: 40px;
@@ -31,18 +35,17 @@ export const SingleRule = ({ heading, label, error, index, rule, isFirst, option
   const targetVal = rule.slice( 2 );  // pass to TargetSelector
 
 
-  const andOrRow = !isFirst ?
-    (
+  const AndOrRow = ({ isFirst }) => (
+    <TransitionRule visible={ !isFirst } >
       <StyledAndOrRow>
         <AndOrRadios label={ label } value={ aoVal } index={ index } />
       </StyledAndOrRow>
-    )
-    : null;
-
+    </TransitionRule>
+  );
 
   return (
     <React.Fragment>
-      { andOrRow }
+      <AndOrRow isFirst={ isFirst } />
 
       <StyledRuleRow>
         <IsIsntRadios label={ label } value={ iiVal } index={ index } />

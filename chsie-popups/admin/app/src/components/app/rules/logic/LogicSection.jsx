@@ -5,6 +5,9 @@ import styled from 'styled-components';
 import {SingleRule} from './logicsection/SingleRule';
 import AddRuleButton from './logicsection/AddRuleButton';
 
+// import TransitionRule from 'transitions/TransitionRule';
+import {Transition, config} from 'react-spring';
+
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -128,13 +131,28 @@ export const LogicSection = ({ heading, label, rules=[], allRules }) => {
 
   return(
     <StyledWrapper>
+
       <StyledRotatedTitle>
         <h5>{ heading }</h5>
       </StyledRotatedTitle>
+
       <StyledSingleRules>
-        { singleRules }
+        <Transition
+          items={ singleRules }
+          keys={ singleRule => singleRule.key }
+          config={{ mass: 1, tension: 300, friction: 30 }}
+          from={{ opacity: 0 }}
+          enter={{ opacity: 1}}
+          leave={{ opacity: 0 }}
+        >
+          {singleRule => transitionProps => <div style={ transitionProps }>{singleRule}</div>}
+        </Transition>
+
+        { /* singleRules */ }
+
         <AddRuleButton text={ heading } label={ label }/>
       </StyledSingleRules>
+
     </StyledWrapper>
   );
 };

@@ -1,12 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const loggerStyles = {
-  // zIndex: "-1",
-}
 
 const StoreLogger = ({ storeState }) => (
-  <div className="store-log" style={ loggerStyles }>
+  <div className="store-log" >
     <pre id="store-log">
       { storeState }
     </pre>

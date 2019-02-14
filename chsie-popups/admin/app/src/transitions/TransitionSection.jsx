@@ -1,5 +1,5 @@
 import React from 'react'
-import {Transition, config} from 'react-spring'
+import {Transition} from 'react-spring'
 
 import store from 'store'
 import {setVisibility} from 'store/actions'
@@ -12,8 +12,8 @@ const TransitionSection = ({ visible, sectionName, ...props }) => (
   <Transition
     config={{
       mass: 1,
-      tension: 280,
-      friction: 24,
+      tension: 300,
+      friction: 26,
     }}
     items={visible}
     from={{

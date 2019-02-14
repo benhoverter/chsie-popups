@@ -12,6 +12,7 @@ import StylingSection from './app/StylingSection';
 import RulesSection from './app/RulesSection';
 
 import StoreLogger from './StoreLogger';
+import TestFetcher from './TestFetcher';
 
 const StyledApp = styled.div`
   box-sizing: border-box;
@@ -54,6 +55,7 @@ export const App = () => {
 
       <Row zIndex="-1">
         <StoreLogger />
+        <TestFetcher />
       </Row>
 
     </StyledApp>
