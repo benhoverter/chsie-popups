@@ -286,10 +286,10 @@ class CHSIE_Popups {
         //$this->loader->add_action( 'save_post{_post_type}', $module_ajax, 'save_metabox' );
 
         // Data to frontend here with wp_localize_script():
-        $this->loader->add_action( 'admin_enqueue_scripts', $module_ajax, 'set_data_callback' ); // not the PROBLEM.
+        $this->loader->add_action( 'admin_enqueue_scripts', $module_ajax, 'set_data_callback' );
 
         // AJAX hooks go here:
-        //$this->loader->add_action( 'wp_ajax_{action_name}', $module_ajax, 'element_ajax_callback' );
+        //$this->loader->add_action( 'wp_ajax_{action_name}', $module_ajax, 'module_ajax_callback' );
 
     }
 
@@ -328,7 +328,7 @@ class CHSIE_Popups {
         $this->loader->add_action( 'wp_enqueue_scripts', $forms_ajax, 'popup_config_to_frontend' );
 
         // AJAX hooks go here:
-        // $this->loader->add_action( 'wp_ajax_{action_name}', $forms_ajax, 'element_ajax_callback' );
+        // $this->loader->add_action( 'wp_ajax_{action_name}', $forms_ajax, 'module_ajax_callback' );
 
     }
 
