@@ -3,10 +3,9 @@ import * as types from '../types';
 const popups = ( state = {}, action ) => {
   switch ( action.type ) {
 
-    case types.SAVE_POPUP:
+    case types.UPDATE_POPUPS:
       return {
-        ...state,
-        [action.id]: action.popup
+        ...action.popups,
       };
 
     case types.DELETE_POPUP:

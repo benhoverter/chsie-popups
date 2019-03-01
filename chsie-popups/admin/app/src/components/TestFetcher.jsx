@@ -17,7 +17,7 @@ class TestFetcher extends Component {
   }
 
   fetchData() {
-    fetch( 'https://jsonplaceholder.typicode.com/todos/1' )
+    fetch( 'http://localhost/dev/wp-json/chsie_popups/v1/popups' )
       .then( response => response.json() )
       .then( json => {
         this.setState({ data: json, isLoading: false })

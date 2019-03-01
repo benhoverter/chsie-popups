@@ -82,6 +82,69 @@ class CHSIE_Popups_Admin_Module_Ajax {
     }
 
 
+    // ***** REST API ENDPOINT ***** //
+    /**
+    * Create a REST API endpoint for requesting and updating wp_options->chsie_popups.
+    *
+    * @since    1.0.0
+    */
+    public function create_api_get_endpoint() {
+      register_rest_route( 'chsie_popups/v1', 'popups', array(
+        'methods' => 'GET',
+        'callback' => array( $this, 'get_popups' )
+      ) );
+    }
+
+
+    /**
+    * Handler function called by create_cp_rest_api_endpoint().
+    *
+    * @since    1.0.0
+    */
+    public function get_popups() {
+      $option = get_option( 'chsie_popups' );
+
+      if( empty( $option ) ) {
+        return false;
+      }
+
+      return $option;
+    }
+
+
+    /**
+    * Create a REST API endpoint for requesting and updating wp_options->chsie_popups.
+    *
+    * @since    1.0.0
+    */
+    public function create_api_post_endpoint() {
+      register_rest_route( 'chsie_popups/v1', 'popups', array(
+        'methods' => 'POST',
+        'callback' => array( $this, 'update_popups' )
+      ) );
+    }
+
+
+    /**
+    * Handler function called by create_cp_rest_api_endpoint().
+    *
+    * @since    1.0.0
+    */
+    public function update_popups( $request ) {
+
+      $json = $request->get_json_params();
+
+      $updated = update_option( 'chsie_popups', $json );
+
+      if ( $updated ) {
+        $new = get_option( 'chsie_popups' );
+        return $new;
+      }
+
+      return $updated;
+    }
+
+
     // ***** PRE-CALL METHODS ***** //
 
     /**

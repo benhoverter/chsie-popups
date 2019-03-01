@@ -6,19 +6,18 @@ import Button from 'shared/Button';
 
 import { deletePopup } from 'store/actions';
 
-const DelButton = ({ view, visibility, popups, handleClick }) => {
+const DelButton = ({ view, visibility, popups, handleClick }) => (
 
-  const disabled = ( view.saved === true && view.id === null );
+  <Button
+    float="right"
+    disabled={ view.saved === true && view.id === null }
+    onClick={ (e) => handleClick( e, view.id, visibility, popups, view.popup.name ) }
+  >
+    Delete This Popup
+  </Button>
 
-  if ( visibility.DelButton === 'OPEN' ) {
-    return (
-      <Button float="right" disabled={ disabled } onClick={ (e) => handleClick( e, view.id, visibility, popups, view.popup.name ) } >Delete This Popup</Button>
-    );
-  } else {
-    return null;
-  }
+);
 
-};
 
 
 //////////////////////////////////////////
@@ -42,7 +41,7 @@ const mapDispatch = ( dispatch ) => ({
     const namePhrase = name === "" ? 'this' : 'the "' + name + '"';
 
     if ( window.confirm( 'Are you sure you want to delete ' + namePhrase + ' popup?' ) ) {
-      dispatch( deletePopup( id, visibility, popups ) );
+      dispatch( deletePopup( id, visibility, popups ) ); // Thunk.
     }
   }
 });

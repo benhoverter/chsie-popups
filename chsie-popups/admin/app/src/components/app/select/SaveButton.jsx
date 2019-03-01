@@ -7,43 +7,45 @@ import Button from 'shared/Button';
 import { savePopup } from 'store/actions';
 
 
-const SaveButton = ({ visibility, view, handleClick }) => {
+const SaveButton = ({ view, saved = false, popups, handleClick }) => (
 
-  const disabled = ( view.saved === true );
-  const buttonText = disabled ? "Saved" : "Save" ;
+  <Button
+    width="56px"
+    disabled={ saved === true  }
+    onClick={ (e) => handleClick( e, view, popups ) }
+  >
+    { ( saved === true ) ? "Saved" : "Save"  }
+  </Button>
 
-  if ( visibility === 'OPEN') {
-    return (
-        <Button width="56px" disabled={ disabled } onClick={ (e) => handleClick( e, view ) } >{ buttonText }</Button>
-    );
-  } else {
-    return null;
-  }
-};
+);
 
 
 //////////////////////////////////////////
 SaveButton.propTypes = {
-  visibility: PropTypes.string.isRequired,
   view: PropTypes.object.isRequired,
+  popups: PropTypes.object.isRequired,
   handleClick: PropTypes.func.isRequired
 }
 //////////////////////////////////////////
 
 
-const mapState = ( state ) => ({
-  visibility:  state.visibility.SaveButton,
-  view: state.view
+const mapState = ( state, ownProps ) => ({
+  view: state.view,
+  saved: state.data.isSaved,
+  popups: state.popups,
 });
 
+
 const mapDispatch = ( dispatch ) => ({
-  handleClick: ( e, view ) => {
+  handleClick: ( e, view, popups ) => {
+
     e.target.blur();
+
     if ( view.popup.name === "" ) {
       alert( "Please give this popup a name before saving it." );
       document.getElementById( 'popup-name').focus();
     } else {
-      dispatch( savePopup( view ) ); // For the AJAX save here, should we pass the whole store? Or view + popups?
+      dispatch( savePopup( view, popups ) ); // Complex thunk.
     }
   }
 });

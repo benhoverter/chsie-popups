@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Row from '../shared/Row';
 import Column from '../shared/Column';
 
-import {SelectSection} from './app/SelectSection';
+import SelectSection from './app/SelectSection';
 import TextSection from './app/TextSection';
 import StylingSection from './app/StylingSection';
 import RulesSection from './app/RulesSection';
@@ -54,8 +54,8 @@ export const App = () => {
       </Row>
 
       <Row zIndex="-1">
-        <StoreLogger />
         <TestFetcher />
+        <StoreLogger />
       </Row>
 
     </StyledApp>

@@ -1,8 +1,11 @@
 import React from 'react'
-import {Transition} from 'react-spring'
+import {Transition} from 'react-spring/renderprops'
 
 
-const zIndex = {zIndex: "99999"}
+const zIndex = {
+  zIndex: "99999",
+  position: "absolute",
+}
 
 const TransitionModal = ({ visible, onDestroyed, ...props }) => (
 

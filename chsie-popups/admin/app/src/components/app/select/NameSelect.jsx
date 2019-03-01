@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 
 import styled, { css } from 'styled-components';
 
-import { getSelectedPopup } from 'store/actions';
+import { getSelectedPopup, fetchPopups } from 'store/actions';
 
 const StyledWrapper = styled.div`
   display: inline-block;
@@ -16,6 +16,7 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledNameSelect = styled.select`
+  vertical-align: top;
   margin-left: 10px;
   min-width: 200px;
   height: 28px;
@@ -28,9 +29,8 @@ const StyledNameSelect = styled.select`
 `;
 
 
-const NameSelect = ({ view, visibility, popups, handleChange }) => {
+const NameSelect = ({ view, visibility, popups, saved, fetchPopups, handleChange }) => {
 
-  const saved = view.saved;
   const selected = view.popup.name;
 
   const ids = Object.keys( popups );
@@ -49,10 +49,6 @@ const NameSelect = ({ view, visibility, popups, handleChange }) => {
   } );
 
   const disabled = visibility.NameSelect === 'FADE';
-  // const faded = disabled ? "faded" : "";
-
-  // <option value="empty">-------------</option>
-  // disabled={ !!options } hidden={ !!options }
 
   return (
     <StyledWrapper>
@@ -61,7 +57,7 @@ const NameSelect = ({ view, visibility, popups, handleChange }) => {
         id="NameSelect"
         disabled={ disabled }
         value={ view.id === null ? "0" : selected }
-        onChange={ (e) => handleChange( e, saved, visibility, popups ) }
+        onChange={ (e) => handleChange( e, visibility, popups, saved ) }
       >
         <option key="0" thiskey="0" value="0"  hidden={ !!options } >---------</option>
         {options}
@@ -76,6 +72,7 @@ NameSelect.propTypes = {
   view: PropTypes.object.isRequired,
   visibility: PropTypes.object.isRequired,
   popups: PropTypes.object.isRequired,
+  saved: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired
 }
 //////////////////////////////////////////
@@ -84,30 +81,31 @@ NameSelect.propTypes = {
 const mapState = ( state ) => ({
   view: state.view,
   visibility: state.visibility,
-  popups: state.popups
+  popups: state.popups,
+  saved: state.data.isSaved,
 });
 
 
-//  Dispatch helpers  //
-// const getIndexFromTarget = ( target ) => {
-//   return target.options.selectedIndex;
-// };
-
+//  Dispatch helper  //
 const getIdByIndex = ( target, selectedIndex ) => {
   const index = target.options.selectedIndex;
-  console.log("index is ", index );
+  // console.log("index is ", index );
 
   const strId = target.options[index].getAttribute( 'thiskey' );
-  console.log("strId is ", strId );
+  // console.log("strId is ", strId );
 
   const popupId = strId === "0" ? null : Number( strId ) - 1;
-  console.log("getIdByIndex returned a popupid of ", popupId); // Now returns null for initial "-------------" option, too!
+  // console.log("getIdByIndex returned a popupid of ", popupId); // Now returns null for initial "-------------" option, too!
   return popupId;
 };
 
 
 const mapDispatch = ( dispatch ) => ({
-  handleChange: ( e, saved, visibility, popups ) => {
+  fetchPopups: () => {
+    dispatch( fetchPopups() )
+  },
+
+  handleChange: ( e, visibility, popups, saved ) => {
     e.target.blur();
 
     // const selectedIndex = getIndexFromTarget( e.target );

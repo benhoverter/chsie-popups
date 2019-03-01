@@ -1,7 +1,6 @@
 import * as types from '../types';
 
 const viewInit = {
-  saved: true,
   id: null,
   popup: {}
 };
@@ -33,16 +32,15 @@ const view = ( state = viewInit, action ) => {
     case types.ADD_POPUP:
       return {
         ...state,
-        saved: false,
         id: action.nextId,
         popup: newPopup
       };
 
-    case types.SAVE_POPUP:
-      return {
-        ...state,
-        saved: true
-      };
+    // case types.SAVE_POPUP:
+    //   return {
+    //     ...state,
+    //     saved: true
+    //   };
 
     case types.DELETE_POPUP:
       return {
@@ -52,7 +50,6 @@ const view = ( state = viewInit, action ) => {
     case types.SELECT_POPUP:
       return {
         ...state,
-        saved: true,
         id: action.id,
         popup: action.popup
       };
@@ -66,7 +63,6 @@ const view = ( state = viewInit, action ) => {
     case types.UPDATE_FIELD:
       return {
         ...state,
-        saved: false,
         popup: {
           ...state.popup,
           [action.label]: action.value
@@ -76,7 +72,6 @@ const view = ( state = viewInit, action ) => {
     case types.ADD_RULE:
       return {
         ...state,
-        saved: false,
         popup: {
           ...state.popup,
           rules: {
@@ -89,7 +84,6 @@ const view = ( state = viewInit, action ) => {
     case types.REMOVE_RULE:
       return {
         ...state,
-        saved: false,
         popup: {
           ...state.popup,
           rules: {
@@ -136,7 +130,6 @@ const view = ( state = viewInit, action ) => {
 
       return {
         ...state,
-        saved: false, // TODO: Visibility not setting.  Fix!
         popup: {
           ...state.popup,
           rules: {

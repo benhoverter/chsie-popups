@@ -40,7 +40,6 @@ const handleTransition = ( dispatch, doAction, visibility ) => {
       let ready = vis.TextSection === "CLOSED" && vis.StylingSection === "CLOSED" && vis.RulesSection === "CLOSED";
 
       if ( ready ) {
-        // console.log("newPopup detected 'ready'!");
         unsub(); // Must unsub before dispatch to prevent recursive loop on state change.
         doAction();
       }
@@ -60,6 +59,7 @@ const newPopup = ( visibility, nextId  ) => { // Called by NewButton.  Main acti
     const doNewPopup = () => {
       dispatch( addPopup( nextId ) );
       dispatch( setVisibility({ // Old sections are closed.  Open new sections.
+        DataMessage: 'CLOSED',
         TextSection: 'OPENING',
         StylingSection: 'OPENING',
         RulesSection: 'OPENING',
@@ -78,9 +78,6 @@ const selectPopup = ( id, popup ) => ({ // Called in getSelectedPopup, not dispa
 });
 
 const getSelectedPopup = ( id, visibility, popups ) => { // Called by NameSelect.  Main action.  Thunk.
-  // console.log("getSelectedPopup fired.");
-  // console.log("selected id is ", id);
-
   return ( dispatch ) => {
 
     const doSelection = () => {
@@ -91,6 +88,7 @@ const getSelectedPopup = ( id, visibility, popups ) => { // Called by NameSelect
         // console.log(" id was", id );
         dispatch( selectPopup( id, popups[id] ) );
         dispatch( setVisibility({ // Old sections are closed.  Open new sections.
+          DataMessage: 'CLOSED',
           TextSection: 'OPENING',
           StylingSection: 'OPENING',
           RulesSection: 'OPENING',
@@ -103,39 +101,149 @@ const getSelectedPopup = ( id, visibility, popups ) => { // Called by NameSelect
 };
 
 
-const deletePopupById = ( id ) => ({  // Called in deletePopup, not dispatched by component.
-  type: types.DELETE_POPUP,
-  id
-});
+const updatePopups = ( json ) => ({
+  type: types.UPDATE_POPUPS,
+  popups: json
+})
 
-const deletePopup = ( id, visibility, popups ) => { // Called by DelButton.  Main action.  Thunk.
-  // console.log("deletePopup fired.");
-  // console.log("deleted id is ", id);
-  // console.log("visibility is ", visibility);
-  // console.log("popups is ", popups);
+const postData = ( data, verify ) => { // Called in savePopup and deletePopup. Main fetch() thunk.
+  return (dispatch) => {
+    const url = 'http://localhost/dev/wp-json/chsie_popups/v1/popups'
 
-  return ( dispatch ) => {
-
-    const doDeletion = () => {
-      // console.log("doDeletion fired.");
-      dispatch( deletePopupById( id ) );
-      // dispatch( selectPopup( 0, popups[0] ) );
-    }
-
-    handleTransition( dispatch, doDeletion, visibility );
+    fetch( url, {
+      method: 'POST',
+      body: JSON.stringify( data ),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then( res => res.json() )
+    .then( json => {
+      console.log("The fetch POST returned ", json )
+      dispatch( verify( json ) )
+    } )
   }
-};
+}
 
 
 const clearView = () => ({
   type: types.CLEAR_VIEW
 });
 
-const savePopup = ( view ) => ({
-  type: types.SAVE_POPUP,
-  id: view.id,
-  popup: view.popup
-});
+
+const verifySave = ( json ) => {  // Called within savePopup's postData().  Also a thunk.
+  return ( dispatch ) => {
+
+      if ( json === false ) {
+        dispatch( setData({
+          isFetching: false,
+          isSaved: false,
+        }) )
+
+      } else {
+        dispatch( updatePopups( json ) )
+
+        dispatch( setData({
+          isFetching: false,
+          isSaved: true,
+        }) )
+      }
+
+      dispatch( setVisibility({ DataMessage: 'SAVE' }) );
+  }
+}
+
+const verifyDelete = ( json ) => {  // Called within deletePopups' postData().  Also a thunk.
+  return ( dispatch ) => {
+
+    if ( json === false ) {
+      dispatch( setData({
+        isFetching: false,
+        isDeleted: false,
+      }) )
+
+    } else {
+      dispatch( updatePopups( json ) )
+
+      dispatch( setData({
+        isFetching: false,
+        isDeleted: true,
+      }) )
+
+      dispatch( clearView() )
+    }
+
+    dispatch( setVisibility({ DataMessage: 'DELETE' }) );
+  }
+}
+
+const verifyFetch = ( json ) => {  // Called within fetchPopups().  Also a thunk.
+  return ( dispatch ) => {
+
+    dispatch( setData({
+      isFetching: false,
+    }) )
+
+    if ( json !== false ) {
+      dispatch( updatePopups( json ) )
+    }
+  }
+}
+
+
+const savePopup = ( view, popups ) => {  // Called by SaveButton.  Main action.  Thunk.
+  return (dispatch) => {
+
+    dispatch( setData({ isFetching: true }) )
+
+    const newPopups = {
+      ...popups,
+      [view.id]: view.popup
+    }
+
+    dispatch( postData( newPopups, verifySave ) )
+  }
+}
+
+const deletePopup = ( id, visibility, popups ) => { // Called by DelButton.  Main action.  Thunk.
+  return ( dispatch ) => {
+    dispatch( setData({ isFetching: true }) )
+
+    // Define main thunk actions here:
+    const doDeletion = () => {
+
+      const strId = "" + id + ""
+      const { [strId]: toDelete, ...rest } = popups
+      const remainingPopups = { ...rest }
+
+      dispatch( postData( remainingPopups, verifyDelete ) )
+      // dispatch( clearView() ) // Calling in verifyDelete to try and eliminated double-spinner.
+    }
+
+    // Needed to animate out the sections before deletion:
+    handleTransition( dispatch, doDeletion, visibility );
+  }
+};
+
+const fetchPopups = () => {
+  return (dispatch) => {
+
+    dispatch( setData({ isFetching: true }) )
+
+    const url = 'http://localhost/dev/wp-json/chsie_popups/v1/popups'
+
+    fetch( url )
+    .then( res => res.json() )
+    .then( json => dispatch( verifyFetch( json ) ) )
+  }
+}
+
+
+const setData = ( targets ) => ({
+  type: types.SET_DATA,
+  targets // An object with structure: {targetComponent: true/false/string}
+})
+
 
 const updateField = ( value, label ) => ({
   type: types.UPDATE_FIELD,
@@ -165,12 +273,15 @@ const updateRule = ( value, label, index ) => ({
 
 export {
   setVisibility,
-  // addPopup,
   newPopup,
   getSelectedPopup,
   deletePopup,
 
   savePopup,
+  setData,
+
+  fetchPopups,
+
   selectPopup,
   clearView,
   updateField,

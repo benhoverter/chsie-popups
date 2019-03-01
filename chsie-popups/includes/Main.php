@@ -286,7 +286,11 @@ class CHSIE_Popups {
         //$this->loader->add_action( 'save_post{_post_type}', $module_ajax, 'save_metabox' );
 
         // Data to frontend here with wp_localize_script():
-        $this->loader->add_action( 'admin_enqueue_scripts', $module_ajax, 'set_data_callback' );
+        // $this->loader->add_action( 'admin_enqueue_scripts', $module_ajax, 'set_data_callback' );
+
+        // Add the WP REST API endpoint:
+        $this->loader->add_action( 'rest_api_init', $module_ajax, 'create_api_get_endpoint' );
+        $this->loader->add_action( 'rest_api_init', $module_ajax, 'create_api_post_endpoint' );
 
         // AJAX hooks go here:
         //$this->loader->add_action( 'wp_ajax_{action_name}', $module_ajax, 'module_ajax_callback' );

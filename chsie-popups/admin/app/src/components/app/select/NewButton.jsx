@@ -4,10 +4,10 @@ import { PropTypes } from 'prop-types';
 
 import Button from 'shared/Button';
 
-import { newPopup } from 'store/actions';
+import { newPopup, setData } from 'store/actions';
 
 
-const NewButton= ( { view, visibility, popups, handleClick } ) => {
+const NewButton= ( { view, visibility, popups, saved, handleClick } ) => {
 
   const getNextId = ( popups ) => {
     const keys = Object.keys( popups ) // empty array to start.
@@ -21,15 +21,15 @@ const NewButton= ( { view, visibility, popups, handleClick } ) => {
 
   const nextId = getNextId( popups );
 
-  const disabled = ( view.popup.name === "" );
 
-  if ( visibility.NewButton === 'OPEN' ) {
-    return (
-        <Button disabled={ disabled } onClick={ (e) => handleClick( e, view.saved, visibility, nextId ) }>Add a New Popup</Button>
-    );
-  } else {
-    return null;
-  }
+  return (
+      <Button
+        disabled={ view.popup.name === "" }
+        onClick={ (e) => handleClick( e, saved, visibility, nextId ) }
+      >
+        Add a New Popup
+      </Button>
+  );
 };
 
 //////////////////////////////////////////
@@ -37,6 +37,7 @@ NewButton.propTypes = {
   view: PropTypes.object.isRequired,
   visibility: PropTypes.object.isRequired,
   popups: PropTypes.object.isRequired,
+  saved: PropTypes.bool.isRequired,
   handleClick: PropTypes.func.isRequired
 }
 //////////////////////////////////////////
@@ -45,7 +46,8 @@ NewButton.propTypes = {
 const mapState = ( state ) => ({
   view: state.view,
   visibility:  state.visibility,
-  popups: state.popups
+  popups: state.popups,
+  saved: state.data.isSaved,
   // nextId: nextId( state.popups ),
 });
 
@@ -60,6 +62,7 @@ const mapDispatch = ( dispatch ) => ({
 
     if ( saved || window.confirm( "Your current popup is not saved.  Add a new popup anyway?" ) ) {
         dispatch( newPopup( visibility, nextId ) );
+        dispatch( setData({ isSaved: false }) );
     }
   }
 });

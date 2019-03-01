@@ -6,7 +6,7 @@ import {SingleRule} from './logicsection/SingleRule';
 import AddRuleButton from './logicsection/AddRuleButton';
 
 // import TransitionRule from 'transitions/TransitionRule';
-import {Transition, config} from 'react-spring';
+import {Transition} from 'react-spring/renderprops';
 
 
 const StyledWrapper = styled.div`
