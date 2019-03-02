@@ -1,51 +1,38 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 
 import Column from 'shared/Column';
-// import Section from 'shared/Section';
 
 import NameSelect from './select/NameSelect';
 import SaveButton from './select/SaveButton';
 import NewButton from './select/NewButton';
 import DataMessage from './select/DataMessage';
-
 import DelButton from './select/DelButton';
 
-import {fetchPopups} from 'store/actions';
 
 const StyledWrapper = styled.div`
   display: inline-block;
   vertical-align: top;
 `
 
-const SelectSection = ({ view, popups }) => {
-  //////////////
-  useEffect( () => {
-    if ( JSON.stringify( popups ) === "{}" ) {
-      fetchPopups()
-    }
-  } )
-  //////////////
+const SelectSection = ({ view, popups }) => (
+  <React.Fragment>
+    <Column side="left">
+      <NameSelect />
 
-  return (
-    <React.Fragment>
-      <Column side="left">
-        <NameSelect />
+      <StyledWrapper>
+        <SaveButton />
+        <NewButton />
+        <DataMessage />
+      </StyledWrapper>
+    </Column>
 
-        <StyledWrapper>
-          <SaveButton />
-          <NewButton />
-          <DataMessage />
-        </StyledWrapper>
-      </Column>
-
-      <Column side="right">
-          <DelButton />
-      </Column>
-    </React.Fragment>
-  )
-}
+    <Column side="right">
+        <DelButton />
+    </Column>
+  </React.Fragment>
+)
 
 
 

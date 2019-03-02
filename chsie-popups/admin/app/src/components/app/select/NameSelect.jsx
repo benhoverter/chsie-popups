@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 
 import styled, { css } from 'styled-components';
 
-import { getSelectedPopup, fetchPopups } from 'store/actions';
+import { getSelectedPopup } from 'store/actions';
 
 const StyledWrapper = styled.div`
   display: inline-block;
@@ -29,7 +29,7 @@ const StyledNameSelect = styled.select`
 `;
 
 
-const NameSelect = ({ view, visibility, popups, saved, fetchPopups, handleChange }) => {
+const NameSelect = ({ view, visibility, popups, saved, handleChange }) => {
 
   const selected = view.popup.name;
 
@@ -101,10 +101,6 @@ const getIdByIndex = ( target, selectedIndex ) => {
 
 
 const mapDispatch = ( dispatch ) => ({
-  fetchPopups: () => {
-    dispatch( fetchPopups() )
-  },
-
   handleChange: ( e, visibility, popups, saved ) => {
     e.target.blur();
 

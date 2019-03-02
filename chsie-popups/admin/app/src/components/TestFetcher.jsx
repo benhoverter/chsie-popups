@@ -32,7 +32,7 @@ class TestFetcher extends Component {
 
   errorMsg = error => (
     <div>
-      <p>Shit, there was an error:</p>
+      <p>There was an error:</p>
       <p>{error.message}</p>
     </div>
   )

@@ -1,7 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 
 // import './_css/App.css';
+
+import store from 'store'
+
+import { fetchPopups } from 'store/actions'
 
 import Row from '../shared/Row';
 import Column from '../shared/Column';
@@ -30,6 +34,11 @@ const StyledApp = styled.div`
 
 
 export const App = () => {
+
+  useEffect( () => {
+    // console.log( "App rendered." )
+    store.dispatch( fetchPopups() )
+  })
 
   return (
     <StyledApp>

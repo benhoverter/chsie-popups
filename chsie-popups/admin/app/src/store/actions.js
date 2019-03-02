@@ -230,6 +230,8 @@ const fetchPopups = () => {
 
     dispatch( setData({ isFetching: true }) )
 
+    // TODO: Make this dynamic!
+
     const url = 'http://localhost/dev/wp-json/chsie_popups/v1/popups'
 
     fetch( url )
