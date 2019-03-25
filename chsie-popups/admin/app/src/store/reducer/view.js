@@ -2,7 +2,7 @@ import * as types from '../types';
 
 const viewInit = {
   id: null,
-  popup: {}
+  popup: {},
 };
 
 const newPopup = {
@@ -18,6 +18,7 @@ const newPopup = {
   borderColor: "#4b2e83",
   position: "top",
   formId: "0",
+  published: false,
   saveToUsermeta: true,
   rules: {
     categories: [],

@@ -3,14 +3,21 @@ import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 
 // import Section from 'shared/Section';
-import {SectionRow} from 'shared/SectionRow';
+import {SectionRow} from 'shared/SectionRow'
+import Button from 'shared/Button'
+
 import FormPicker from './rules/FormPicker'
-import SaveToUsermeta from './rules/SaveToUsermeta';
+import PublishedToggle from './rules/PublishedToggle'
+// import PreviewButton from './rules/PreviewButton'
+import SaveToUsermeta from './rules/SaveToUsermeta'
 import Logic from './rules/Logic';
 
 import TransitionSection from 'transitions/TransitionSection';
 
-const RulesSection = ({ visibility }) => {
+import { setVisibility } from 'store/actions';
+
+
+const RulesSection = ({ visibility, handleClick }) => {
   const visible =  (visibility.RulesSection === 'OPENING') || (visibility.RulesSection === 'OPEN')
 
   return (
@@ -19,6 +26,16 @@ const RulesSection = ({ visibility }) => {
       sectionName="RulesSection"
     >
       <h2>Rules</h2>
+
+      <SectionRow>
+        <PublishedToggle />
+        <Button
+          float="right"
+          onClick={handleClick}
+        >
+          Preview
+      </Button>
+      </SectionRow>
 
       <SectionRow>
         <FormPicker
@@ -52,4 +69,12 @@ const mapState = ( state ) => ({
   visibility: state.visibility
 });
 
-export default connect( mapState, null )( RulesSection );
+const mapDispatch = ( dispatch ) => ({
+  handleClick: () => {
+    dispatch( setVisibility({
+      Preview: 'OPEN',
+    }) )
+  }
+})
+
+export default connect( mapState, mapDispatch )( RulesSection );

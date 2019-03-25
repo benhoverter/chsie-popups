@@ -32,11 +32,11 @@
    ], {force: true} );
  };
 
-
-function copy() {
-  return src( activeFiles )
-  .pipe( dest( devPath ) )
-}
+ 
+ function copy() {
+   return src( activeFiles )
+   .pipe( dest( devPath ) )
+ }
 
  exports.default = series( clean, copy );
 

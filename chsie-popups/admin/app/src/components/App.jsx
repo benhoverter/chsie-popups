@@ -1,8 +1,6 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components';
 
-// import './_css/App.css';
-
 import store from 'store'
 
 import { fetchPopups } from 'store/actions'
@@ -10,6 +8,7 @@ import { fetchPopups } from 'store/actions'
 import Row from '../shared/Row';
 import Column from '../shared/Column';
 
+import PreviewModal from './app/PreviewModal'
 import SelectSection from './app/SelectSection';
 import TextSection from './app/TextSection';
 import StylingSection from './app/StylingSection';
@@ -41,32 +40,35 @@ export const App = () => {
   })
 
   return (
-    <StyledApp>
+    <>
+      <PreviewModal />
+      <StyledApp>
 
-      <Row>
-        <span>This application allows you to turn a Formidable form into a custom popup.</span>
-      </Row>
+        <Row>
+          <span>This application allows you to turn a Formidable form into a custom popup.</span>
+        </Row>
 
-      <Row>
-        <SelectSection />
-      </Row>
+        <Row>
+          <SelectSection />
+        </Row>
 
-      <Row>
-        <Column side="left">
-          <TextSection />
-          <StylingSection />
-        </Column>
+        <Row>
+          <Column side="left">
+            <TextSection />
+            <StylingSection />
+          </Column>
 
-        <Column side="right">
-          <RulesSection />
-        </Column>
-      </Row>
+          <Column side="right">
+            <RulesSection />
+          </Column>
+        </Row>
 
-      <Row zIndex="-1">
-        <TestFetcher />
-        <StoreLogger />
-      </Row>
+        <Row zIndex="-1">
+          <TestFetcher />
+          <StoreLogger />
+        </Row>
 
-    </StyledApp>
+      </StyledApp>
+    </>
   )
 };

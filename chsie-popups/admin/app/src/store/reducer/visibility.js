@@ -10,6 +10,7 @@ const visibilityInit = {
   StylingSection: "CLOSED",
   RulesSection: "CLOSED",
   TextSection: "CLOSED",
+  Preview: "CLOSED",
 };
 
 const visibility = ( state = visibilityInit, action ) => {
