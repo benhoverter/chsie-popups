@@ -13,13 +13,13 @@ const getPositionCSS = position => {
     case 'top':
       return css`
         top: 0;
-        width: 100%;
+        width: 50%;
       `
 
     case 'bottom':
       return css`
         bottom: 0;
-        width: 100%;
+        width: 50%;
       `
 
     case 'left':
@@ -55,6 +55,7 @@ const StyledModal = styled.div`
   z-index: 999;
   padding: 28px 20px;
   text-align: left;
+  border-radius: 3px;
   background-color: ${ props => props.backgroundColor };
   border: ${props => props.border};
   ${ props => getPositionCSS( props.position) }
