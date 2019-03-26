@@ -18,6 +18,7 @@ const StyledWrapper = styled.div`
 const StyledNameSelect = styled.select`
   vertical-align: top;
   margin-left: 10px;
+  margin-right: 20px;
   min-width: 200px;
   height: 28px;
   border: 1.5px solid #909090;

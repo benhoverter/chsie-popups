@@ -8,8 +8,21 @@ import {addRule} from 'store/actions';
 
 const StyledButton = styled.button`
   position: absolute;
-  right: 13px;
+  right: 20px;
   bottom: 13px;
+  height: 24px;
+  border: 1px solid #c0c0c0;
+  background-color: #f7f7f7;
+  color: #00a0d2;
+  font-weight: 600;
+  transition: 0.15s ease-out;
+
+  &:hover, &:focus {
+    border: 1px solid #fff;
+    background-color: #00a0d2;
+    color: #fff;
+  }
+
 `;
 
 export const AddRuleButton = ({ text, label, popup, handleClick }) => {

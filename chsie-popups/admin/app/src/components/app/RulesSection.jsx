@@ -30,6 +30,7 @@ const RulesSection = ({ visibility, handleClick }) => {
       <SectionRow>
         <PublishedToggle />
         <Button
+          margin="0"
           float="right"
           onClick={handleClick}
         >

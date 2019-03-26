@@ -15,25 +15,37 @@ const StyledFormPicker = styled.div`
   }
 
   select {
-    text-align: center;
+    text-align: left;
+    padding: 0 5px;
   }
 `;
 
 
 
 
-export const FormPicker = ({ label, id, options, view, handleChange }) => {
+export const FormPicker = ({ label, id, forms, view, handleChange }) => {
 
   const value = view.popup[label]
 
-  const optionList = options.map( ( option, index ) => (
-    <option key={index} value={ option }>{ option }</option>
-  ) );
+  console.log(`forms is`, forms);
+
+  const optionList = []
+  for ( let formId in forms ) {
+    let name = forms[formId].name
+    optionList.push(
+      <option key={formId} value={ formId }>{ name }</option>
+    )
+  }
+  console.log(`optionList is`, optionList);
+
+  // const optionList = options.map( ( option, index ) => (
+  //   <option key={index} value={ option }>{ option }</option>
+  // ) );
 
   return (
 
     <StyledFormPicker>
-      <label htmlFor={id} >Use Form ID: </label>
+      <label htmlFor={id} >Use Form: </label>
       <select
         id={ id }
         name={ id }
@@ -53,7 +65,7 @@ export const FormPicker = ({ label, id, options, view, handleChange }) => {
 FormPicker.propTypes = {
   label: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  options: PropTypes.array.isRequired,
+  forms: PropTypes.object.isRequired,
   view: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired
 }
@@ -63,7 +75,7 @@ FormPicker.propTypes = {
 const mapState = ( state, ownProps ) => ({
   label: ownProps.label,
   id: ownProps.id,
-  options: ownProps.options,
+  forms: state.data.forms,
   view: state.view
 });
 

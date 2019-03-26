@@ -9,7 +9,7 @@ import { updateRule } from 'store/actions';
 const StyledSelect = styled.select`
   display: inline-block;
   vertical-align: middle;
-  margin: 0 30px;
+  margin-left: 10px;
 `;
 
 export const TargetSelector = ({ label, value = "", index, options, handleChange }) => {

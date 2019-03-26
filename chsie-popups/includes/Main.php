@@ -139,8 +139,9 @@ class CHSIE_Popups {
             // Admin:
             'admin/Assets.php',
             'admin/settings/Settings.php',
-            'admin/module/Module.php',
-            'admin/module-ajax/Module-Ajax.php',
+            'admin/rest-api/Rest-API.php',
+            'admin/form-data-handler/Form-Data-Handler.php',
+            // 'admin/module-ajax/Module-Ajax.php',
 
             // Public:
             'public/Assets.php',
@@ -193,8 +194,8 @@ class CHSIE_Popups {
         $this->define_settings_hooks();
 
         // Create a new hook definer method for each module:
-        $this->define_admin_module_hooks();
-        $this->define_admin_module_ajax_hooks();
+        $this->define_admin_form_data_handler_hooks();
+        $this->define_admin_rest_api_hooks();
 
         $this->define_public_forms_hooks();
         $this->define_public_forms_ajax_hooks();
@@ -262,9 +263,12 @@ class CHSIE_Popups {
     * @since    1.0.0
     * @access   private
     */
-    private function define_admin_module_hooks() {
+    private function define_admin_form_data_handler_hooks() {
 
-        $module = new CHSIE_Popups_Admin_Module( $this->get_plugin_title(), $this->get_version() );
+        $module = new CHSIE_Popups_Admin_Form_Data_Handler( $this->get_plugin_title(), $this->get_version() );
+
+        // Data to admin here with wp_localize_script():
+        $this->loader->add_action( 'admin_enqueue_scripts', $module, 'set_popup_form_data' );
 
         // Standard hooks go here:
         //$this->loader->add_action( 'add_meta_boxes{_post_type}', $module->element, 'render_metabox' );
@@ -277,9 +281,9 @@ class CHSIE_Popups {
     * @since    1.0.0
     * @access   private
     */
-    private function define_admin_module_ajax_hooks() {
+    private function define_admin_rest_api_hooks() {
 
-        $module_ajax = new CHSIE_Popups_Admin_Module_Ajax( $this->get_plugin_title(), $this->get_version() );
+        $module_ajax = new CHSIE_Popups_Admin_Rest_API( $this->get_plugin_title(), $this->get_version() );
 
         // Standard hooks go here:
         //$this->loader->add_action( 'add_meta_boxes{_post_type}', $module_ajax, 'render_metabox' );

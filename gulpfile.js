@@ -12,6 +12,7 @@
  const sourcemaps    = require('gulp-sourcemaps');
  const uglify        = require('gulp-uglify');
  const babel         = require('gulp-babel');
+ const zip           = require('gulp-zip');
 
  // sass.compiler = require( 'node-sass' );
 
@@ -25,6 +26,10 @@
 
  const devPath = 'C:/Users/benho/WordPress/dev/wp-content/plugins/chsie-popups';
 
+const zipFiles = 'C:/Users/benho/WordPress/dev/wp-content/plugins/chsie-popups/**/*'
+const zipDest = 'C:/Users/benho/WordPress/dev/wp-content/plugins'
+
+
  // CLean the plugin folder:
  function clean() {
    return del([
@@ -32,21 +37,30 @@
    ], {force: true} );
  };
 
- 
+
  function copy() {
    return src( activeFiles )
    .pipe( dest( devPath ) )
  }
 
+ // Zip plugin:
+ function zipPlugin() {
+   return src( zipFiles )
+   .pipe( zip( 'chsie-popups.zip' ) )
+   .pipe( dest( zipDest ) )
+ }
+
+
  exports.default = series( clean, copy );
 
  exports.clean = clean;
  exports.copy = copy;
+ exports.zip = zipPlugin;
 
  // exports.js = js;
  // exports.php = php;
  // exports.favicons = favicons;
 
+ const doAll = series( clean, copy, /* zipPlugin */ );
 
- const doAll = series( clean, copy );
- watch( activeFiles, doAll );
+ // watch( activeFiles, doAll );

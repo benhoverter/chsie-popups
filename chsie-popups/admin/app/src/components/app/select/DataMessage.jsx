@@ -11,7 +11,7 @@ import InnerMessage from './DataMessage/InnerMessage'
 
 const StyledWrapper = styled.div`
   display: inline-block;
-  margin-left: 20px;
+  // margin-left: 20px;
   vertical-align: middle;
   font-size: 13px;
 `

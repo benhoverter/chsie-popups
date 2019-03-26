@@ -23,6 +23,11 @@ const Column = styled.div`
     margin-right: 0%;
   `}
 
+  ${ props => props.select === "true" && css`
+    padding: 13px;
+    background-color: #d9d9d9;
+  `}
+
 `
 
 //////////////////////////////////////////

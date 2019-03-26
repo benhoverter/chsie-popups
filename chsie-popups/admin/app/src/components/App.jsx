@@ -9,6 +9,7 @@ import Row from '../shared/Row';
 import Column from '../shared/Column';
 
 import PreviewModal from './app/PreviewModal'
+import DataMessage from './app/select/DataMessage';
 import SelectSection from './app/SelectSection';
 import TextSection from './app/TextSection';
 import StylingSection from './app/StylingSection';
@@ -29,7 +30,16 @@ const StyledApp = styled.div`
     margin-top: 0;
   }
 
-`;
+  * {
+    box-sizing: border-box;
+  }
+
+`
+
+const StyledIntro = styled.span`
+  margin-right: 20px;
+  padding: 6px 0;
+`
 
 
 export const App = () => {
@@ -45,7 +55,8 @@ export const App = () => {
       <StyledApp>
 
         <Row>
-          <span>This application allows you to turn a Formidable form into a custom popup.</span>
+          <StyledIntro>This application allows you to turn a Formidable form into a custom popup.</StyledIntro>
+            <DataMessage />
         </Row>
 
         <Row>

@@ -1,9 +1,13 @@
 import * as types from '../types';
 
+const windowData = getWindowData( 'chsieFormData' )
+const forms = windowData.forms ? JSON.parse(windowData.forms) : undefined
+
 const dataInit = {
   isFetching: false,
   isSaved: true,
   isDeleted: true,
+  forms: forms,
 }
 
 const data = ( state = dataInit, action ) => {
@@ -38,5 +42,14 @@ const data = ( state = dataInit, action ) => {
   }
 
 };
+
+// Factory function to handle possible DNE of window data vars:
+function getWindowData( dataObj ) {
+  if ( window[dataObj] ) {
+    return window[dataObj]
+  }
+  return {}
+}
+
 
 export default data;

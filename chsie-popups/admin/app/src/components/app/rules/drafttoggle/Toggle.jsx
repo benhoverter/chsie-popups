@@ -1,9 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 import styled from 'styled-components';
 
-import { updateField } from 'store/actions';
 
 const StyledLabel = styled.label`
   position: relative;

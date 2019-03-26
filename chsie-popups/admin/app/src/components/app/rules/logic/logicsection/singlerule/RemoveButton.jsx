@@ -7,9 +7,11 @@ import { removeRule } from 'store/actions';
 
 
 const StyledButton = styled.button`
+  float: right;
   height: 20px;
   vertical-align: middle;
-  border  1px solid #d7d7d7;
+  margin-top: 8px;
+  border:  1px solid #d7d7d7;
   transition: 0.15s all ease-out;
 
   &:hover, &:focus {

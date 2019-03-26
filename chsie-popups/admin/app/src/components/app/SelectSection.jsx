@@ -7,29 +7,33 @@ import Column from 'shared/Column';
 import NameSelect from './select/NameSelect';
 import SaveButton from './select/SaveButton';
 import NewButton from './select/NewButton';
-import DataMessage from './select/DataMessage';
 import DelButton from './select/DelButton';
 
 
 const StyledWrapper = styled.div`
   display: inline-block;
   vertical-align: top;
+  float: right;
+
+  @media screen and ( max-width: 1060px ) {
+    float: none;
+    margin: 15px 0 0 100px;
+  }
 `
 
 const SelectSection = ({ view, popups }) => (
   <React.Fragment>
-    <Column side="left">
+    <Column side="left" select="true">
       <NameSelect />
 
       <StyledWrapper>
-        <SaveButton />
         <NewButton />
-        <DataMessage />
       </StyledWrapper>
     </Column>
 
-    <Column side="right">
-        <DelButton />
+    <Column side="right"  select="true">
+      <SaveButton />
+      <DelButton />
     </Column>
   </React.Fragment>
 )

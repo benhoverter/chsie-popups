@@ -3,23 +3,20 @@
 /**
 * Does one thing well.
 *
-* @link       http://example.com
 * @since      1.0.0
 *
 * @package    chsie-popups
-* @subpackage chsie-popups/admin/module-ajax
+* @subpackage chsie-popups/admin/form-data-handler
 */
 
 /**
-* Does one thing well.
-*
-* Here's the description of how it does it.
+* Manages data fetching and updating for the admin app.
 *
 * @package    chsie-popups
-* @subpackage chsie-popups/admin/module-ajax
+* @subpackage chsie-popups/admin/form-data-handler
 * @author     Ben Hoverter <ben.hoverter@gmail.com>
 */
-class CHSIE_Popups_Admin_Module_Ajax {
+class CHSIE_Popups_Admin_Rest_API {
 
   /**
   * The ID of this plugin.
@@ -44,7 +41,7 @@ class CHSIE_Popups_Admin_Module_Ajax {
   *
   * @since    1.0.0
   * @access   public
-  * @var      associative array    $ajax_data    The data for admin AJAX functions.
+  * @var      array    $ajax_data    The data for admin AJAX functions.
   */
   public $ajax_data;
 
@@ -80,6 +77,33 @@ class CHSIE_Popups_Admin_Module_Ajax {
       $this->version = $version;
 
   }
+
+
+    // ***** PRE-CALL METHODS ***** //
+
+    /**
+    * Set data to be passed to the frontend.
+    *
+    * @since    1.0.0
+    */
+    public function set_cp_data() {
+
+        // Frontend data:
+        wp_localize_script(
+
+            $this->plugin_title . '-admin-js',
+
+            'cp_data',
+
+            array(
+                'site_url' => site_url(),
+            )
+
+        );
+
+        // Add'l calls to wp_localize_script() for add'l data sets go here:
+
+    }
 
 
   // ***** REST API ENDPOINT ***** //
@@ -144,31 +168,5 @@ class CHSIE_Popups_Admin_Module_Ajax {
     return $updated;
   }
 
-
-  // ***** PRE-CALL METHODS ***** //
-
-  /**
-  * Set data to be passed to the frontend.
-  *
-  * @since    1.0.0
-  */
-  public function set_cp_data() {
-
-      // Frontend data:
-      wp_localize_script(
-
-          $this->plugin_title . '-admin-js',
-
-          'cp_data',
-
-          array(
-              'site_url' => site_url(),
-          )
-
-      );
-
-      // Add'l calls to wp_localize_script() for add'l data sets go here:
-
-  }
 
 }

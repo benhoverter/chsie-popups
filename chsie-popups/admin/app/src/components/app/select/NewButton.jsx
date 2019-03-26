@@ -24,6 +24,7 @@ const NewButton= ( { view, visibility, popups, saved, handleClick } ) => {
 
   return (
       <Button
+        margin="0"
         disabled={ view.popup.name === "" }
         onClick={ (e) => handleClick( e, saved, visibility, nextId ) }
       >

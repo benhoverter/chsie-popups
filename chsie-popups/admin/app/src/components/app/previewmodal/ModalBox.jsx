@@ -53,12 +53,17 @@ const getPositionCSS = position => {
 const StyledModal = styled.div`
   position: absolute;
   z-index: 999;
+  margin: 32px 0 0 160px;
   padding: 28px 20px;
   text-align: left;
   border-radius: 3px;
   background-color: ${ props => props.backgroundColor };
   border: ${props => props.border};
   ${ props => getPositionCSS( props.position) }
+
+  @media screen and ( max-width: 960px ) {
+    margin-left: 34px;
+  }
 `
 
 const StyledTitle = styled.h3`

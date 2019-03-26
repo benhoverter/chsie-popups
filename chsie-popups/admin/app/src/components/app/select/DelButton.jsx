@@ -10,6 +10,7 @@ const DelButton = ({ view, visibility, popups, handleClick }) => (
 
   <Button
     float="right"
+    margin="0"
     disabled={ view.saved === true && view.id === null }
     onClick={ (e) => handleClick( e, view.id, visibility, popups, view.popup.name ) }
   >

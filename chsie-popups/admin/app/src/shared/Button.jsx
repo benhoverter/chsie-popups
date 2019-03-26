@@ -4,7 +4,7 @@ import styled, {css} from 'styled-components'
 const Button = styled.button`
   display: inline-block;
   height: 28px;
-  margin-left: 20px;
+  margin: ${ props => props.margin || '0 20px 0 0' };
   border: 1px solid #c0c0c0;
   background-color: #f7f7f7;
   color: #00a0d2;

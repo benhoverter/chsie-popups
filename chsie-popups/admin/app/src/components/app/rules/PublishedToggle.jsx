@@ -23,8 +23,8 @@ const StyledPublishedToggle = styled.div`
 
 const StyledNotice = styled.span`
   color: ${ props => props.published ? 'green' : '#666' }
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 500;
 `
 
 
@@ -32,7 +32,7 @@ const StyledNotice = styled.span`
 const PublishedToggle = ({ view, handleChange, handleClick }) => {
 
   const value = view.popup.published
-  const notice = value ? `Popup is live!` : `Just a draft.`
+  const notice = value ? `Live!` : `Draft`
 
   return (
 

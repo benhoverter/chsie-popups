@@ -11,6 +11,7 @@ const SaveButton = ({ view, saved = false, popups, handleClick }) => (
 
   <Button
     width="56px"
+    float="left"
     disabled={ saved === true  }
     onClick={ (e) => handleClick( e, view, popups ) }
   >
