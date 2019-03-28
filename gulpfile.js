@@ -51,7 +51,7 @@ const zipDest = 'C:/Users/benho/WordPress/dev/wp-content/plugins'
  }
 
 
- exports.default = series( clean, copy );
+ exports.default = series( clean, copy, zipPlugin );
 
  exports.clean = clean;
  exports.copy = copy;
@@ -61,6 +61,6 @@ const zipDest = 'C:/Users/benho/WordPress/dev/wp-content/plugins'
  // exports.php = php;
  // exports.favicons = favicons;
 
- const doAll = series( clean, copy, /* zipPlugin */ );
+ const doAll = series( clean, copy, zipPlugin  );
 
  // watch( activeFiles, doAll );
