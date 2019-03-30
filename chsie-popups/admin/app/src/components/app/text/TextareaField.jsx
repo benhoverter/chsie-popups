@@ -35,6 +35,7 @@ const StyledFieldWrapper = styled.div`
 const StyledTextarea = styled.textarea`
   padding: 4px 6px;
   width: 98%;
+  min-height: 8em;
   font-size: 13px;
   font-family: Tahoma, sans-serif;
   border: 1.5px solid #909090;

@@ -111,7 +111,7 @@ class CHSIE_Popups_Settings {
         * between the defined hooks and the functions defined in this
         * class.
         */
-        add_menu_page( $this->plugin_title, $this->plugin_title, 'manage_options', $this->plugin_slug . '_settings', array($this, 'chsie_popups_app') );
+        add_menu_page( $this->plugin_title, $this->plugin_title, 'manage_options', $this->plugin_slug . '_settings', array($this, 'chsie_popups_app'), 'dashicons-clipboard', 58 );
     }
 
 

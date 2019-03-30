@@ -12,6 +12,10 @@ const StyledWrapper = styled.div`
     display: block;
     color: ${props => props.color}
   }
+
+  button {
+    float: right;
+  }
 `
 
 const DummyForm = ({ color }) => (
@@ -26,6 +30,8 @@ const DummyForm = ({ color }) => (
 
     <p>Please leave a comment:</p>
     <label htmlFor="comment"><textarea /></label>
+
+    <button>Submit</button>
 
   </StyledWrapper>
 )

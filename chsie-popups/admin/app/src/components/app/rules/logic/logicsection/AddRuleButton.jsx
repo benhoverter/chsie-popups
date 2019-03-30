@@ -27,7 +27,8 @@ const StyledButton = styled.button`
 
 export const AddRuleButton = ({ text, label, popup, handleClick }) => {
 
-  const oldRules = popup.rules ? popup.rules[label] : [];
+  // const oldRules = popup.rules ? popup.rules[label] : [];
+  const oldRules = popup.rules ;
 
   const newRule = "|$***";
 
@@ -63,11 +64,21 @@ const mapState = ( state, ownProps ) => ({
 const mapDispatch = (dispatch) => ({
   handleClick: ( label, oldRules, newRule ) => {
 
-    const oldTarget = oldRules.length === 0  ? "" :  oldRules[oldRules.length - 1].slice(2);
-    const newTarget = newRule.slice(2);
+    // const oldTarget = oldRules.length === 0  ? "" :  oldRules[oldRules.length - 1].slice(2);
+    // const newTarget = newRule.slice(2);
+    let hasEmptyRule = false
 
-    if ( oldTarget === newTarget ) {
-      alert( "Please select a target for the last rule before adding another rule." );
+    for ( let name in oldRules ) {
+      oldRules[name].forEach( ( rule ) => {
+        if ( rule === "|$***" ) {
+          hasEmptyRule = true;
+        }
+      } )
+    }
+
+    // if ( oldTarget === newTarget ) {
+    if ( hasEmptyRule ) {
+      alert( "Please select a target for the empty rule before adding another rule." );
     } else {
       dispatch( addRule( label, newRule ) );
     }

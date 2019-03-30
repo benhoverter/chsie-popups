@@ -30,6 +30,7 @@ const RulesSection = ({ visibility, handleClick }) => {
       <SectionRow>
         <PublishedToggle />
         <Button
+          color="#e73cf3"
           margin="0"
           float="right"
           onClick={handleClick}
@@ -46,10 +47,6 @@ const RulesSection = ({ visibility, handleClick }) => {
             1,2,3,4,5 // Will get these from WP.
           ]}
           />
-      </SectionRow>
-
-      <SectionRow>
-        <SaveToUsermeta />
       </SectionRow>
 
       <SectionRow>

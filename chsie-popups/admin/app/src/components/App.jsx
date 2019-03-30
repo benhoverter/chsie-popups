@@ -20,6 +20,8 @@ import TestFetcher from './TestFetcher';
 
 const StyledApp = styled.div`
   box-sizing: border-box;
+  position: relative;
+  width: 100%;
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -49,6 +51,13 @@ export const App = () => {
     store.dispatch( fetchPopups() )
   })
 
+  const loggers =
+    <Row zIndex="-1">
+      <TestFetcher />
+      <StoreLogger />
+    </Row>
+
+
   return (
     <>
       <PreviewModal />
@@ -74,10 +83,7 @@ export const App = () => {
           </Column>
         </Row>
 
-        <Row zIndex="-1">
-          <TestFetcher />
-          <StoreLogger />
-        </Row>
+        { loggers }
 
       </StyledApp>
     </>

@@ -336,7 +336,9 @@ class CHSIE_Popups {
         $this->loader->add_action( 'wp_enqueue_scripts', $forms_ajax, 'popup_config_to_frontend' );
 
         // AJAX hooks go here:
-        // $this->loader->add_action( 'wp_ajax_{action_name}', $forms_ajax, 'module_ajax_callback' );
+        $this->loader->add_action( 'wp_ajax_save_no_show_to_db', $forms_ajax, 'save_no_show_to_db' );
+        // $this->loader->add_action( 'wp_ajax_delete_from_no_show_in_db', $forms_ajax, 'delete_from_no_show_in_db' );
+
 
     }
 

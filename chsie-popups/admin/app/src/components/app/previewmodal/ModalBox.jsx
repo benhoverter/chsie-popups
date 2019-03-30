@@ -7,42 +7,52 @@ import styled, {css} from 'styled-components'
 
 import DummyForm from './DummyForm'
 
+import { setVisibility } from 'store/actions'
+
 
 const getPositionCSS = position => {
   switch ( position ) {
     case 'top':
       return css`
-        top: 0;
+        top: 32px;
         width: 50%;
+        left: calc(50% + 80px);
+        transform: translateX(-50%);
       `
 
     case 'bottom':
       return css`
         bottom: 0;
         width: 50%;
+        left: calc(50% + 80px);
+        transform: translateX(-50%);
       `
 
     case 'left':
       return css`
-        left: 0;
-        top: 50%;
+        left: 160px;
+        top: calc(50% + 32px);
         transform: translateY( -50% );
         width: 50%;
+
+        @media screen and ( max-width: 960px ) {
+          left: 34px;
+        }
       `
 
     case 'right':
       return css`
         right: 0;
-        top: 50%;
+        top: calc(50% + 32px);
         transform: translateY( -50% );
         width: 50%;
       `
 
     case 'center':
       return css`
-        top: 50%;
-        left: 50%;
-        transform: translate( -50%, -50% );
+        top: calc(50% + 32px);
+        left: calc(50% + 80px);
+        transform: translate(-50%, -50%);
         width: 50%;
       `
 
@@ -53,7 +63,6 @@ const getPositionCSS = position => {
 const StyledModal = styled.div`
   position: absolute;
   z-index: 999;
-  margin: 32px 0 0 160px;
   padding: 28px 20px;
   text-align: left;
   border-radius: 3px;
@@ -61,8 +70,18 @@ const StyledModal = styled.div`
   border: ${props => props.border};
   ${ props => getPositionCSS( props.position) }
 
-  @media screen and ( max-width: 960px ) {
-    margin-left: 34px;
+`
+
+const StyledCloser = styled.a`
+  position: absolute;
+  top: -7px;
+  right: -7px;
+
+  &::before {
+    font-family: ETModules;
+    font-size: 32px;
+    content: "\e051";
+    color: #85754d;
   }
 `
 
@@ -78,18 +97,44 @@ const StyledDescription = styled.p`
 
 `
 
+const StyledNoShow = styled.div`
+  position: relative;
+  bottom: 0;
+  background-color: #e7e7e7;
+  color: black;
+  text-align: center;
+  padding: 5px;
+  margin-top: 26px;
+`
+const StyledLabel = styled.label`
+  font-size: 13px;
+  font-weight: 500;
+`
 
-const ModalBox = ({ show, popup }) => {
+const StyledCheckbox = styled.input`
+  margin: 0px 0px 0 13px;
+  vertical-align: middle;
+`
+
+
+
+const ModalBox = ({ show, popup, handleClick }) => {
 
   const border = `${popup.borderWidth} ${popup.borderStyle} ${popup.borderColor} `
 
 
-
   return(
     <StyledModal border={ border } backgroundColor={popup.backgroundColor} position={popup.position} >
+      <StyledCloser href="#0" onClick={ handleClick }/>
       <StyledTitle color={popup.titleColor}>{popup.title}</StyledTitle>
       <StyledDescription color={popup.descriptionColor}>{popup.description}</StyledDescription>
       <DummyForm color={popup.bodyColor}/>
+      <StyledNoShow>
+        <StyledLabel>
+          Don't show this again:
+          <StyledCheckbox type="checkbox" />
+        </StyledLabel>
+      </StyledNoShow>
     </StyledModal>
   )
 }
@@ -107,6 +152,12 @@ const mapState = (state, ownProps) => ({
 
 })
 
+const mapDispatch = dispatch => ({
+  handleClick: () => dispatch( setVisibility({
+    'Preview': 'CLOSED',
+  }) )
+})
 
 
-export default connect( mapState, null )( ModalBox )
+
+export default connect( mapState, mapDispatch )( ModalBox )

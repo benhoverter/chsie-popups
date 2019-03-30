@@ -111,11 +111,11 @@ class CHSIE_Popups_Public_Forms_Ajax {
 
             $this->plugin_title . '-public-js',
 
-            'cp_config',
+            'chsiePopups',
 
             array(
                 'ajax_url' => admin_url( 'admin-ajax.php' ),
-                'forms_ajax_data_nonce' => wp_create_nonce( 'cp_forms_ajax_data_nonce' ),
+                'chsie_popups_nonce' => wp_create_nonce( 'chsie_popups_nonce' ),
                 'popups' => get_option( 'chsie_popups' ),
             )
 
@@ -127,6 +127,79 @@ class CHSIE_Popups_Public_Forms_Ajax {
 
 
     // ***** POST-CALL METHODS ***** //
+
+
+    /**
+    * AJAX callback called on wp_ajax_save_no_show_to_db hook, from popup.
+    *
+    * @since    1.0.0
+    */
+    public function save_no_show_to_db() { // For action 'save_no_show_to_db'
+      $popup_id = ($_POST['popup_id']) ?? -1 ;
+
+      check_ajax_referer( 'chsie_popups_nonce', 'chsie_popups_nonce' ); // OK?
+
+      // Initialize the default response:
+      $response = array(
+        'message' => "chsie_popups_no_show not updated.",
+        'no_show' => [],
+      );
+
+      $user_id = wp_get_current_user()->ID;
+      $maybe_array = get_user_meta( $user_id, 'chsie_popups_no_show', true ) ; // Returns empty string on DNE.
+      $no_show = !is_string( $maybe_array ) ? $maybe_array : array() ;
+
+      if ( !in_array( $popup_id, $no_show ) ) {
+        $no_show[] = $popup_id;
+
+        $response['message'] = update_user_meta( $user_id, 'chsie_popups_no_show', $no_show )
+        ? "chsie_popups_no_show updated to include popup #$popup_id."
+        : "chsie_popups_no_show not updated.";
+      }
+
+      $response['no_show'] = get_user_meta( $user_id, 'chsie_popups_no_show', true );
+
+      echo( json_encode( $response ) ) ;
+      wp_die();
+
+    }
+
+
+    /**
+    * AJAX callback called on wp_ajax_delete_from_no_show_in_db hook, from popup.
+    *
+    * @since    1.0.0
+    */
+    public function delete_from_no_show_in_db() { // For action 'delete_from_no_show_in_db'
+      $popup_id = ($_POST['popup_id']) ?? -1 ;
+
+      check_ajax_referer( 'chsie_popups_nonce', 'chsie_popups_nonce' ); // OK?
+
+      // Initialize the default response:
+      $response = array(
+        'message' => "chsie_popups_no_show not updated.",
+        'no_show' => [],
+      );
+
+      $user_id = wp_get_current_user()->ID;
+      $maybe_array = get_user_meta( $user_id, 'chsie_popups_no_show', true ) ; // Returns empty string on DNE.
+      $no_show = !is_string( $maybe_array ) ? $maybe_array : array() ;
+
+      if ( !in_array( $popup_id, $no_show ) ) {
+        $no_show[] = $popup_id;
+
+        $response['message'] = update_user_meta( $user_id, 'chsie_popups_no_show', $no_show )
+        ? "chsie_popups_no_show updated to include popup #$popup_id."
+        : "chsie_popups_no_show not updated.";
+      }
+
+      $response['no_show'] = get_user_meta( $user_id, 'chsie_popups_no_show', true );
+
+      echo( json_encode( $response ) ) ;
+      wp_die();
+
+    }
+
 
     /**
     * AJAX callback function to bind to wp_ajax_{action_name} hook.

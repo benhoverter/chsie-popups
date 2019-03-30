@@ -9,6 +9,7 @@ import { deletePopup } from 'store/actions';
 const DelButton = ({ view, visibility, popups, handleClick }) => (
 
   <Button
+    color="#c50606"
     float="right"
     margin="0"
     disabled={ view.saved === true && view.id === null }

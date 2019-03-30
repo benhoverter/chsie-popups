@@ -10,6 +10,7 @@ import { savePopup } from 'store/actions';
 const SaveButton = ({ view, saved = false, popups, handleClick }) => (
 
   <Button
+    color="green"
     width="56px"
     float="left"
     disabled={ saved === true  }

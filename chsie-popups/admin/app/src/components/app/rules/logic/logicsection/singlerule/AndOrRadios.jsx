@@ -30,7 +30,7 @@ export const AndOrRadios = ({ label, value = "|", index, handleChange }) => {
         <input
           type="radio"
           value="|"
-          name={ "and-or-" + index }
+          name={ label + "-and-or-" + index }
           checked={ value === "|" }
           onChange={ (e) => handleChange( e, label, index ) }
           />
@@ -41,7 +41,7 @@ export const AndOrRadios = ({ label, value = "|", index, handleChange }) => {
         <input
           type="radio"
           value="&"
-          name={ "and-or-" + index }
+          name={ label + "-and-or-" + index }
           checked={ value === "&" }
           onChange={ (e) => handleChange( e, label, index ) }
           />

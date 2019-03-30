@@ -7,13 +7,13 @@ const Button = styled.button`
   margin: ${ props => props.margin || '0 20px 0 0' };
   border: 1px solid #c0c0c0;
   background-color: #f7f7f7;
-  color: #00a0d2;
+  color: ${ props => props.color || '#00a0d2' };
   font-weight: 600;
   transition: 0.15s ease-out;
 
   &:hover, &:focus {
     border: 1px solid #fff;
-    background-color: #00a0d2;
+    background-color: ${ props => props.color || '#00a0d2' };
     color: #fff;
   }
 
