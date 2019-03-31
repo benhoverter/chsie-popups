@@ -108,7 +108,10 @@ class CHSIE_Popups_Admin_Form_Data_Handler {
       'chsieFormData',
 
       array(
-        'forms' => json_encode( $forms ),
+        'forms'       => json_encode( $forms ),
+        'categories'  => $this->get_all_categories(),
+        'tags'        => $this->get_all_tags(),
+        'post_types'  => array_values( get_post_types() ),
       )
 
     );
@@ -116,6 +119,43 @@ class CHSIE_Popups_Admin_Form_Data_Handler {
     // Add'l calls to wp_localize_script() for add'l data sets go here:
 
   }
+
+
+  /**
+  * Get the tags of the current page.
+  *
+  * @since    1.0.0
+  * @param      int       $post_id       The current post ID.
+  * @return     mixed     String on success, Bool( false ) on failure.
+  */
+  private function get_all_categories() {
+
+    // Get a list of tags and extract their names
+    $cats = get_categories();
+    if ( ! empty( $cats ) && ! is_wp_error( $cats ) ) {
+      return wp_list_pluck( $cats, 'name' );
+    }
+    return false;
+  }
+
+
+  /**
+  * Get the tags of the current page.
+  *
+  * @since    1.0.0
+  * @param      int       $post_id       The current post ID.
+  * @return     mixed     String on success, Bool( false ) on failure.
+  */
+  private function get_all_tags() {
+
+    // Get a list of tags and extract their names
+    $tags = get_tags();
+    if ( ! empty( $tags ) && ! is_wp_error( $tags ) ) {
+      return wp_list_pluck( $tags, 'name' );
+    }
+    return false;
+  }
+
 
 
 }

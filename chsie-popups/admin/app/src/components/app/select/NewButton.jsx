@@ -9,24 +9,24 @@ import { newPopup, setData } from 'store/actions';
 
 const NewButton= ( { view, visibility, popups, saved, handleClick } ) => {
 
-  const getNextId = ( popups ) => {
-    const keys = Object.keys( popups ) // empty array to start.
-
-    if (keys.length === 0) {
-      return 0;
-    }
-    const numkeys = keys.map( key => Number(key) );
-    return Math.max( ...numkeys ) + 1;
-  }
-
-  const nextId = getNextId( popups );
+  // const getNextId = ( popups ) => {
+  //   const keys = Object.keys( popups ) // empty array to start.
+  //
+  //   if (keys.length === 0) {
+  //     return 0;
+  //   }
+  //   const numkeys = keys.map( key => Number(key) );
+  //   return Math.max( ...numkeys ) + 1;
+  // }
+  //
+  // const nextId = getNextId( popups );
 
 
   return (
       <Button
         margin="0"
         disabled={ view.popup.name === "" }
-        onClick={ (e) => handleClick( e, saved, visibility, nextId ) }
+        onClick={ (e) => handleClick( e, saved, visibility /*, nextId */ ) }
       >
         Add a New Popup
       </Button>
@@ -54,7 +54,7 @@ const mapState = ( state ) => ({
 
 
 const mapDispatch = ( dispatch ) => ({
-  handleClick: ( e, saved, visibility, nextId ) => {
+  handleClick: ( e, saved, visibility /*, nextId */ ) => {
     e.target.blur();
     const toFocus = document.getElementById( "popup-name" );
     if ( toFocus !== null ) {
@@ -62,7 +62,7 @@ const mapDispatch = ( dispatch ) => ({
     }
 
     if ( saved || window.confirm( "Your current popup is not saved.  Add a new popup anyway?" ) ) {
-        dispatch( newPopup( visibility, nextId ) );
+        dispatch( newPopup( visibility /* , nextId */ ) );
         dispatch( setData({ isSaved: false }) );
     }
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 import styled from 'styled-components';
 
@@ -50,13 +51,15 @@ const StyledSingleRules = styled.div`
   }
 `;
 
-export const LogicSection = ({ heading, label, rules=[], allRules }) => {
+const LogicSection = ({ heading, label, rules, allRules, data }) => {
 
-  const dummyOptions = [
-    "hrsa",
-    "nwhfc",
-    "learndash"
-  ];
+  // const dummyOptions = [
+  //   "hrsa",
+  //   "nwhfc",
+  //   "learndash"
+  // ];
+
+  const getOptions = label => ( data[label] )
 
   const detectError = ( rules ) => { // Empty array to start.
     // console.log( "rules is ", rules );
@@ -123,7 +126,7 @@ export const LogicSection = ({ heading, label, rules=[], allRules }) => {
         index={ index }
         rule={ rule }
         isFirst={ isFirst }
-        options={ dummyOptions }
+        options={ getOptions( label ) }
       />
     );
 
@@ -166,3 +169,14 @@ LogicSection.propTypes = {
   allRules: PropTypes.object.isRequired,
 }
 //////////////////////////////////////////
+
+
+const mapState = (state, ownProps) => ({
+  heading: ownProps.heading,
+  label: ownProps.label,
+  rules: ownProps.rules,
+  allRules: ownProps.allRules,
+  data: state.data,
+})
+
+export default connect( mapState, null )( LogicSection )

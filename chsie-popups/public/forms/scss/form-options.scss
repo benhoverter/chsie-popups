@@ -1,0 +1,63 @@
+/**
+ * SCSS for: public/element/view-name.php.
+ *
+ * Separate Sass files for each view.
+ * Break up Sass by view component if it's complex.
+ *
+ */
+
+.frm_forms.frm_style_formidable-style.with_frm_style {
+  position: fixed !important;
+  z-index: 999;
+  padding: 20px;
+
+  .frm_submit {
+    text-align: center;
+  }
+}
+
+.chsie-popups-position-top {
+  top: 165px;
+  width: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.chsie-popups-position-bottom {
+  bottom: 30px;
+  width: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.chsie-popups-position-left {
+  left: 0;
+  top: 50%;
+  transform: translateY( -50% );
+  width: 50%;
+}
+
+.chsie-popups-position-right {
+  right: 0;
+  top: 50%;
+  transform: translateY( -50% );
+  width: 50%;
+}
+
+.chsie-popups-position-center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+}
+
+.chsie-popups-title {
+  font-weight: 600;
+  padding: 0 0 20px;
+  margin: 0;
+}
+
+.chsie-popups-description {
+  padding: 0 0 20px !important;
+  margin: 0;
+}

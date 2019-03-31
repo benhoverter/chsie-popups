@@ -48,16 +48,16 @@ const handleTransition = ( dispatch, doAction, visibility ) => {
 };
 
 
-const addPopup = ( nextId ) => ({ // Called in newPopup, not dispatched by component.
+const addPopup = ( /* nextId */ ) => ({ // Called in newPopup, not dispatched by component.
   type: types.ADD_POPUP,
-  nextId
+  // nextId
 });
 
-const newPopup = ( visibility, nextId  ) => { // Called by NewButton.  Main action.  Thunk.
+const newPopup = ( visibility /*, nextId */ ) => { // Called by NewButton.  Main action.  Thunk.
   return ( dispatch ) => {
 
     const doNewPopup = () => {
-      dispatch( addPopup( nextId ) );
+      dispatch( addPopup( /* nextId */ ) );
       dispatch( setVisibility({ // Old sections are closed.  Open new sections.
         DataMessage: 'CLOSED',
         TextSection: 'OPENING',

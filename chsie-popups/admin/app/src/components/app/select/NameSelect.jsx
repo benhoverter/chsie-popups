@@ -32,17 +32,14 @@ const StyledNameSelect = styled.select`
 
 const NameSelect = ({ view, visibility, popups, saved, handleChange }) => {
 
-  const selected = view.popup.name;
-
   const ids = Object.keys( popups );
   const options = ids.map( id => {
-    let optionId = Number(id) + 1;
 
     return (
       <option
-        key={ optionId }
-        thiskey={ optionId }
-        value={ popups[id].name }
+        key={ id }
+        thiskey={ id }
+        value={ id }
       >
         { popups[id].name }
       </option>
@@ -57,7 +54,7 @@ const NameSelect = ({ view, visibility, popups, saved, handleChange }) => {
       <StyledNameSelect
         id="NameSelect"
         disabled={ disabled }
-        value={ view.id === null ? "0" : selected }
+        value={ view.id === null ? "0" : view.id }
         onChange={ (e) => handleChange( e, visibility, popups, saved ) }
       >
         <option key="0" thiskey="0" value="0"  hidden={ !!options } >---------</option>
@@ -87,29 +84,12 @@ const mapState = ( state ) => ({
 });
 
 
-//  Dispatch helper  //
-const getIdByIndex = ( target, selectedIndex ) => {
-  const index = target.options.selectedIndex;
-  // console.log("index is ", index );
-
-  const strId = target.options[index].getAttribute( 'thiskey' );
-  // console.log("strId is ", strId );
-
-  const popupId = strId === "0" ? null : Number( strId ) - 1;
-  // console.log("getIdByIndex returned a popupid of ", popupId); // Now returns null for initial "-------------" option, too!
-  return popupId;
-};
-
-
 const mapDispatch = ( dispatch ) => ({
   handleChange: ( e, visibility, popups, saved ) => {
     e.target.blur();
 
-    // const selectedIndex = getIndexFromTarget( e.target );
-    const id = getIdByIndex( e.target );
-
     if ( saved || window.confirm( "Popup is not saved.  Load selected popup anyway?" ) ) {
-      dispatch( getSelectedPopup( id, visibility, popups ) );
+      dispatch( getSelectedPopup( e.target.value, visibility, popups ) );
     }
   }
 });

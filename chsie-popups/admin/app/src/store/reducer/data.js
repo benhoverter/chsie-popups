@@ -2,12 +2,18 @@ import * as types from '../types';
 
 const windowData = getWindowData( 'chsieFormData' )
 const forms = windowData.forms ? JSON.parse(windowData.forms) : undefined
+const cats = windowData.categories ? windowData.categories : []
+const tags = windowData.tags ? windowData.tags : []
+const pts = windowData.post_types ? windowData.post_types : []
 
 const dataInit = {
   isFetching: false,
   isSaved: true,
   isDeleted: true,
   forms: forms,
+  categories: cats,
+  tags: tags,
+  postTypes: pts,
 }
 
 const data = ( state = dataInit, action ) => {

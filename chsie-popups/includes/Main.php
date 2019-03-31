@@ -313,14 +313,14 @@ class CHSIE_Popups {
 
         $forms = new CHSIE_Popups_Public_Forms( $this->get_plugin_title(), $this->get_version() );
 
-        // Standard hooks go here:
-        //$this->loader->add_action( 'add_meta_boxes{_post_type}', $module->element, 'render_metabox' );
-        //$this->loader->add_action( 'save_post{_post_type}', $module->element, 'save_metabox' );
+        // Data to frontend here with wp_localize_script():
+        $this->loader->add_action( 'wp_enqueue_scripts', $forms, 'popup_config_to_frontend' );
 
+        // Render the popup form:
         $this->loader->add_filter( 'the_content', $forms, 'render_form_before_content' );
 
-
     }
+
 
     /**
     * Register all of the hooks related to the admin module-ajax functionality.
@@ -332,13 +332,9 @@ class CHSIE_Popups {
 
         $forms_ajax = new CHSIE_Popups_Public_Forms_Ajax( $this->get_plugin_title(), $this->get_version() );
 
-        // Data to frontend here with wp_localize_script():
-        $this->loader->add_action( 'wp_enqueue_scripts', $forms_ajax, 'popup_config_to_frontend' );
 
         // AJAX hooks go here:
         $this->loader->add_action( 'wp_ajax_save_no_show_to_db', $forms_ajax, 'save_no_show_to_db' );
-        // $this->loader->add_action( 'wp_ajax_delete_from_no_show_in_db', $forms_ajax, 'delete_from_no_show_in_db' );
-
 
     }
 

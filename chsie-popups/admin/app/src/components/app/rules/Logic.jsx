@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 import styled from 'styled-components';
 
-import {LogicSection} from './logic/LogicSection';
+import LogicSection from './logic/LogicSection';
 
 const StyledWrapper = styled.div`
   h3 {
@@ -13,9 +13,9 @@ const StyledWrapper = styled.div`
 
 const Logic = ({ popup }) => {
 
-  const allRules = popup.rules ?
-    popup.rules :
-    { categories:[], tags:[], postTypes:[] };
+  const allRules = popup.rules
+    ? popup.rules
+    : { categories:[], tags:[], postTypes:[] }
 
 
   return (

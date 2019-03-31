@@ -99,33 +99,6 @@ class CHSIE_Popups_Public_Forms_Ajax {
     // }
 
 
-    /**
-    * Send data to be passed to the frontend.
-    *
-    * @since    1.0.0
-    */
-    public function popup_config_to_frontend() {
-
-        // Frontend data for data table:
-        wp_localize_script(
-
-            $this->plugin_title . '-public-js',
-
-            'chsiePopups',
-
-            array(
-                'ajax_url' => admin_url( 'admin-ajax.php' ),
-                'chsie_popups_nonce' => wp_create_nonce( 'chsie_popups_nonce' ),
-                'popups' => get_option( 'chsie_popups' ),
-            )
-
-        );
-
-        // Add'l calls to wp_localize_script() for add'l data sets go here:
-
-    }
-
-
     // ***** POST-CALL METHODS ***** //
 
 
@@ -135,15 +108,21 @@ class CHSIE_Popups_Public_Forms_Ajax {
     * @since    1.0.0
     */
     public function save_no_show_to_db() { // For action 'save_no_show_to_db'
-      $popup_id = ($_POST['popup_id']) ?? -1 ;
-
-      check_ajax_referer( 'chsie_popups_nonce', 'chsie_popups_nonce' ); // OK?
-
       // Initialize the default response:
       $response = array(
-        'message' => "chsie_popups_no_show not updated.",
+        'message' => "chsie_popups_no_show not updated by save_no_show_to_db().",
         'no_show' => [],
       );
+
+      $popup_id = ($_POST['popup_id']) ?? -1 ;
+
+      if ( $popup_id < 0 ) {
+        $response['message'] = "save_no_show_to_db did not receive a valid popup ID.";
+        echo( json_encode( $response ) ) ;
+        wp_die();
+      }
+
+      check_ajax_referer( 'chsie_popups_nonce', 'chsie_popups_nonce' ); // OK?
 
       $user_id = wp_get_current_user()->ID;
       $maybe_array = get_user_meta( $user_id, 'chsie_popups_no_show', true ) ; // Returns empty string on DNE.
@@ -154,7 +133,7 @@ class CHSIE_Popups_Public_Forms_Ajax {
 
         $response['message'] = update_user_meta( $user_id, 'chsie_popups_no_show', $no_show )
         ? "chsie_popups_no_show updated to include popup #$popup_id."
-        : "chsie_popups_no_show not updated.";
+        : "chsie_popups_no_show not updated by update_user_meta ( save ).";
       }
 
       $response['no_show'] = get_user_meta( $user_id, 'chsie_popups_no_show', true );
@@ -164,41 +143,6 @@ class CHSIE_Popups_Public_Forms_Ajax {
 
     }
 
-
-    /**
-    * AJAX callback called on wp_ajax_delete_from_no_show_in_db hook, from popup.
-    *
-    * @since    1.0.0
-    */
-    public function delete_from_no_show_in_db() { // For action 'delete_from_no_show_in_db'
-      $popup_id = ($_POST['popup_id']) ?? -1 ;
-
-      check_ajax_referer( 'chsie_popups_nonce', 'chsie_popups_nonce' ); // OK?
-
-      // Initialize the default response:
-      $response = array(
-        'message' => "chsie_popups_no_show not updated.",
-        'no_show' => [],
-      );
-
-      $user_id = wp_get_current_user()->ID;
-      $maybe_array = get_user_meta( $user_id, 'chsie_popups_no_show', true ) ; // Returns empty string on DNE.
-      $no_show = !is_string( $maybe_array ) ? $maybe_array : array() ;
-
-      if ( !in_array( $popup_id, $no_show ) ) {
-        $no_show[] = $popup_id;
-
-        $response['message'] = update_user_meta( $user_id, 'chsie_popups_no_show', $no_show )
-        ? "chsie_popups_no_show updated to include popup #$popup_id."
-        : "chsie_popups_no_show not updated.";
-      }
-
-      $response['no_show'] = get_user_meta( $user_id, 'chsie_popups_no_show', true );
-
-      echo( json_encode( $response ) ) ;
-      wp_die();
-
-    }
 
 
     /**

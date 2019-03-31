@@ -1,3 +1,4 @@
+import uuid from 'uuid/v4';
 import * as types from '../types';
 
 const viewInit = {
@@ -33,7 +34,10 @@ const view = ( state = viewInit, action ) => {
     case types.ADD_POPUP:
       return {
         ...state,
-        id: action.nextId,
+        // id: action.nextId,
+
+        id: uuid(), // Use uuid.
+
         popup: newPopup
       };
 
