@@ -78,6 +78,46 @@ class CHSIE_Popups_Public_Forms {
 
 
   /**
+  * The popups to show on the frontend.
+  *
+  * @since    1.0.0
+  * @access   private
+  * @var      array    $popups_to_show    The popups to show on the frontend.
+  */
+  private $popups_to_show;
+
+
+  /**
+  * The categories of the current post.
+  *
+  * @since    1.0.0
+  * @access   private
+  * @var      array    $post_categories    The categories of the current post.
+  */
+  private $post_categories;
+
+
+  /**
+  * The tags of the current post.
+  *
+  * @since    1.0.0
+  * @access   private
+  * @var      array    $post_tags    The tags of the current post.
+  */
+  private $post_tags;
+
+
+  /**
+  * The post type for the current post.
+  *
+  * @since    1.0.0
+  * @access   private
+  * @var      string    $post_type    The post type for the current post.
+  */
+  private $post_type;
+
+
+  /**
   * Initialize the class and set its properties.
   *
   * @since    1.0.0
@@ -92,6 +132,28 @@ class CHSIE_Popups_Public_Forms {
   }
 
 
+
+  /**
+  * Send data to be passed to the frontend.
+  *
+  * @since    1.0.0
+  */
+  public function set_popup_properties() {
+
+    $this->set_the_post_id(); // Move this to the wrapper function.
+    $this->set_post_cats();
+    $this->set_post_tags();
+    $this->post_type = get_post_type( $this->post_id );
+
+    $this->set_live_popups();
+    $this->set_no_show();
+    $this->set_showable();
+    $this->set_popups_to_show();
+
+    // var_dump("set_popup_properties DONE.") ;
+  }
+
+
   /**
   * Send data to be passed to the frontend.
   *
@@ -99,11 +161,7 @@ class CHSIE_Popups_Public_Forms {
   */
   public function popup_config_to_frontend() {
 
-    $this->set_the_post_id(); // Move this to the wrapper function.
-    $this->set_live_popups();
-    $this->set_no_show();
-    $this->set_showable( $this->live_popups, $this->no_show );
-
+    $this->set_popup_properties();
 
     // Frontend data for data table:
     wp_localize_script(
@@ -113,25 +171,25 @@ class CHSIE_Popups_Public_Forms {
       'chsiePopups',
 
       array(
-        'rulestring' =>         $this->get_rulestring( 'cats', 'dogs' ),
+        'to_show' =>            $this->popups_to_show,
         'post_id' =>            $this->post_id,
         'ajax_url' =>           admin_url( 'admin-ajax.php' ),
         'chsie_popups_nonce' => wp_create_nonce( 'chsie_popups_nonce' ),
-        'categories' =>         $this->get_all_categories(),
-        'tags' =>               $this->get_all_tags(),
-        'post_types' =>         array_values( get_post_types() ),
+        // 'categories' =>         $this->get_all_categories(),
+        // 'tags' =>               $this->get_all_tags(),
+        // 'post_types' =>         array_values( get_post_types() ),
         // 'live_popups' =>        $this->live_popups, // array
         // 'no_show' =>            $this->no_show,  // array of ids
-        'showable' =>           $this->showable,
-        'popups' =>             get_option( 'chsie_popups' ), // object keyed by uuid
-        'post_categories' =>    $this->get_page_cats( $this->post_id ),
-        'post_tags' =>          $this->get_page_tags( $this->post_id ),
-        'post_type' =>          get_post_type( $this->post_id ),
+        // 'showable' =>           $this->showable,
+        // 'popups' =>             get_option( 'chsie_popups' ), // object keyed by uuid
+        // 'post_categories' =>    $this->post_categories,
+        // 'post_tags' =>          $this->post_tags,
+        // 'post_type' =>          $this->post_type, // get_rulestring() uses taxonomy arrays--force before input.
       )
 
     );
 
-    // Add'l calls to wp_localize_script() for add'l data sets go here:
+    // var_dump("popup_config_to_frontend DONE.") ;
 
   }
 
@@ -143,9 +201,20 @@ class CHSIE_Popups_Public_Forms {
   */
   public function render_form_before_content( $content ) {
 
-    $form_sc = do_shortcode( ' [formidable id=2] ' ); // Testing, testing...
+    // $this->set_popup_properties();
+    $to_show = $this->popups_to_show;
 
-    return $form_sc . $content;
+    if( empty( $to_show ) ) {
+      // return "To_show not set." . $content; // FOR ERROR.
+      return $content;
+    }
+
+    // Only show the first popup in $to_show:
+    $form_id = $to_show[array_keys($to_show)[0]]['formId'];
+
+    $shortcode = do_shortcode( ' [formidable id=' . $form_id . '] ' );
+
+    return $shortcode . $content;
 
   }
 
@@ -194,7 +263,9 @@ class CHSIE_Popups_Public_Forms {
   *
   * @since    1.0.0
   */
-  private function set_showable( $live_popups, $no_show ) {
+  private function set_showable() {
+    $live_popups = $this->live_popups;
+    $no_show = $this->no_show;
     $showable = array();
 
     if( !$live_popups ) {
@@ -219,22 +290,57 @@ class CHSIE_Popups_Public_Forms {
   * @return   string  The rulestring for that taxonomy,
   *                   to be concat'ed with the others from that popup.
   */
-  // private function do_rules() {
-  //   $showable = $this->showable;
-  //
-  //   foreach( $showable as $id => $popup ) {
-  //
-  //     $rules = $popup['rules'];
-  //     foreach( $rules as $taxonomy => $rule_array ) { // [ '|$hrsa', '&!nwhfc' ]
-  //
-  //       if( !empty( $rule_array ) ) {
-  //         $rulestring = $this->get_rulestring( $taxonomy, $rule_array ); // '|| $category === "hrsa" && $category !== "nwhfc" '
-  //
-  //       }
-  //     }
-  //   }
-  //
-  // }
+  private function set_popups_to_show() {
+    $showable = $this->showable;
+    $to_show = array(); // The final array of popups.
+
+    // var_dump( $showable );
+    foreach( $showable as $id => $popup ) {
+
+      $rules = $popup['rules'];
+      // var_dump( $rules );
+
+      foreach( $rules as $taxonomy => $rule_array ) { // 'categories' => [ '|$hrsa', '&!nwhfc' ]
+        // var_dump( $rule_array );
+
+        if( !empty( $rule_array ) ) {
+          $rulestring = $this->get_rulestring( $taxonomy, $rule_array );
+          // var_dump( $rulestring );
+
+          $conditional .= $rulestring;
+        }
+      }
+
+      // Add $popup to $to_show if it passes the conditional:
+      $conditional = substr( $conditional, 3 ); // Trim the initial || operator.
+
+      $conditional = 'return ' . $conditional .';';
+
+      // Get the arrays to be assessed in the conditional:
+      $categories = $this->post_categories;
+      $tags = $this->post_tags;
+      $post_type = array( $this->post_type );
+
+      // var_dump( $categories );
+      // Evaluate the conditional for this popup:
+      try {
+
+        if( eval( $conditional ) ) {
+          $to_show[$id] = $popup;
+        }
+
+      } catch ( Throwable $t ) {
+        $to_show[] = $t;
+      }
+
+      // var_dump( $conditional );
+      // var_dump( eval( $conditional ) );
+      // var_dump( $to_show );
+      // $to_show[] = $conditional; // Just to check the conditional string!
+    }
+
+    $this->popups_to_show = $to_show;
+  }
 
 
   /**
@@ -248,40 +354,29 @@ class CHSIE_Popups_Public_Forms {
   private function get_rulestring( $taxonomy, $rule_array ) {
     $string = '';
 
-    //TESTING:
-    $taxonomy = 'postTypes';
+    $tax_singular = ( $taxonomy === 'postTypes' ) ? 'post_type' : $taxonomy; // post_type needs to be an array(1).
 
-    $tax_singular = '';
-    switch( $taxonomy ) {
-      case 'categories':
-        $tax_singular = 'category';
-        break;
-
-      case 'tags':
-        $tax_singular = 'tag';
-        break;
-
-      case 'postTypes':
-        $tax_singular = 'post_type';
-        break;
-    }
-
-    //TESTING:
-    $rule_array = $this->showable['4eadd420-9049-4357-943f-cf254ea87ea9']['rules'][$taxonomy];
-
-    // Pattern: '&& $taxonomy === "hrsa"'
     foreach( $rule_array as $rule ) {
 
-      $string .= $rule[0] . $rule[0] . " $$tax_singular "; // Gives '$category' ?
-      $string .= ( $rule[1] === '$' ) ? '===' : '!==';
-      $string .= " '" . substr( $rule, 2 ) . "' ";
+      // $string .= $rule[0] . $rule[0] . " $$tax_singular "; // Gives '$category' ?
+      // $string .= ( $rule[1] === '$' ) ? '===' : '!==';
+      // $string .= " '" . substr( $rule, 2 ) . "' ";
+
+      //NEW hotness:
+      // "|| in_array( 'test2', $categories ) && !in_array( 'test1', $categories ) "
+      $string .= $rule[0] . $rule[0] . ' ';
+      $string .= $rule[1] === '!' ? '!' : '';
+      $string .= "in_array( '" . substr( $rule, 2 ) . "', $$tax_singular ) ";
+
+      // $string .= 'in_array( \'' . substr( $rule, 2 ) . '\', \$' . $tax_singular . ' ) ';
 
     }
+
+    // TESTING:
+    // return " 1==1 ";
 
     return $string;
   }
-
-
 
 
   /**
@@ -301,14 +396,15 @@ class CHSIE_Popups_Public_Forms {
   * @param      int       $post_id       The current post ID.
   * @return     mixed     String on success, Bool( false ) on failure.
   */
-  public function get_page_cats( $post_id ) {
+  public function set_post_cats() {
 
     // Get a list of categories and extract their names
-    $post_categories = get_the_terms( $post_id, 'category' );
+    $post_categories = get_the_terms( $this->post_id, 'category' );
     if ( ! empty( $post_categories ) && ! is_wp_error( $post_categories ) ) {
-      return wp_list_pluck( $post_categories, 'name' );
+      $this->post_categories = wp_list_pluck( $post_categories, 'name' );
+    } else {
+      $this->post_categories = 'set_post_cats ERROR';
     }
-    return false;
   }
 
 
@@ -319,14 +415,15 @@ class CHSIE_Popups_Public_Forms {
   * @param      int       $post_id       The current post ID.
   * @return     mixed     String on success, Bool( false ) on failure.
   */
-  public function get_page_tags( $post_id ) {
+  public function set_post_tags() {
 
     // Get a list of tags and extract their names
-    $post_tags = get_the_terms( $post_id, 'post_tag' );
+    $post_tags = get_the_terms( $this->post_id, 'post_tag' );
     if ( ! empty( $post_tags ) && ! is_wp_error( $post_tags ) ) {
-      return wp_list_pluck( $post_tags, 'name' );
+      $this->post_tags = wp_list_pluck( $post_tags, 'name' );
+    } else {
+      $this->post_tags = 'set_post_tags ERROR';
     }
-    return false;
   }
 
 

@@ -10,7 +10,7 @@ const StyledButton = styled.button`
   float: right;
   height: 20px;
   vertical-align: middle;
-  margin-top: 8px;
+  margin-top: 13px;
   border:  1px solid #d7d7d7;
   transition: 0.15s all ease-out;
 

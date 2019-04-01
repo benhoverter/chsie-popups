@@ -16,8 +16,17 @@ class TestFetcher extends Component {
     this.fetchData()
   }
 
+  getUrl() {
+    const baseURL = window.location.origin
+    const apiURL = baseURL.indexOf( 'localhost' ) > -1
+      ? baseURL + '/dev/wp-json/chsie_popups/v1/popups'
+      : baseURL + '/wp-json/chsie_popups/v1/popups'
+
+    return apiURL
+  }
+
   fetchData() {
-    fetch( 'http://localhost/dev/wp-json/chsie_popups/v1/popups' )
+    fetch( this.getUrl() )
       .then( response => response.json() )
       .then( json => {
         this.setState({ data: json, isLoading: false })

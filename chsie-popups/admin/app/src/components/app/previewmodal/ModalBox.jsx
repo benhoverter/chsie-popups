@@ -14,7 +14,7 @@ const getPositionCSS = position => {
   switch ( position ) {
     case 'top':
       return css`
-        top: 32px;
+        top: 52px;
         width: 50%;
         left: calc(50% + 80px);
         transform: translateX(-50%);
@@ -30,7 +30,7 @@ const getPositionCSS = position => {
 
     case 'left':
       return css`
-        left: 160px;
+        left: 180px;
         top: calc(50% + 32px);
         transform: translateY( -50% );
         width: 50%;
@@ -42,7 +42,7 @@ const getPositionCSS = position => {
 
     case 'right':
       return css`
-        right: 0;
+        right: 20px;
         top: calc(50% + 32px);
         transform: translateY( -50% );
         width: 50%;
@@ -74,14 +74,33 @@ const StyledModal = styled.div`
 
 const StyledCloser = styled.a`
   position: absolute;
-  top: -7px;
-  right: -7px;
+  top: -12px;
+  right: -12px;
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.1s all ease-in-out;
 
   &::before {
+    position: absolute;
+    top: -1px;
+    left: -5px;
     font-family: ETModules;
     font-size: 32px;
-    content: "\e051";
+    content: '\\e051';
     color: #85754d;
+    border-radius: 50%;
+    transition: 0.1s all ease-in-out;
+  }
+
+  &:hover, &:focus {
+    background-color: #444444;
+
+    &::before {
+      color: #c7c7c7;
+    }
   }
 `
 

@@ -3,6 +3,12 @@ import * as types from './types';
 import store from '../store';
 
 
+const baseURL = window.location.origin
+const apiURL = baseURL.indexOf( 'localhost' ) > -1
+  ? baseURL + '/dev/wp-json/chsie_popups/v1/popups'
+  : baseURL + '/wp-json/chsie_popups/v1/popups'
+
+
 const setVisibility = ( targets ) => ({
   type: types.SET_VISIBILITY,
   targets           // An object of {targetComponent: "FADE | OPEN | OPENING | CLOSED | CLOSING"}
@@ -108,9 +114,8 @@ const updatePopups = ( json ) => ({
 
 const postData = ( data, verify ) => { // Called in savePopup and deletePopup. Main fetch() thunk.
   return (dispatch) => {
-    const url = 'http://localhost/dev/wp-json/chsie_popups/v1/popups'
 
-    fetch( url, {
+    fetch( apiURL, {
       method: 'POST',
       body: JSON.stringify( data ),
       headers: {
@@ -230,12 +235,11 @@ const fetchPopups = () => {
 
     dispatch( setData({ isFetching: true }) )
 
-    // TODO: Make this dynamic!
-
-    const url = 'http://localhost/dev/wp-json/chsie_popups/v1/popups'
-
-    fetch( url )
-    .then( res => res.json() )
+    fetch( apiURL )
+    .then( res => {
+      console.log("actions.js:241 res is", res);
+      return res.json()
+    } )
     .then( json => dispatch( verifyFetch( json ) ) )
   }
 }

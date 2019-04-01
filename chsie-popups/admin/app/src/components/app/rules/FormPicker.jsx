@@ -16,6 +16,7 @@ const StyledFormPicker = styled.div`
 
   select {
     text-align: left;
+    width: 100%;
     padding: 0 5px;
   }
 `;

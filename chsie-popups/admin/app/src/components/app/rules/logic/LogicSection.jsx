@@ -24,6 +24,7 @@ const StyledWrapper = styled.div`
 const StyledRotatedTitle = styled.div`
   position: relative;
   flex-grow: 0;
+  flex-shrink: 0;
   width: 40px;
   min-height: 100px;
   background: #444444;
@@ -44,6 +45,7 @@ const StyledRotatedTitle = styled.div`
 const StyledSingleRules = styled.div`
   position: relative;
   flex-grow: 1;
+  padding-bottom: 40px;
 
   label {
     font-size: 13px;

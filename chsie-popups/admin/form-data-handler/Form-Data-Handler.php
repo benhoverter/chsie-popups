@@ -122,7 +122,7 @@ class CHSIE_Popups_Admin_Form_Data_Handler {
 
 
   /**
-  * Get the tags of the current page.
+  * Get all categories available in WP.
   *
   * @since    1.0.0
   * @param      int       $post_id       The current post ID.
@@ -130,17 +130,22 @@ class CHSIE_Popups_Admin_Form_Data_Handler {
   */
   private function get_all_categories() {
 
-    // Get a list of tags and extract their names
-    $cats = get_categories();
+    // Get a list of categories and extract their names
+    $cats = get_categories( array(
+      'hide_empty' => false,
+    ) );
     if ( ! empty( $cats ) && ! is_wp_error( $cats ) ) {
-      return wp_list_pluck( $cats, 'name' );
+
+      // This is returning an ID-keyed associative array without array_values.
+      // No idea why.
+      return array_values( wp_list_pluck( $cats, 'name' ) );
     }
     return false;
   }
 
 
   /**
-  * Get the tags of the current page.
+  * Get all tags available in WP.
   *
   * @since    1.0.0
   * @param      int       $post_id       The current post ID.
@@ -149,9 +154,13 @@ class CHSIE_Popups_Admin_Form_Data_Handler {
   private function get_all_tags() {
 
     // Get a list of tags and extract their names
-    $tags = get_tags();
+    $tags = get_tags( array(
+      'hide_empty' => false,
+    ) );
     if ( ! empty( $tags ) && ! is_wp_error( $tags ) ) {
-      return wp_list_pluck( $tags, 'name' );
+
+      // array_values is a guard against the problem with get_all_categories().
+      return array_values( wp_list_pluck( $tags, 'name', NULL ) );
     }
     return false;
   }

@@ -9,11 +9,11 @@ import { updateRule } from 'store/actions';
 const StyledSelect = styled.select`
   display: inline-block;
   vertical-align: middle;
-  margin-left: 10px;
+  width: 100%;
 `;
 
 export const TargetSelector = ({ label, value = "", index, options, handleChange }) => {
-
+  console.log( "TargetSelector's options are", options );
   const optionList = options.map( ( option, i ) => (
     <option key={ i } value={ option } >
       {option}

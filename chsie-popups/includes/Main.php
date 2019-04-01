@@ -313,6 +313,9 @@ class CHSIE_Popups {
 
         $forms = new CHSIE_Popups_Public_Forms( $this->get_plugin_title(), $this->get_version() );
 
+        // Set all the properties of the popup to be displayed before they're accessed below:
+        // $this->loader->add_action( 'wp_loaded', $forms, 'set_popup_properties' );
+
         // Data to frontend here with wp_localize_script():
         $this->loader->add_action( 'wp_enqueue_scripts', $forms, 'popup_config_to_frontend' );
 

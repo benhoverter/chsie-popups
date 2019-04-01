@@ -11,49 +11,61 @@
 (function( $ ) {
 	'use strict';
 
-    $( document ).ready( function() {
-        console.log( "form-options.js loaded." );
+  $( document ).ready( function() {
+    console.log( "form-options.js loaded." );
 
-        const popup = window.chsiePopups.live_popups[0]; // Call differently when restructured.
-        const titleText = popup.title;
-        const descText = popup.description;
+    const toShow = window.chsiePopups.to_show;
+    // console.log("toShow:", toShow);
 
-        const $wrapper = $( '.frm_forms' );
-        const $form = $wrapper.find( 'form' );
+    if( Object.keys(toShow).length ) {
 
-        // Include the popup title and description for this form:
-        $form
-          .prepend( '<p class="chsie-popups-description"></p>' )
-          .prepend( '<h3 class="chsie-popups-title"></h3>' );
+      const popupId = Object.keys(toShow)[0]; // Only show the first popup.
+      // console.log("popupId is", popupId);
 
-        const $title = $form.find( '.chsie-popups-title' );
-        $title.html( titleText );
+      const popup = toShow[popupId];
+      // console.log("popup is", popup);
 
-        const $desc = $form.find( '.chsie-popups-description' );
-        $desc.html( descText );
-
-        // Add the styling from the options:
-        $wrapper.addClass( 'chsie-popups-position-' + popup.position )
-
-        $wrapper.css({
-          backgroundColor: popup.backgroundColor,
-          border: `${popup.borderWidth} ${popup.borderStyle} ${popup.borderColor}`,
-        });
-
-        $title.css({
-          color: popup.titleColor,
-        });
-
-        $desc.css({
-          color: popup.descriptionColor,
-        });
-
-        $form.find( 'label, button' ).css({
-          color: popup.bodyColor,
-        });
+      const wrapperId = `#frm_form_${popup.formId}_container`;
+      // console.log( "wrapperId is ", wrapperId );
 
 
 
-    });
+      const $wrapper = $( wrapperId ).addClass( 'chsie-popups-form' );
+      const $form = $wrapper.find( 'form' );
+
+      // Include the popup title and description for this form:
+      $form
+        .prepend( '<p class="chsie-popups-description"></p>' )
+        .prepend( '<h3 class="chsie-popups-title"></h3>' );
+
+      const $title = $form.find( '.chsie-popups-title' );
+      $title.html( popup.title );
+
+      const $desc = $form.find( '.chsie-popups-description' );
+      $desc.html( popup.description );
+
+      // Add the styling from the options:
+      $wrapper.addClass( 'chsie-popups-position-' + popup.position )
+
+      $wrapper.css({
+        backgroundColor: popup.backgroundColor,
+        border: `${popup.borderWidth} ${popup.borderStyle} ${popup.borderColor}`,
+      });
+
+      $title.css({
+        color: popup.titleColor,
+      });
+
+      $desc.css({
+        color: popup.descriptionColor,
+      });
+
+      $form.find( 'label' ).css({
+        color: popup.bodyColor,
+      });
+
+    }
+
+  });
 
 })( jQuery );

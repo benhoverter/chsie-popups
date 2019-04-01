@@ -6,58 +6,87 @@
  *
  */
 
-.frm_forms.frm_style_formidable-style.with_frm_style {
+.chsie-popups-form {
   position: fixed !important;
-  z-index: 999;
+  z-index: 99999;
   padding: 20px;
+
+  &.chsie-popups-position-top {
+    top: 20px;
+    width: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &.chsie-popups-position-bottom {
+    bottom: 0;
+    width: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &.chsie-popups-position-left {
+    left: 20px;
+    top: 50%;
+    transform: translateY( -50% );
+    width: 50%;
+  }
+
+  &.chsie-popups-position-right {
+    right: 20px;
+    top: 50%;
+    transform: translateY( -50% );
+    width: 50%;
+  }
+
+  &.chsie-popups-position-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+  }
+
+  .chsie-popups-title {
+    font-weight: 600;
+    padding: 0 0 20px;
+    margin: 0;
+  }
+
+  .chsie-popups-description {
+    padding: 0 0 20px !important;
+    margin: 0;
+  }
+
+
+  // Form styling:
+  .frm_form_field {
+    margin-top: 13px;
+  }
+
+  textarea {
+    margin-top: 7px;
+    width: 100%;
+    display: block;
+  }
 
   .frm_submit {
     text-align: center;
+    margin-top: 26px;
+
+    button.frm_button_submit {
+      font-size: 18px;
+      font-weight: 600;
+      color: #444444;
+      background-color: white;
+      border: 2px solid #444444;
+      transition: 0.15s all ease-in-out;
+
+      &:hover, &:focus {
+        color: white;
+        background-color: #444444;
+        border: 2px solid #444444;
+      }
+    }
   }
-}
 
-.chsie-popups-position-top {
-  top: 165px;
-  width: 50%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.chsie-popups-position-bottom {
-  bottom: 30px;
-  width: 50%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.chsie-popups-position-left {
-  left: 0;
-  top: 50%;
-  transform: translateY( -50% );
-  width: 50%;
-}
-
-.chsie-popups-position-right {
-  right: 0;
-  top: 50%;
-  transform: translateY( -50% );
-  width: 50%;
-}
-
-.chsie-popups-position-center {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;
-}
-
-.chsie-popups-title {
-  font-weight: 600;
-  padding: 0 0 20px;
-  margin: 0;
-}
-
-.chsie-popups-description {
-  padding: 0 0 20px !important;
-  margin: 0;
 }
