@@ -182,9 +182,9 @@ class CHSIE_Popups_Public_Forms {
         // 'no_show' =>            $this->no_show,  // array of ids
         // 'showable' =>           $this->showable,
         // 'popups' =>             get_option( 'chsie_popups' ), // object keyed by uuid
-        // 'post_categories' =>    $this->post_categories,
-        // 'post_tags' =>          $this->post_tags,
-        // 'post_type' =>          $this->post_type, // get_rulestring() uses taxonomy arrays--force before input.
+        'post_categories' =>    $this->post_categories,
+        'post_tags' =>          $this->post_tags,
+        'post_type' =>          $this->post_type, // get_rulestring() uses taxonomy arrays--force before input.
       )
 
     );
@@ -253,7 +253,7 @@ class CHSIE_Popups_Public_Forms {
   private function set_no_show() {
     $no_show = get_user_meta( wp_get_current_user()->ID, 'chsie_popups_no_show', true ); //Empty string on DNE.
     // Return an empty array rather than an empty string:
-    $this->no_show = is_string( $no_show ) ? array() : $no_show;
+    $this->no_show = (array)$no_show;
   }
 
 
@@ -354,7 +354,8 @@ class CHSIE_Popups_Public_Forms {
   private function get_rulestring( $taxonomy, $rule_array ) {
     $string = '';
 
-    $tax_singular = ( $taxonomy === 'postTypes' ) ? 'post_type' : $taxonomy; // post_type needs to be an array(1).
+    // post_type needs to be an array(1).
+    $tax_singular = ( $taxonomy === 'postTypes' ) ? 'post_type' : $taxonomy;
 
     foreach( $rule_array as $rule ) {
 
@@ -366,14 +367,13 @@ class CHSIE_Popups_Public_Forms {
       // "|| in_array( 'test2', $categories ) && !in_array( 'test1', $categories ) "
       $string .= $rule[0] . $rule[0] . ' ';
       $string .= $rule[1] === '!' ? '!' : '';
-      $string .= "in_array( '" . substr( $rule, 2 ) . "', $$tax_singular ) ";
+      $string .= "in_array( '" . substr( $rule, 2 ) . "', $" . $tax_singular . " ) ";
 
       // $string .= 'in_array( \'' . substr( $rule, 2 ) . '\', \$' . $tax_singular . ' ) ';
-
     }
 
     // TESTING:
-    // return " 1==1 ";
+    // print_r( $string ); //TODO: TESTING!
 
     return $string;
   }
@@ -400,10 +400,14 @@ class CHSIE_Popups_Public_Forms {
 
     // Get a list of categories and extract their names
     $post_categories = get_the_terms( $this->post_id, 'category' );
-    if ( ! empty( $post_categories ) && ! is_wp_error( $post_categories ) ) {
+
+    if ( !empty( $post_categories ) && !is_wp_error( $post_categories ) ) {
       $this->post_categories = wp_list_pluck( $post_categories, 'name' );
+
     } else {
-      $this->post_categories = 'set_post_cats ERROR';
+      $this->post_categories = array(
+        'error' => 'set_post_cats ERROR',
+      );
     }
   }
 
